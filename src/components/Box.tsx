@@ -1,8 +1,8 @@
 import { styled } from '../styles'
 
 export const Box = styled('div', {
-  padding: '$6',
+  padding: '$3 $4',
   borderRadius: '$md',
   background: '$gray-700',
-  // border: '1px solid $gray-600',
+  boxSizing: 'border-box',
 })

@@ -3,7 +3,7 @@ import { styled } from '../../styles'
 
 export const AvatarContainer = styled(Avatar.Root, {
   borderRadius: '$full',
-  background: '$gradient-horizontal',
+  border: '1px solid $gray-200',
   display: 'inline-block',
   width: '$16',
   height: '$16',
