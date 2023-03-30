@@ -23,7 +23,16 @@ export const BookInfo = styled('div', {
   flexDirection: 'column',
   justifyContent: 'space-between',
 
+  div: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
   strong: {
     color: '$gray-100',
+  },
+
+  span: {
+    color: '$gray-400',
   },
 })

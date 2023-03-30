@@ -8,13 +8,13 @@ export function BookCard() {
   return (
     <BookCardContainer>
       <BookContainer>
-        <Image src={Book} alt="Imagem do livro" width={80} height={108} />
+        <Image src={Book} alt="Imagem do livro" width={80} height={112} />
       </BookContainer>
 
       <BookInfo>
         <div>
           <Text as="strong">A revolução dos bichos</Text>
-          <Text>George Orwell</Text>
+          <Text as="span">George Orwell</Text>
         </div>
 
         <BasicRating />

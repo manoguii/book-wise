@@ -2,8 +2,8 @@ import { styled } from '../styles'
 
 export const Button = styled('button', {
   all: 'unset',
-  borderRadius: '$xs',
-  fontSize: '$sm',
+  borderRadius: '$md',
+  fontSize: '$md',
   fontWeight: '$medium',
   fontFamily: '$default',
   textAlign: 'center',
@@ -70,11 +70,6 @@ export const Button = styled('button', {
         '&:disabled': {
           opacity: 0.5,
         },
-      },
-
-      simple: {
-        lineHeight: 0,
-        background: 'transparent',
       },
     },
   },
