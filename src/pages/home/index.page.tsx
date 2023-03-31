@@ -1,4 +1,4 @@
-import { EvaluationCard } from '@/components/EvaluationCard'
+import { EvaluationCard } from '@/components/Cards/EvaluationCard'
 import { Heading } from '@/components/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Text } from '@/components/Text'

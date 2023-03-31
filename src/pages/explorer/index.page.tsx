@@ -1,10 +1,12 @@
-import { BookCard } from '@/components/BookCard'
+import * as Dialog from '@radix-ui/react-dialog'
+import { BookCard } from '@/components/Cards/BookCard'
 import { Heading } from '@/components/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Tag } from '@/components/Tag'
 import { TextInput } from '@/components/TextInput'
 import { Binoculars } from '@phosphor-icons/react'
-import { Books, Categories, Container, Header } from './styles'
+import { Books, Categories, Container, Header, DialogTrigger } from './styles'
+import { DialogBook } from './DialogBook'
 
 export default function Explorer() {
   return (
@@ -28,22 +30,13 @@ export default function Explorer() {
       </Categories>
 
       <Books>
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
+        <Dialog.Root>
+          <DialogTrigger>
+            <BookCard />
+          </DialogTrigger>
+
+          <DialogBook />
+        </Dialog.Root>
       </Books>
     </Container>
   )

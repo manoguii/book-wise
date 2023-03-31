@@ -1,8 +1,8 @@
 import Image from 'next/image'
-import { Avatar } from '../Avatar'
-import BasicRating from '../Rating'
-import { Text } from '../Text'
-import Book from '../../../public/Book.svg'
+import { Avatar } from '../../Avatar'
+import BasicRating from '../../Rating'
+import { Text } from '../../Text'
+import Book from '../../../../public/Book.svg'
 import {
   ContainerBook,
   EvaluationCardContainer,
@@ -17,7 +17,7 @@ export function EvaluationCard() {
     <EvaluationCardContainer>
       <HeaderContainer>
         <div>
-          <Avatar />
+          <Avatar size="sm" />
 
           <UserInfo>
             <Text as="strong">Jaxson Dias</Text>

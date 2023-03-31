@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { BookContainer, BookInfo, BookCardContainer } from './styles'
-import Book from '../../../public/Book.svg'
-import { Text } from '../Text'
-import BasicRating from '../Rating'
+import Book from '../../../../public/Book.svg'
+import { Text } from '../../Text'
+import BasicRating from '../../Rating'
 
 export function BookCard() {
   return (

@@ -1,4 +1,5 @@
 import { styled } from '@/styles'
+import * as Dialog from '@radix-ui/react-dialog'
 
 export const Container = styled('div', {
   display: 'grid',
@@ -42,4 +43,9 @@ export const Books = styled('div', {
   display: 'grid',
   gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))',
   gap: '$5',
+})
+
+export const DialogTrigger = styled(Dialog.Trigger, {
+  all: 'unset',
+  cursor: 'pointer',
 })

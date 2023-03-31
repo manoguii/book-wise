@@ -1,5 +1,5 @@
 import { styled } from '@/styles'
-import { Box } from '../Box'
+import { Box } from '../../Box'
 
 export const EvaluationCardContainer = styled(Box, {
   display: 'flex',

@@ -1,7 +1,7 @@
 import Image from 'next/image'
-import { Heading } from '../Heading'
-import BasicRating from '../Rating'
-import { Text } from '../Text'
+import { Heading } from '../../Heading'
+import BasicRating from '../../Rating'
+import { Text } from '../../Text'
 import Book from '../../../public/Book.svg'
 import { BookContainer, BookInfo, CardContainer } from './styles'
 
