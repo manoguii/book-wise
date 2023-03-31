@@ -42,15 +42,13 @@ export const ProfileContainer = styled('div', {
   height: 'calc(100vh - 100px)',
 })
 
-export const UserMetrics = styled('div', {})
-
 export const UserInfo = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   alignItems: 'center',
-  gap: '$2',
 
   [`> ${Heading}`]: {
     color: '$white',
+    marginTop: '$3',
   },
 })

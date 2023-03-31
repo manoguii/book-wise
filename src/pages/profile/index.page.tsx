@@ -5,13 +5,8 @@ import { Sidebar } from '@/components/Sidebar'
 import { Text } from '@/components/Text'
 import { TextInput } from '@/components/TextInput'
 import { User } from '@phosphor-icons/react'
-import {
-  Container,
-  ProfileContainer,
-  UserInfo,
-  UserMetrics,
-  UserRatings,
-} from './styles'
+import { Container, ProfileContainer, UserInfo, UserRatings } from './styles'
+import { UserMetrics } from './UserMetrics'
 
 interface ProfileProps {}
 
@@ -46,7 +41,7 @@ export default function Profile(props: ProfileProps) {
           <Text size="sm">membro desde 2019</Text>
         </UserInfo>
 
-        <UserMetrics></UserMetrics>
+        <UserMetrics />
       </ProfileContainer>
     </Container>
   )

@@ -9,24 +9,6 @@ export const Container = styled('div', {
   margin: '0 auto',
   gap: '$8',
 
-  '> header': {
-    gridColumn: '2/4',
-    gridRow: '1/2',
-
-    display: 'flex',
-    gap: '$3',
-    marginTop: '$5',
-  },
-
-  main: {
-    gridColumn: '2/3',
-    gridRow: '2/3',
-
-    display: 'flex',
-    flexDirection: 'column',
-    gap: '$5',
-  },
-
   section: {
     gridColumn: '3/4',
     gridRow: '2/3',
@@ -36,18 +18,6 @@ export const Container = styled('div', {
     gridTemplateColumns: 'minmax(200px, 252px) 1fr',
     gridTemplateRows: '96px 1fr 1fr',
 
-    header: {
-      gridColumn: '2/4',
-      gridRow: '1/2',
-    },
-
-    main: {
-      gridColumn: '2/4',
-      gridRow: '2/3',
-
-      marginRight: '$8',
-    },
-
     section: {
       gridColumn: '2/4',
       gridRow: '3/4',
@@ -55,26 +25,34 @@ export const Container = styled('div', {
   },
 })
 
-export const BestRatedBooks = styled('section', {
-  display: 'flex',
-  flexDirection: 'column',
-  marginRight: '$8',
+export const Header = styled('header', {
+  gridColumn: '2/4',
+  gridRow: '1/2',
 
-  '> header': {
-    display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+  display: 'flex',
+  gap: '$3',
+  marginTop: '$5',
+
+  '@media (max-width: 1160px)': {
+    gridColumn: '2/4',
+    gridRow: '1/2',
   },
 })
 
-export const BestRatedBooksContent = styled('div', {
+export const RecentReviews = styled('div', {
+  gridColumn: '2/3',
+  gridRow: '2/3',
+
   display: 'flex',
   flexDirection: 'column',
-  gap: '$3',
-  marginTop: '$4',
+  gap: '$5',
 
   '@media (max-width: 1160px)': {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(287px, 1fr))',
+    main: {
+      gridColumn: '2/4',
+      gridRow: '2/3',
+
+      marginRight: '$8',
+    },
   },
 })
