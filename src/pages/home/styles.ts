@@ -1,21 +1,21 @@
 import { styled } from '@/styles'
 
 export const Container = styled('div', {
+  maxWidth: 1440,
   display: 'grid',
   gridTemplateColumns:
     'minmax(200px, 252px) minmax(550px, 1fr) minmax(360px, 420px)',
-  gridTemplateRows: '96px 1fr',
-  maxWidth: 1440,
+  gridTemplateRows: '55px 1fr',
   margin: '0 auto',
   gap: '$8',
 
-  header: {
+  '> header': {
     gridColumn: '2/4',
     gridRow: '1/2',
 
     display: 'flex',
-    alignItems: 'flex-end',
     gap: '$3',
+    marginTop: '$5',
   },
 
   main: {
@@ -45,7 +45,7 @@ export const Container = styled('div', {
       gridColumn: '2/4',
       gridRow: '2/3',
 
-      marginRight: 60,
+      marginRight: '$8',
     },
 
     section: {
@@ -58,11 +58,12 @@ export const Container = styled('div', {
 export const BestRatedBooks = styled('section', {
   display: 'flex',
   flexDirection: 'column',
-  marginRight: 60,
+  marginRight: '$8',
 
-  header: {
+  '> header': {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
   },
 })
 

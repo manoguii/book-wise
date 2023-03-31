@@ -8,6 +8,7 @@ export const Tag = styled('div', {
   padding: '$1 $4',
   color: '$purple-100',
   lineHeight: '$base',
+  height: 34,
 
   '&:hover': {
     background: '$purple-200',

@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Container, ImageContainer, LoginContainer } from './styles'
+import { Container, ImageContainer, LoginMethod } from './styles'
 import Logo from '../../assets/logo.svg'
 import Google from '../../assets/google.svg'
 import GitHub from '../../assets/github.svg'
@@ -27,7 +27,7 @@ export default function Login() {
         />
       </ImageContainer>
 
-      <LoginContainer>
+      <LoginMethod>
         <header>
           <Heading size="2xl">Boas vindas!</Heading>
           <Text as="span">Faça seu login ou acesse como visitante.</Text>
@@ -47,7 +47,7 @@ export default function Login() {
             Acessar como visitante
           </Button>
         </div>
-      </LoginContainer>
+      </LoginMethod>
     </Container>
   )
 }

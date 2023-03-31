@@ -9,13 +9,13 @@ export const Container = styled('main', {
   alignItems: 'center',
   background: '$gray-800',
 
-  '@media (max-width: 1080px)': {
+  '@media (max-width: 900px)': {
     gridTemplateColumns: '1fr',
   },
 })
 
 export const ImageContainer = styled('div', {
-  width: 570,
+  maxWidth: 570,
   height: 'calc(100vh - 40px)',
   display: 'flex',
   justifyContent: 'center',
@@ -25,13 +25,12 @@ export const ImageContainer = styled('div', {
   backdropFilter: 'blur(1px)',
   borderRadius: '$md',
 
-  '@media (max-width: 1080px)': {
+  '@media (max-width: 900px)': {
     display: 'none',
   },
 })
 
-export const LoginContainer = styled('div', {
-  width: 450,
+export const LoginMethod = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
@@ -55,13 +54,5 @@ export const LoginContainer = styled('div', {
 
   button: {
     padding: '$3 $4',
-  },
-
-  '@media (max-width: 1080px)': {
-    width: 400,
-  },
-
-  '@media (max-width: 620px)': {
-    maxWidth: 300,
   },
 })
