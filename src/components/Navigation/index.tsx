@@ -11,7 +11,8 @@ interface NavigationProps extends LinkProps {
 export function Navigation({ children, path, ...props }: NavigationProps) {
   const route = useRouter()
 
-  const isActive = route.asPath === path
+  const isActive = route.pathname === path
+
   return (
     <LinkContainer isActive={isActive} {...props}>
       {children}

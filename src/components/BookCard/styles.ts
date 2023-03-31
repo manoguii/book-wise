@@ -4,7 +4,6 @@ import { Box } from '../Box'
 export const BookCardContainer = styled(Box, {
   display: 'flex',
   gap: '$5',
-  maxWidth: 350,
   border: '2px solid transparent',
 
   '&:hover': {

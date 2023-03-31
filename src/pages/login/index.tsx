@@ -7,8 +7,15 @@ import Rocket from '../../assets/rocket.svg'
 import { Heading } from '@/components/Heading'
 import { Text } from '@/components/Text'
 import { Button } from '@/components/Button'
+import { useRouter } from 'next/router'
 
 export default function Login() {
+  const router = useRouter()
+
+  async function handleNavigate() {
+    await router.push('/home')
+  }
+
   return (
     <Container>
       <ImageContainer>
@@ -35,7 +42,7 @@ export default function Login() {
             <Image src={GitHub} alt="" />
             Entrar com GitHub
           </Button>
-          <Button>
+          <Button onClick={handleNavigate}>
             <Image src={Rocket} alt="" />
             Acessar como visitante
           </Button>

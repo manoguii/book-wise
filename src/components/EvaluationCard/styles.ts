@@ -2,7 +2,6 @@ import { styled } from '@/styles'
 import { Box } from '../Box'
 
 export const EvaluationCardContainer = styled(Box, {
-  maxWidth: 608,
   display: 'flex',
   flexDirection: 'column',
   gap: '$8',

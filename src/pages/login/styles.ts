@@ -1,5 +1,4 @@
 import { styled } from '@/styles'
-// import Image from '../../assets/image-login.png'
 
 export const Container = styled('main', {
   maxWidth: 1440,
@@ -21,7 +20,6 @@ export const ImageContainer = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-
   background:
     'linear-gradient(0deg, rgba(42, 40, 121, 0.6), rgba(42, 40, 121, 0.6)), rgba(0, 0, 0, 0.6)',
   backdropFilter: 'blur(1px)',
