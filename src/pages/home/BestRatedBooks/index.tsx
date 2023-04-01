@@ -16,9 +16,6 @@ export function BestRatedBooks() {
 
       <BestRatedBooksContent>
         <BookCard />
-        <BookCard />
-        <BookCard />
-        <BookCard />
       </BestRatedBooksContent>
     </BestRatedBooksContainer>
   )

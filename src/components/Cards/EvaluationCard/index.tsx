@@ -1,6 +1,5 @@
 import Image from 'next/image'
 import { Avatar } from '../../Avatar'
-import BasicRating from '../../Rating'
 import { Text } from '../../Text'
 import Book from '../../../../public/images/books/domain-driven-design.png'
 import {
@@ -11,6 +10,7 @@ import {
   InfoBook,
   UserInfo,
 } from './styles'
+import { MyRating } from '@/components/MyRating'
 
 export function EvaluationCard() {
   return (
@@ -27,7 +27,7 @@ export function EvaluationCard() {
           </UserInfo>
         </div>
 
-        <BasicRating />
+        <MyRating />
       </HeaderContainer>
 
       <ContainerBook>

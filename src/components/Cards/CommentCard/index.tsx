@@ -1,7 +1,7 @@
 import { Avatar } from '@/components/Avatar'
-import BasicRating from '@/components/Rating'
 import { Text } from '@/components/Text'
 import { CommentCardContainer, Header } from './styles'
+import { MyRating } from '@/components/MyRating'
 
 export function CommentCard() {
   return (
@@ -16,7 +16,7 @@ export function CommentCard() {
           </div>
         </div>
 
-        <BasicRating />
+        <MyRating />
       </Header>
 
       <Text>

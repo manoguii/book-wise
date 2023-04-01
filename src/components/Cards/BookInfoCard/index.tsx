@@ -8,8 +8,8 @@ import {
 import Hábitos from '../../../../public/images/books/o-fim-da-eternidade.png'
 import { Heading } from '@/components/Heading'
 import { Text } from '@/components/Text'
-import BasicRating from '@/components/Rating'
 import { BookmarkSimple, BookOpen } from '@phosphor-icons/react'
+import { MyRating } from '@/components/MyRating'
 
 export function BookInfoCard() {
   return (
@@ -27,7 +27,7 @@ export function BookInfoCard() {
           </div>
 
           <div>
-            <BasicRating />
+            <MyRating />
             <Text size="sm">3 Avaliações</Text>
           </div>
         </div>

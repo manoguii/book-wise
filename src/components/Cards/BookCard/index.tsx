@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { BookContainer, BookInfo, BookCardContainer } from './styles'
 import Book from '../../../../public/images/books/arquitetura-limpa.png'
 import { Text } from '../../Text'
-import BasicRating from '../../Rating'
+import { MyRating } from '@/components/MyRating'
 
 export function BookCard() {
   return (
@@ -17,7 +17,7 @@ export function BookCard() {
           <Text as="span">George Orwell</Text>
         </div>
 
-        <BasicRating />
+        <MyRating />
       </BookInfo>
     </BookCardContainer>
   )

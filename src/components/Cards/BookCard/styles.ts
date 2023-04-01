@@ -22,7 +22,7 @@ export const BookInfo = styled('div', {
   flexDirection: 'column',
   justifyContent: 'space-between',
 
-  div: {
+  '> div': {
     display: 'flex',
     flexDirection: 'column',
   },

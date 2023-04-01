@@ -2,19 +2,21 @@ import * as Dialog from '@radix-ui/react-dialog'
 import Image from 'next/image'
 import Logo from '../../assets/logo.svg'
 import { Navigation } from '../Navigation'
-import { Binoculars, ChartLineUp, SignIn, User, X } from '@phosphor-icons/react'
+import { Binoculars, ChartLineUp, SignIn, User } from '@phosphor-icons/react'
 import { Button } from '../Button'
-import Google from '../../assets/google.svg'
-import GitHub from '../../assets/github.svg'
-import {
-  Container,
-  RadixClose,
-  RadixContent,
-  RadixOverlay,
-  RadixTitle,
-} from './styles'
+import { Container } from './styles'
+import { Avatar } from '../Avatar'
+import { DialogLogin } from './DialogLogin'
 
-export function Sidebar() {
+interface SidebarProps {
+  isAuthenticated: 'loading' | 'authenticated' | 'unauthenticated'
+  user?: {
+    name: string | null | undefined
+    avatar_url: string | null | undefined
+  }
+}
+
+export function Sidebar({ isAuthenticated, user }: SidebarProps) {
   return (
     <Dialog.Root>
       <Container>
@@ -31,40 +33,41 @@ export function Sidebar() {
             Explorar
           </Navigation>
 
-          <Navigation href="/profile" path="/profile">
-            <User size={24} color="#8D95AF" />
-            Perfil
-          </Navigation>
+          {isAuthenticated === 'authenticated' ? (
+            <Navigation href="/profile" path="/profile">
+              <User size={24} color="#8D95AF" />
+              Perfil
+            </Navigation>
+          ) : null}
         </div>
 
-        <Dialog.Trigger asChild>
-          <Button variant="secondary">
-            Fazer Login
-            <SignIn size={24} color="#50B2C0" />
-          </Button>
-        </Dialog.Trigger>
-
-        <Dialog.Portal>
-          <RadixOverlay />
-
-          <RadixContent>
-            <RadixTitle>Faça login para deixar sua avaliação</RadixTitle>
-
-            <Button>
-              <Image src={Google} alt="" />
-              Entrar com Google
+        {isAuthenticated === 'authenticated' ? (
+          <div
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: 12,
+            }}
+          >
+            <Avatar size="sm" src={user?.avatar_url!} />
+            <Button variant="secondary">
+              {user?.name}
+              <SignIn size={24} color="#F75A68" />
             </Button>
+          </div>
+        ) : (
+          <>
+            <Dialog.Trigger asChild>
+              <Button variant="secondary">
+                Fazer Login
+                <SignIn size={24} color="#50B2C0" />
+              </Button>
+            </Dialog.Trigger>
 
-            <Button>
-              <Image src={GitHub} alt="" />
-              Entrar com GitHub
-            </Button>
-
-            <RadixClose>
-              <X size={24} color="#8D95AF" />
-            </RadixClose>
-          </RadixContent>
-        </Dialog.Portal>
+            <DialogLogin />
+          </>
+        )}
       </Container>
     </Dialog.Root>
   )

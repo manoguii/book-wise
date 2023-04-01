@@ -5,13 +5,21 @@ import { Text } from '@/components/Text'
 import { ChartLineUp } from '@phosphor-icons/react'
 import { BestRatedBooks } from './BestRatedBooks'
 import { Container, Header, RecentReviews } from './styles'
+import { useSession } from 'next-auth/react'
 
 interface HomeProps {}
 
 export default function Home(props: HomeProps) {
+  const session = useSession()
+
+  const user = {
+    name: session.data?.user?.name,
+    avatar_url: session.data?.user?.image,
+  }
+
   return (
     <Container>
-      <Sidebar />
+      <Sidebar isAuthenticated={session.status} user={user} />
 
       <Header>
         <ChartLineUp size={24} color="#50B2C0" weight="bold" />
@@ -21,9 +29,6 @@ export default function Home(props: HomeProps) {
       <RecentReviews>
         <Text>Avaliações mais recentes</Text>
 
-        <EvaluationCard />
-        <EvaluationCard />
-        <EvaluationCard />
         <EvaluationCard />
       </RecentReviews>
 
