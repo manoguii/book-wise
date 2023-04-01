@@ -1,6 +1,6 @@
 import { styled } from '@/styles'
 
-export const Container = styled('main', {
+export const LoginContainer = styled('main', {
   maxWidth: 1440,
   margin: '0 auto',
   padding: '$5',

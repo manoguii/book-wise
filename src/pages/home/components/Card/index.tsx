@@ -1,16 +1,16 @@
 import Image from 'next/image'
-import { Heading } from '../../Heading'
-import { Text } from '../../Text'
 import Book from '../../../public/Book.svg'
-import { BookContainer, BookInfo, CardContainer } from './styles'
+import { ImageContainer, BookInfo, CardContainer } from './styles'
 import { MyRating } from '@/components/MyRating'
+import { Text } from '@/components/Text'
+import { Heading } from '@/components/Heading'
 
 export function Card() {
   return (
     <CardContainer>
-      <BookContainer>
+      <ImageContainer>
         <Image src={Book} alt="Imagem do livro" width={112} height={156} />
-      </BookContainer>
+      </ImageContainer>
 
       <BookInfo>
         <div>
@@ -18,6 +18,7 @@ export function Card() {
             <Text as="time" size="sm">
               hoje
             </Text>
+
             <MyRating />
           </header>
 

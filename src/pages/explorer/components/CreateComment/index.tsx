@@ -7,7 +7,7 @@ import { Check, X } from '@phosphor-icons/react'
 import { InfoUser, TextAreaContainer } from './styles'
 import { MyRating } from '@/components/MyRating'
 
-export function CreateCommentCard() {
+export function CreateComment() {
   return (
     <Box>
       <InfoUser>

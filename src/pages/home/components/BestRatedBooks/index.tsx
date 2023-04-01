@@ -1,7 +1,7 @@
-import { BookCard } from '@/components/Cards/BookCard'
 import { Button } from '@/components/Button'
 import { Text } from '@/components/Text'
 import { CaretRight } from '@phosphor-icons/react'
+import { BookCard } from '@/pages/explorer/components/BookCard'
 import { BestRatedBooksContainer, BestRatedBooksContent } from './styles'
 
 export function BestRatedBooks() {

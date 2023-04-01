@@ -3,7 +3,7 @@ import { Text } from '@/components/Text'
 import { CommentCardContainer, Header } from './styles'
 import { MyRating } from '@/components/MyRating'
 
-export function CommentCard() {
+export function Comment() {
   return (
     <CommentCardContainer>
       <Header>

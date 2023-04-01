@@ -1,6 +1,6 @@
 import { styled } from '@/styles'
 
-export const Container = styled('div', {
+export const HomeContainer = styled('div', {
   maxWidth: 1440,
   display: 'grid',
   gridTemplateColumns:
@@ -25,7 +25,7 @@ export const Container = styled('div', {
   },
 })
 
-export const Header = styled('header', {
+export const HeaderHome = styled('header', {
   gridColumn: '2/4',
   gridRow: '1/2',
 

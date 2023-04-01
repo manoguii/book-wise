@@ -2,7 +2,7 @@ import { Box } from '@/components/Box'
 import { Text } from '@/components/Text'
 import { styled } from '@/styles'
 
-export const BookInfoCardContainer = styled(Box, {
+export const BookInfoContainer = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
@@ -13,7 +13,7 @@ export const BookDescription = styled('div', {
   display: 'flex',
   gap: '$8',
 
-  div: {
+  '> div': {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'space-between',
@@ -24,7 +24,7 @@ export const BookDescription = styled('div', {
   },
 })
 
-export const BookInfo = styled('div', {
+export const BookInfoMetrics = styled('div', {
   display: 'flex',
   alignItems: 'center',
 

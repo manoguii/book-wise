@@ -1,19 +1,22 @@
 import { Avatar } from '@/components/Avatar'
-import { EvaluationCard } from '@/components/Cards/EvaluationCard'
 import { Heading } from '@/components/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Text } from '@/components/Text'
 import { TextInput } from '@/components/TextInput'
 import { User } from '@phosphor-icons/react'
 import { Container, ProfileContainer, UserInfo, UserRatings } from './styles'
-import { UserMetrics } from './UserMetrics'
+import { UserMetrics } from './components/UserMetrics'
+import { useSession } from 'next-auth/react'
+// import { EvaluationCard } from '../home/components/EvaluationCard'
 
 interface ProfileProps {}
 
 export default function Profile(props: ProfileProps) {
+  const session = useSession()
+
   return (
     <Container>
-      <Sidebar />
+      <Sidebar isAuthenticated={session.status} />
 
       <header>
         <User size={24} color="#50B2C0" weight="bold" />
@@ -26,15 +29,12 @@ export default function Profile(props: ProfileProps) {
           <Text>Avaliações mais recentes</Text>
         </div>
 
-        <EvaluationCard />
-        <EvaluationCard />
-        <EvaluationCard />
-        <EvaluationCard />
+        {/* <EvaluationCard /> */}
       </UserRatings>
 
       <ProfileContainer>
         <UserInfo>
-          <Avatar />
+          <Avatar size="md" />
 
           <Heading size="sm">Cristofer Rosser</Heading>
 

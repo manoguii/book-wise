@@ -5,7 +5,7 @@ export const InfoUser = styled('div', {
   justifyContent: 'space-between',
   gap: '$4',
 
-  div: {
+  '> div': {
     display: 'flex',
     gap: '$3',
     alignItems: 'center',

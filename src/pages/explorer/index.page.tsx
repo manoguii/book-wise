@@ -1,17 +1,26 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { BookCard } from '@/components/Cards/BookCard'
 import { Heading } from '@/components/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Tag } from '@/components/Tag'
 import { TextInput } from '@/components/TextInput'
 import { Binoculars } from '@phosphor-icons/react'
-import { Books, Categories, Container, Header, DialogTrigger } from './styles'
-import { DialogBook } from './DialogBook'
+import { Books, Categories, Container, Header } from './styles'
+import { DialogBook } from './components/DialogBook'
+import { useSession } from 'next-auth/react'
+import { Button } from '@/components/Button'
+import { BookCard } from './components/BookCard'
 
 export default function Explorer() {
+  const session = useSession()
+
+  const user = {
+    name: session.data?.user?.name,
+    avatar_url: session.data?.user?.image,
+  }
+
   return (
     <Container>
-      <Sidebar />
+      <Sidebar isAuthenticated={session.status} user={user} />
 
       <Header>
         <div>
@@ -31,9 +40,11 @@ export default function Explorer() {
 
       <Books>
         <Dialog.Root>
-          <DialogTrigger>
-            <BookCard />
-          </DialogTrigger>
+          <BookCard>
+            <Dialog.Trigger asChild>
+              <Button variant="tertiary">ver mais</Button>
+            </Dialog.Trigger>
+          </BookCard>
 
           <DialogBook />
         </Dialog.Root>

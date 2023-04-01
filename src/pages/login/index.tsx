@@ -1,5 +1,5 @@
 import Image from 'next/image'
-import { Container, ImageContainer, LoginMethod } from './styles'
+import { LoginContainer, ImageContainer, LoginMethod } from './styles'
 import Logo from '../../assets/logo.svg'
 import Google from '../../assets/google.svg'
 import GitHub from '../../assets/github.svg'
@@ -29,7 +29,7 @@ export default function Login() {
 
   return (
     <>
-      <Container>
+      <LoginContainer>
         <ImageContainer>
           <Image
             src={Logo}
@@ -60,7 +60,7 @@ export default function Login() {
             </Button>
           </div>
         </LoginMethod>
-      </Container>
+      </LoginContainer>
     </>
   )
 }

@@ -1,15 +1,37 @@
-import { EvaluationCard } from '@/components/Cards/EvaluationCard'
 import { Heading } from '@/components/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Text } from '@/components/Text'
 import { ChartLineUp } from '@phosphor-icons/react'
-import { BestRatedBooks } from './BestRatedBooks'
-import { Container, Header, RecentReviews } from './styles'
+import { BestRatedBooks } from './components/BestRatedBooks'
+import { HomeContainer, HeaderHome, RecentReviews } from './styles'
 import { useSession } from 'next-auth/react'
+import { GetServerSideProps } from 'next'
+import { api } from '@/lib/axios'
+import { Rating } from '@prisma/client'
+import { EvaluationCard } from './components/EvaluationCard'
 
-interface HomeProps {}
+interface IResponse {
+  assessments: Array<
+    Rating & {
+      user: {
+        image: string | null
+        name: string
+        avatar_url: string | null
+      }
+      book: {
+        name: string
+        author: string
+        cover_url: string
+      }
+    }
+  >
+}
 
-export default function Home(props: HomeProps) {
+interface HomeProps {
+  data: IResponse
+}
+
+export default function Home({ data }: HomeProps) {
   const session = useSession()
 
   const user = {
@@ -18,21 +40,33 @@ export default function Home(props: HomeProps) {
   }
 
   return (
-    <Container>
+    <HomeContainer>
       <Sidebar isAuthenticated={session.status} user={user} />
 
-      <Header>
+      <HeaderHome>
         <ChartLineUp size={24} color="#50B2C0" weight="bold" />
         <Heading>Inicio</Heading>
-      </Header>
+      </HeaderHome>
 
       <RecentReviews>
         <Text>Avaliações mais recentes</Text>
 
-        <EvaluationCard />
+        {data.assessments.map((assessment) => {
+          return <EvaluationCard key={assessment.id} assessment={assessment} />
+        })}
       </RecentReviews>
 
       <BestRatedBooks />
-    </Container>
+    </HomeContainer>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await api.get('/assessments')
+
+  return {
+    props: {
+      data: response.data,
+    },
+  }
 }

@@ -1,11 +1,11 @@
 import { Button } from '@/components/Button'
-import { BookInfoCard } from '@/components/Cards/BookInfoCard'
-import { CommentCard } from '@/components/Cards/CommentCard'
-import { CreateCommentCard } from '@/components/Cards/CreateCommentCard'
+import { Comment } from '@/pages/explorer/components/Comment'
+import { CreateComment } from '@/pages/explorer/components/CreateComment'
 import { Text } from '@/components/Text'
 import { X } from '@phosphor-icons/react'
 import * as Dialog from '@radix-ui/react-dialog'
 import { DialogClose, DialogContent, DialogOverlay, ToAssess } from './styles'
+import { BookInfo } from '../BookInfo'
 
 export function DialogBook() {
   return (
@@ -13,18 +13,18 @@ export function DialogBook() {
       <DialogOverlay />
 
       <DialogContent>
-        <BookInfoCard />
+        <BookInfo />
 
         <ToAssess>
           <Text>Avaliações</Text>
           <Button variant="tertiary">Avaliar</Button>
         </ToAssess>
 
-        <CreateCommentCard />
+        <CreateComment />
 
-        <CommentCard />
-        <CommentCard />
-        <CommentCard />
+        <Comment />
+        <Comment />
+        <Comment />
 
         <DialogClose>
           <X size={24} color="#8D95AF" />

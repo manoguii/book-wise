@@ -1,21 +1,21 @@
 import Image from 'next/image'
-import {
-  BookDescription,
-  BookInfo,
-  BookInfoCardContainer,
-  Metric,
-} from './styles'
-import Hábitos from '../../../../public/images/books/o-fim-da-eternidade.png'
+import Book from '../../../../../public/images/books/o-fim-da-eternidade.png'
 import { Heading } from '@/components/Heading'
 import { Text } from '@/components/Text'
 import { BookmarkSimple, BookOpen } from '@phosphor-icons/react'
 import { MyRating } from '@/components/MyRating'
+import {
+  BookDescription,
+  BookInfoMetrics,
+  BookInfoContainer,
+  Metric,
+} from './styles'
 
-export function BookInfoCard() {
+export function BookInfo() {
   return (
-    <BookInfoCardContainer>
+    <BookInfoContainer>
       <BookDescription>
-        <Image src={Hábitos} alt="" width={170} />
+        <Image src={Book} alt="" width={170} />
 
         <div>
           <div>
@@ -33,7 +33,7 @@ export function BookInfoCard() {
         </div>
       </BookDescription>
 
-      <BookInfo>
+      <BookInfoMetrics>
         <Metric>
           <BookmarkSimple size={32} color="#50B2C0" />
 
@@ -55,7 +55,7 @@ export function BookInfoCard() {
             <Text size="sm">Páginas</Text>
           </div>
         </Metric>
-      </BookInfo>
-    </BookInfoCardContainer>
+      </BookInfoMetrics>
+    </BookInfoContainer>
   )
 }

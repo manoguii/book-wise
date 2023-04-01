@@ -1,16 +1,13 @@
+import { Box } from '@/components/Box'
 import { styled } from '@/styles'
-import { Box } from '../../Box'
 
-export const CardContainer = styled(Box, {
-  background: '$gray-600',
+export const BookCardContainer = styled(Box, {
   display: 'flex',
-  alignItems: 'center',
-  gap: '$6',
-  maxWidth: 608,
+  gap: '$5',
   border: '2px solid transparent',
 
   '&:hover': {
-    borderColor: '$gray-500',
+    borderColor: '$gray-600',
   },
 })
 
@@ -24,15 +21,21 @@ export const BookInfo = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-  height: 156,
 
-  header: {
+  '> div': {
     display: 'flex',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
+  },
+
+  strong: {
+    color: '$gray-100',
   },
 
   span: {
     color: '$gray-400',
+  },
+
+  button: {
+    maxWidth: 'max-content',
   },
 })

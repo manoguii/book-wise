@@ -1,10 +1,15 @@
 import Image from 'next/image'
 import { BookContainer, BookInfo, BookCardContainer } from './styles'
-import Book from '../../../../public/images/books/arquitetura-limpa.png'
-import { Text } from '../../Text'
+import Book from '../../../../../public/images/books/arquitetura-limpa.png'
 import { MyRating } from '@/components/MyRating'
+import { ReactNode } from 'react'
+import { Text } from '@/components/Text'
 
-export function BookCard() {
+interface BookCardProps {
+  children?: ReactNode
+}
+
+export function BookCard({ children }: BookCardProps) {
   return (
     <BookCardContainer>
       <BookContainer>
@@ -18,6 +23,8 @@ export function BookCard() {
         </div>
 
         <MyRating />
+
+        {children}
       </BookInfo>
     </BookCardContainer>
   )
