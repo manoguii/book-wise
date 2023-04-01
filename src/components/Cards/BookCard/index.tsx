@@ -1,6 +1,6 @@
 import Image from 'next/image'
 import { BookContainer, BookInfo, BookCardContainer } from './styles'
-import Book from '../../../../public/Book.svg'
+import Book from '../../../../public/images/books/arquitetura-limpa.png'
 import { Text } from '../../Text'
 import BasicRating from '../../Rating'
 

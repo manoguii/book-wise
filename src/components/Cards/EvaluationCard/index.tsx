@@ -2,7 +2,7 @@ import Image from 'next/image'
 import { Avatar } from '../../Avatar'
 import BasicRating from '../../Rating'
 import { Text } from '../../Text'
-import Book from '../../../../public/Book.svg'
+import Book from '../../../../public/images/books/domain-driven-design.png'
 import {
   ContainerBook,
   EvaluationCardContainer,

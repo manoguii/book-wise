@@ -5,7 +5,7 @@ import {
   BookInfoCardContainer,
   Metric,
 } from './styles'
-import Hábitos from '../../../../public/14-habitos.svg'
+import Hábitos from '../../../../public/images/books/o-fim-da-eternidade.png'
 import { Heading } from '@/components/Heading'
 import { Text } from '@/components/Text'
 import BasicRating from '@/components/Rating'
