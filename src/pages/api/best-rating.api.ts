@@ -9,6 +9,28 @@ export default async function handler(
     return res.status(405).json({ message: 'Method Not Allowed' })
   }
 
+  const assessments = await prisma.rating.findMany({
+    include: {
+      book: {
+        select: {
+          author: true,
+          name: true,
+          cover_url: true,
+        },
+      },
+      user: {
+        select: {
+          name: true,
+          image: true,
+          avatar_url: true,
+        },
+      },
+    },
+    orderBy: {
+      created_at: 'desc',
+    },
+  })
+
   const books = await prisma.rating.findMany({
     orderBy: {
       rate: 'desc',
@@ -28,5 +50,5 @@ export default async function handler(
 
   const bestRated = books.slice(0, 5)
 
-  return res.status(200).json({ bestRated })
+  return res.status(200).json({ book: bestRated, assessment: assessments })
 }

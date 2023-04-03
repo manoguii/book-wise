@@ -2,28 +2,32 @@ import { Avatar } from '@/components/Avatar'
 import { Text } from '@/components/Text'
 import { CommentCardContainer, Header } from './styles'
 import { MyRating } from '@/components/MyRating'
+import { Rating, User } from '@prisma/client'
+import { formatDate } from '@/utils/format-date'
 
-export function Comment() {
+interface CommentProps {
+  rating: Rating & {
+    user: User
+  }
+}
+
+export function Comment({ rating }: CommentProps) {
   return (
     <CommentCardContainer>
       <Header>
         <div>
-          <Avatar size="sm" />
+          <Avatar size="sm" src={rating.user.avatar_url!} />
 
           <div>
-            <Text as="strong">Brandon Botosh</Text>
-            <Text size="sm">Há 2 dias</Text>
+            <Text as="strong">{rating.user.name}</Text>
+            <Text size="sm">{formatDate(rating.created_at)}</Text>
           </div>
         </div>
 
         <MyRating />
       </Header>
 
-      <Text>
-        Nec tempor nunc in egestas. Euismod nisi eleifend at et in sagittis.
-        Penatibus id vestibulum imperdiet a at imperdiet lectus leo. Sit porta
-        eget nec vitae sit vulputate eget
-      </Text>
+      <Text>{rating.description}</Text>
     </CommentCardContainer>
   )
 }

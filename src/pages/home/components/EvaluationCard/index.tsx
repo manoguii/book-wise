@@ -10,6 +10,7 @@ import {
 } from './styles'
 import { Text } from '@/components/Text'
 import { Avatar } from '@/components/Avatar'
+import { formatDate } from '@/utils/format-date'
 
 interface EvaluationCardProps {
   assessment: {
@@ -39,7 +40,7 @@ export function EvaluationCard({ assessment }: EvaluationCardProps) {
           <UserInfo>
             <Text as="strong">{assessment.user.name}</Text>
             <Text as="time" size="sm">
-              Hoje
+              {formatDate(assessment.created_at)}
             </Text>
           </UserInfo>
         </div>

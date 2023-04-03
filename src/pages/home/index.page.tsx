@@ -6,8 +6,8 @@ import {
   HomeContainer,
   HeaderHome,
   RecentReviews,
-  BestRatedBooksContent,
-  BestRatedBooksContainer,
+  Books,
+  BestRatedBooks,
 } from './styles'
 import { useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
@@ -70,7 +70,7 @@ export default function Home({ assessments, bestRated }: HomeProps) {
         })}
       </RecentReviews>
 
-      <BestRatedBooksContainer>
+      <BestRatedBooks>
         <header>
           <Text>Livros populares</Text>
           <Button variant="tertiary">
@@ -78,25 +78,23 @@ export default function Home({ assessments, bestRated }: HomeProps) {
           </Button>
         </header>
 
-        <BestRatedBooksContent>
+        <Books>
           {bestRated.map((book) => {
             return <BookCard key={book.id} bookInfo={book} />
           })}
-        </BestRatedBooksContent>
-      </BestRatedBooksContainer>
+        </Books>
+      </BestRatedBooks>
     </HomeContainer>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const assessments = await api.get('/assessments')
-
-  const bestRated = await api.get('/best-rating')
+  const response = await api.get('/best-rating')
 
   return {
     props: {
-      assessments: assessments.data.assessments,
-      bestRated: bestRated.data.bestRated,
+      assessments: response.data.assessment,
+      bestRated: response.data.book,
     },
   }
 }

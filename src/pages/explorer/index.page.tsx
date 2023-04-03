@@ -9,8 +9,23 @@ import { DialogBook } from './components/DialogBook'
 import { useSession } from 'next-auth/react'
 import { Button } from '@/components/Button'
 import { BookCard } from './components/BookCard'
+import { api } from '@/lib/axios'
+import { GetServerSideProps } from 'next'
+import { Book, Rating, User } from '@prisma/client'
 
-export default function Explorer() {
+type Ratings = Rating & {
+  user: User
+}
+
+export type IBook = Book & {
+  ratings: Ratings[]
+}
+
+interface ExplorerProps {
+  books: IBook[]
+}
+
+export default function Explorer({ books }: ExplorerProps) {
   const session = useSession()
 
   const user = {
@@ -39,16 +54,43 @@ export default function Explorer() {
       </Categories>
 
       <Books>
-        <Dialog.Root>
-          <BookCard>
-            <Dialog.Trigger asChild>
-              <Button variant="tertiary">ver mais</Button>
-            </Dialog.Trigger>
-          </BookCard>
+        {books.map((book) => {
+          const rate = book.ratings[0].rate
 
-          <DialogBook />
-        </Dialog.Root>
+          const bookInfo = {
+            rate,
+            book: {
+              name: book.name,
+              author: book.author,
+              cover_url: book.cover_url,
+            },
+          }
+
+          const assessments = book.ratings.length
+
+          return (
+            <Dialog.Root key={book.id}>
+              <BookCard bookInfo={bookInfo}>
+                <Dialog.Trigger asChild>
+                  <Button variant="tertiary">ver mais</Button>
+                </Dialog.Trigger>
+              </BookCard>
+
+              <DialogBook book={book} assessments={assessments} rate={rate} />
+            </Dialog.Root>
+          )
+        })}
       </Books>
     </Container>
   )
+}
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  const response = await api.get('/books')
+
+  return {
+    props: {
+      books: response.data.books,
+    },
+  }
 }

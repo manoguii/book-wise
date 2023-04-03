@@ -57,7 +57,7 @@ export const RecentReviews = styled('div', {
   },
 })
 
-export const BestRatedBooksContainer = styled('section', {
+export const BestRatedBooks = styled('section', {
   display: 'flex',
   flexDirection: 'column',
   marginRight: '$8',
@@ -69,7 +69,7 @@ export const BestRatedBooksContainer = styled('section', {
   },
 })
 
-export const BestRatedBooksContent = styled('div', {
+export const Books = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$3',
