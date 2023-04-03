@@ -1,28 +1,40 @@
 import Image from 'next/image'
 import { BookContainer, BookInfo, BookCardContainer } from './styles'
-import Book from '../../../../../public/images/books/arquitetura-limpa.png'
 import { MyRating } from '@/components/MyRating'
 import { ReactNode } from 'react'
 import { Text } from '@/components/Text'
 
 interface BookCardProps {
   children?: ReactNode
+  bookInfo: {
+    rate: number
+    book: {
+      name: string
+      author: string
+      cover_url: string
+    }
+  }
 }
 
-export function BookCard({ children }: BookCardProps) {
+export function BookCard({ children, bookInfo }: BookCardProps) {
   return (
     <BookCardContainer>
       <BookContainer>
-        <Image src={Book} alt="Imagem do livro" width={80} height={112} />
+        <Image
+          src={bookInfo.book.cover_url}
+          alt="Imagem do livro"
+          width={80}
+          height={112}
+        />
       </BookContainer>
 
       <BookInfo>
         <div>
-          <Text as="strong">A revolução dos bichos</Text>
-          <Text as="span">George Orwell</Text>
+          <Text as="strong">{bookInfo.book.name}</Text>
+          <Text as="span">{bookInfo.book.author}</Text>
         </div>
 
-        <MyRating />
+        <MyRating size={bookInfo.rate} />
 
         {children}
       </BookInfo>

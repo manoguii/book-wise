@@ -1,37 +1,51 @@
 import { Heading } from '@/components/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Text } from '@/components/Text'
-import { ChartLineUp } from '@phosphor-icons/react'
-import { BestRatedBooks } from './components/BestRatedBooks'
-import { HomeContainer, HeaderHome, RecentReviews } from './styles'
+import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
+import {
+  HomeContainer,
+  HeaderHome,
+  RecentReviews,
+  BestRatedBooksContent,
+  BestRatedBooksContainer,
+} from './styles'
 import { useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
 import { api } from '@/lib/axios'
 import { Rating } from '@prisma/client'
 import { EvaluationCard } from './components/EvaluationCard'
+import { Button } from '@/components/Button'
+import { BookCard } from '../explorer/components/BookCard'
 
-interface IResponse {
-  assessments: Array<
-    Rating & {
-      user: {
-        image: string | null
-        name: string
-        avatar_url: string | null
-      }
-      book: {
-        name: string
-        author: string
-        cover_url: string
-      }
-    }
-  >
+type Assessment = Rating & {
+  user: {
+    image: string | null
+    name: string
+    avatar_url: string | null
+  }
+  book: {
+    name: string
+    author: string
+    cover_url: string
+  }
+}
+
+type BestRated = {
+  rate: number
+  id: string
+  book: {
+    name: string
+    author: string
+    cover_url: string
+  }
 }
 
 interface HomeProps {
-  data: IResponse
+  assessments: Assessment[]
+  bestRated: BestRated[]
 }
 
-export default function Home({ data }: HomeProps) {
+export default function Home({ assessments, bestRated }: HomeProps) {
   const session = useSession()
 
   const user = {
@@ -51,22 +65,38 @@ export default function Home({ data }: HomeProps) {
       <RecentReviews>
         <Text>Avaliações mais recentes</Text>
 
-        {data.assessments.map((assessment) => {
+        {assessments.map((assessment) => {
           return <EvaluationCard key={assessment.id} assessment={assessment} />
         })}
       </RecentReviews>
 
-      <BestRatedBooks />
+      <BestRatedBooksContainer>
+        <header>
+          <Text>Livros populares</Text>
+          <Button variant="tertiary">
+            Ver todos <CaretRight size={16} color="#8381D9" />
+          </Button>
+        </header>
+
+        <BestRatedBooksContent>
+          {bestRated.map((book) => {
+            return <BookCard key={book.id} bookInfo={book} />
+          })}
+        </BestRatedBooksContent>
+      </BestRatedBooksContainer>
     </HomeContainer>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await api.get('/assessments')
+  const assessments = await api.get('/assessments')
+
+  const bestRated = await api.get('/best-rating')
 
   return {
     props: {
-      data: response.data,
+      assessments: assessments.data.assessments,
+      bestRated: bestRated.data.bestRated,
     },
   }
 }
