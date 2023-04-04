@@ -11,7 +11,12 @@ import { Button } from '@/components/Button'
 import { BookCard } from './components/BookCard'
 import { api } from '@/lib/axios'
 import { GetServerSideProps } from 'next'
-import { Book, Rating, User } from '@prisma/client'
+import { Book, CategoriesOnBooks, Category, Rating, User } from '@prisma/client'
+
+type ICategories = CategoriesOnBooks &
+  {
+    category: Category
+  }[]
 
 type Ratings = Rating & {
   user: User
@@ -19,6 +24,7 @@ type Ratings = Rating & {
 
 export type IBook = Book & {
   ratings: Ratings[]
+  categories: ICategories
 }
 
 interface ExplorerProps {

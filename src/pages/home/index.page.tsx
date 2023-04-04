@@ -2,13 +2,6 @@ import { Heading } from '@/components/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Text } from '@/components/Text'
 import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
-import {
-  HomeContainer,
-  HeaderHome,
-  RecentReviews,
-  Books,
-  BestRatedBooks,
-} from './styles'
 import { useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
 import { api } from '@/lib/axios'
@@ -16,6 +9,13 @@ import { Rating } from '@prisma/client'
 import { EvaluationCard } from './components/EvaluationCard'
 import { Button } from '@/components/Button'
 import { BookCard } from '../explorer/components/BookCard'
+import {
+  Container,
+  Header,
+  RecentReviews,
+  BestRatedBooks,
+  BestRated,
+} from './styles'
 
 type Assessment = Rating & {
   user: {
@@ -30,7 +30,7 @@ type Assessment = Rating & {
   }
 }
 
-type BestRated = {
+type IBestRated = {
   rate: number
   id: string
   book: {
@@ -42,7 +42,7 @@ type BestRated = {
 
 interface HomeProps {
   assessments: Assessment[]
-  bestRated: BestRated[]
+  bestRated: IBestRated[]
 }
 
 export default function Home({ assessments, bestRated }: HomeProps) {
@@ -54,13 +54,13 @@ export default function Home({ assessments, bestRated }: HomeProps) {
   }
 
   return (
-    <HomeContainer>
+    <Container>
       <Sidebar isAuthenticated={session.status} user={user} />
 
-      <HeaderHome>
+      <Header>
         <ChartLineUp size={24} color="#50B2C0" weight="bold" />
         <Heading>Inicio</Heading>
-      </HeaderHome>
+      </Header>
 
       <RecentReviews>
         <Text>Avaliações mais recentes</Text>
@@ -70,7 +70,7 @@ export default function Home({ assessments, bestRated }: HomeProps) {
         })}
       </RecentReviews>
 
-      <BestRatedBooks>
+      <BestRated>
         <header>
           <Text>Livros populares</Text>
           <Button variant="tertiary">
@@ -78,13 +78,13 @@ export default function Home({ assessments, bestRated }: HomeProps) {
           </Button>
         </header>
 
-        <Books>
+        <BestRatedBooks>
           {bestRated.map((book) => {
             return <BookCard key={book.id} bookInfo={book} />
           })}
-        </Books>
-      </BestRatedBooks>
-    </HomeContainer>
+        </BestRatedBooks>
+      </BestRated>
+    </Container>
   )
 }
 

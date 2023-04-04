@@ -7,7 +7,7 @@ export const EvaluationCardContainer = styled(Box, {
   gap: '$8',
 })
 
-export const HeaderContainer = styled('header', {
+export const EvaluationUser = styled('header', {
   display: 'flex',
   justifyContent: 'space-between',
 
@@ -17,7 +17,7 @@ export const HeaderContainer = styled('header', {
   },
 })
 
-export const UserInfo = styled('div', {
+export const EvaluationUserInfo = styled('div', {
   display: 'flex',
   justifyContent: 'center',
   flexDirection: 'column',
@@ -27,18 +27,20 @@ export const UserInfo = styled('div', {
   },
 })
 
-export const ContainerBook = styled('div', {
+export const RatedBook = styled('div', {
   display: 'flex',
   gap: '$5',
 })
 
-export const ImageBook = styled('div', {
+export const RatedBookImage = styled('div', {
   img: {
     borderRadius: '$md',
+    maxWidth: '100%',
+    objectFit: 'cover',
   },
 })
 
-export const InfoBook = styled('div', {
+export const RatedBookInfo = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',

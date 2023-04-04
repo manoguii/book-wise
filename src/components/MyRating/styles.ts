@@ -11,16 +11,17 @@ export const Stars = styled('div', {
   button: {
     all: 'unset',
     cursor: 'pointer',
+
+    '-webkit-transition': 'all 0.1s ease',
+    transition: 'all 0.1s ease',
+
+    '&:not(:disabled):hover': {
+      '-webkit-transform': 'scale(1.2)',
+      transform: 'scale(1.2)',
+    },
   },
 
   svg: {
     lineHeight: 0,
-    '-webkit-transition': 'all 0.1s ease',
-    transition: 'all 0.1s ease',
-
-    '&:hover': {
-      '-webkit-transform': 'scale(1.2)',
-      transform: 'scale(1.2)',
-    },
   },
 })

@@ -1,6 +1,6 @@
 import { styled } from '@/styles'
 
-export const HomeContainer = styled('div', {
+export const Container = styled('div', {
   maxWidth: 1440,
   display: 'grid',
   gridTemplateColumns:
@@ -25,7 +25,7 @@ export const HomeContainer = styled('div', {
   },
 })
 
-export const HeaderHome = styled('header', {
+export const Header = styled('header', {
   gridColumn: '2/4',
   gridRow: '1/2',
 
@@ -57,7 +57,7 @@ export const RecentReviews = styled('div', {
   },
 })
 
-export const BestRatedBooks = styled('section', {
+export const BestRated = styled('section', {
   display: 'flex',
   flexDirection: 'column',
   marginRight: '$8',
@@ -69,7 +69,7 @@ export const BestRatedBooks = styled('section', {
   },
 })
 
-export const Books = styled('div', {
+export const BestRatedBooks = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   gap: '$3',

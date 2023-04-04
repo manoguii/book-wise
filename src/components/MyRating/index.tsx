@@ -3,30 +3,42 @@ import { MyRatingContainer, Stars } from './styles'
 import { useState } from 'react'
 
 export interface MyRatingProps {
-  size?: number
+  ratingAverage?: number
+  toAssess?: boolean
 }
 
-export function MyRating({ size = 5 }: MyRatingProps) {
-  const [rating, setRating] = useState(size)
+export function MyRating({
+  ratingAverage = 1,
+  toAssess = false,
+}: MyRatingProps) {
+  const [amountOfStars, setAmountOfStars] = useState(ratingAverage)
 
-  function setNewRating(rate: number) {
-    setRating(rate)
+  const totalAmountOfStars = 5
+
+  function setNewAmountOfStars(rate: number) {
+    setAmountOfStars(rate)
   }
 
   return (
     <MyRatingContainer>
-      <Stars css={{ '--stars-size': size }}>
-        {Array.from({ length: size }, (_, i) => i + 1).map((step) => {
-          return (
-            <button key={step} onClick={() => setNewRating(step)}>
-              <Star
-                color="rgba(131, 129, 217, 1)"
-                size={20}
-                weight={rating >= step ? 'fill' : 'bold'}
-              />
-            </button>
-          )
-        })}
+      <Stars css={{ '--stars-size': totalAmountOfStars }}>
+        {Array.from({ length: totalAmountOfStars }, (_, i) => i + 1).map(
+          (star) => {
+            return (
+              <button
+                key={star}
+                onClick={() => setNewAmountOfStars(star)}
+                disabled={!toAssess}
+              >
+                <Star
+                  color="rgba(131, 129, 217, 1)"
+                  size={20}
+                  weight={amountOfStars >= star ? 'fill' : 'bold'}
+                />
+              </button>
+            )
+          },
+        )}
       </Stars>
     </MyRatingContainer>
   )

@@ -3,14 +3,14 @@ import { Text } from '@/components/Text'
 import { styled } from '@/styles'
 import * as Dialog from '@radix-ui/react-dialog'
 
-export const BookInfoContainer = styled(Box, {
+export const Book = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap: '$10',
 })
 
-export const BookDescription = styled('div', {
+export const BookInfo = styled('div', {
   display: 'flex',
   gap: '$8',
 
@@ -25,16 +25,17 @@ export const BookDescription = styled('div', {
   },
 })
 
-export const BookInfoMetrics = styled('div', {
+export const BookAdditionalInformation = styled('div', {
   display: 'flex',
   alignItems: 'center',
+  justifyContent: 'space-between',
 
   gap: '$20',
   borderTop: '1px solid $gray-600',
   padding: '$6 0px',
 })
 
-export const Metric = styled('div', {
+export const BookInformation = styled('div', {
   display: 'flex',
   gap: '$2',
   alignItems: 'center',
@@ -44,13 +45,70 @@ export const Metric = styled('div', {
   },
 })
 
-export const DialogOverlay = styled(Dialog.Overlay, {
+export const Action = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  alignItems: 'center',
+  padding: '$3 0px',
+})
+
+export const CreateCommentUserInfo = styled('div', {
+  display: 'flex',
+  justifyContent: 'space-between',
+  gap: '$4',
+
+  '> div': {
+    display: 'flex',
+    gap: '$3',
+    alignItems: 'center',
+  },
+})
+
+export const CreateCommentData = styled('div', {
+  div: {
+    display: 'flex',
+    justifyContent: 'flex-end',
+    gap: '$2',
+    marginTop: '$3',
+  },
+
+  textArea: {
+    marginTop: '$6',
+  },
+})
+
+export const CreateComment = styled(Box, {})
+
+export const Comment = styled(Box, {
+  display: 'flex',
+  justifyContent: 'space-between',
+  flexDirection: 'column',
+  gap: '$4',
+  padding: '$6',
+})
+
+export const CommentHeader = styled('header', {
+  display: 'flex',
+  justifyContent: 'space-between',
+
+  strong: {
+    color: '$white',
+  },
+
+  '> div': {
+    display: 'flex',
+    justifyContent: 'space-between',
+    gap: '$4',
+  },
+})
+
+export const RadixDialogOverlay = styled(Dialog.Overlay, {
   backgroundColor: 'rgba(0, 0, 0, 0.44)',
   position: 'fixed',
   inset: 0,
 })
 
-export const DialogContent = styled(Dialog.Content, {
+export const RadixDialogContent = styled(Dialog.Content, {
   backgroundColor: '$gray-800',
   borderRadius: '$md',
   boxShadow:
@@ -62,7 +120,7 @@ export const DialogContent = styled(Dialog.Content, {
   width: '90vw',
   maxWidth: '660px',
   maxHeight: '100vh',
-  padding: '$16 $12 0px $12',
+  padding: '$16 $12 $20 $12',
 
   display: 'flex',
   flexDirection: 'column',
@@ -70,7 +128,7 @@ export const DialogContent = styled(Dialog.Content, {
   gap: '$3',
 })
 
-export const DialogClose = styled(Dialog.Close, {
+export const RadixDialogClose = styled(Dialog.Close, {
   all: 'unset',
   cursor: 'pointer',
   position: 'absolute',
@@ -78,9 +136,4 @@ export const DialogClose = styled(Dialog.Close, {
   right: 26,
 })
 
-export const ToAssess = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  alignItems: 'center',
-  padding: '$3 0px',
-})
+export const RadixDialogPortal = styled(Dialog.Portal, {})

@@ -1,4 +1,5 @@
 import { Box } from '@/components/Box'
+import { Text } from '@/components/Text'
 import { styled } from '@/styles'
 
 export const BookCardContainer = styled(Box, {
@@ -11,9 +12,10 @@ export const BookCardContainer = styled(Box, {
   },
 })
 
-export const BookContainer = styled('div', {
+export const BookImage = styled('div', {
   img: {
     borderRadius: '$md',
+    objectFit: 'cover',
   },
 })
 
@@ -21,11 +23,8 @@ export const BookInfo = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
-
-  '> div': {
-    display: 'flex',
-    flexDirection: 'column',
-  },
+  overflow: 'hidden',
+  textOverflow: 'ellipsis',
 
   strong: {
     color: '$gray-100',
@@ -37,5 +36,18 @@ export const BookInfo = styled('div', {
 
   button: {
     maxWidth: 'max-content',
+    marginLeft: 1,
+    marginBottom: 1,
+  },
+})
+
+export const BookInfoHeader = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+
+  [`${Text}`]: {
+    overflow: 'hidden',
+    whiteSpace: 'nowrap',
+    textOverflow: 'ellipsis',
   },
 })

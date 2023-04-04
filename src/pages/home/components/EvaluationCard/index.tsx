@@ -1,12 +1,12 @@
 import Image from 'next/image'
 import { MyRating } from '@/components/MyRating'
 import {
-  ContainerBook,
+  RatedBook,
   EvaluationCardContainer,
-  HeaderContainer,
-  ImageBook,
-  InfoBook,
-  UserInfo,
+  EvaluationUser,
+  RatedBookImage,
+  RatedBookInfo,
+  EvaluationUserInfo,
 } from './styles'
 import { Text } from '@/components/Text'
 import { Avatar } from '@/components/Avatar'
@@ -33,32 +33,32 @@ interface EvaluationCardProps {
 export function EvaluationCard({ assessment }: EvaluationCardProps) {
   return (
     <EvaluationCardContainer>
-      <HeaderContainer>
+      <EvaluationUser>
         <div>
           <Avatar size="sm" src={assessment.user.avatar_url!} />
 
-          <UserInfo>
+          <EvaluationUserInfo>
             <Text as="strong">{assessment.user.name}</Text>
             <Text as="time" size="sm">
               {formatDate(assessment.created_at)}
             </Text>
-          </UserInfo>
+          </EvaluationUserInfo>
         </div>
 
-        <MyRating size={assessment.rate} />
-      </HeaderContainer>
+        <MyRating ratingAverage={assessment.rate} />
+      </EvaluationUser>
 
-      <ContainerBook>
-        <ImageBook>
+      <RatedBook>
+        <RatedBookImage>
           <Image
             src={assessment.book.cover_url}
             alt="Imagem do livro"
             width={108}
             height={152}
           />
-        </ImageBook>
+        </RatedBookImage>
 
-        <InfoBook>
+        <RatedBookInfo>
           <div>
             <Text as="strong">{assessment.book.name}</Text>
             <Text as="span" size="sm">
@@ -67,8 +67,8 @@ export function EvaluationCard({ assessment }: EvaluationCardProps) {
           </div>
 
           <Text size="sm">{assessment.description}</Text>
-        </InfoBook>
-      </ContainerBook>
+        </RatedBookInfo>
+      </RatedBook>
     </EvaluationCardContainer>
   )
 }

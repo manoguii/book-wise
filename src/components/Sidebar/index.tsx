@@ -7,6 +7,7 @@ import { Button } from '../Button'
 import { Container } from './styles'
 import { Avatar } from '../Avatar'
 import { DialogLogin } from './DialogLogin'
+import { signOut } from 'next-auth/react'
 
 interface SidebarProps {
   isAuthenticated: 'loading' | 'authenticated' | 'unauthenticated'
@@ -17,6 +18,10 @@ interface SidebarProps {
 }
 
 export function Sidebar({ isAuthenticated, user }: SidebarProps) {
+  async function handleSignOut() {
+    await signOut()
+  }
+
   return (
     <Dialog.Root>
       <Container>
@@ -51,7 +56,7 @@ export function Sidebar({ isAuthenticated, user }: SidebarProps) {
             }}
           >
             <Avatar size="sm" src={user?.avatar_url!} />
-            <Button variant="secondary">
+            <Button variant="secondary" onClick={handleSignOut}>
               {user?.name}
               <SignIn size={24} color="#F75A68" />
             </Button>

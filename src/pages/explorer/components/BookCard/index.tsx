@@ -1,8 +1,13 @@
-import Image from 'next/image'
-import { BookContainer, BookInfo, BookCardContainer } from './styles'
 import { MyRating } from '@/components/MyRating'
 import { ReactNode } from 'react'
 import { Text } from '@/components/Text'
+import Image from 'next/image'
+import {
+  BookImage,
+  BookInfo,
+  BookCardContainer,
+  BookInfoHeader,
+} from './styles'
 
 interface BookCardProps {
   children?: ReactNode
@@ -19,22 +24,22 @@ interface BookCardProps {
 export function BookCard({ children, bookInfo }: BookCardProps) {
   return (
     <BookCardContainer>
-      <BookContainer>
+      <BookImage>
         <Image
           src={bookInfo.book.cover_url}
           alt="Imagem do livro"
           width={80}
           height={112}
         />
-      </BookContainer>
+      </BookImage>
 
       <BookInfo>
-        <div>
+        <BookInfoHeader>
           <Text as="strong">{bookInfo.book.name}</Text>
           <Text as="span">{bookInfo.book.author}</Text>
-        </div>
+        </BookInfoHeader>
 
-        <MyRating size={bookInfo.rate} />
+        <MyRating ratingAverage={bookInfo.rate} />
 
         {children}
       </BookInfo>
