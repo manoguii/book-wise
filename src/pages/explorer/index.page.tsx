@@ -1,34 +1,22 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { Heading } from '@/components/Heading'
+import { Heading } from '@/components/_ui/Heading'
 import { Sidebar } from '@/components/Sidebar'
 import { Tag } from '@/components/Tag'
-import { TextInput } from '@/components/TextInput'
 import { Binoculars } from '@phosphor-icons/react'
 import { Books, Categories, Container, Header } from './styles'
 import { DialogBook } from './components/DialogBook'
 import { useSession } from 'next-auth/react'
-import { Button } from '@/components/Button'
-import { BookCard } from './components/BookCard'
+import { Button } from '@/components/_ui/Button'
+import { BookCard } from '../../components/BookCard'
 import { api } from '@/lib/axios'
 import { GetServerSideProps } from 'next'
-import { Book, CategoriesOnBooks, Category, Rating, User } from '@prisma/client'
-
-type ICategories = CategoriesOnBooks &
-  {
-    category: Category
-  }[]
-
-type Ratings = Rating & {
-  user: User
-}
-
-export type IBook = Book & {
-  ratings: Ratings[]
-  categories: ICategories
-}
+import { Category } from '@prisma/client'
+import { TextInput } from '@/components/TextInput'
+import { IBookInfo } from '../api/@types/books'
 
 interface ExplorerProps {
-  books: IBook[]
+  books: IBookInfo[]
+  categories: Category[]
 }
 
 export default function Explorer({ books }: ExplorerProps) {
@@ -61,28 +49,15 @@ export default function Explorer({ books }: ExplorerProps) {
 
       <Books>
         {books.map((book) => {
-          const rate = book.ratings[0].rate
-
-          const bookInfo = {
-            rate,
-            book: {
-              name: book.name,
-              author: book.author,
-              cover_url: book.cover_url,
-            },
-          }
-
-          const assessments = book.ratings.length
-
           return (
             <Dialog.Root key={book.id}>
-              <BookCard bookInfo={bookInfo}>
+              <BookCard bookInfo={book}>
                 <Dialog.Trigger asChild>
                   <Button variant="tertiary">ver mais</Button>
                 </Dialog.Trigger>
               </BookCard>
 
-              <DialogBook book={book} assessments={assessments} rate={rate} />
+              <DialogBook bookInfo={book} />
             </Dialog.Root>
           )
         })}
@@ -92,11 +67,15 @@ export default function Explorer({ books }: ExplorerProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await api.get('/books')
+  const { data } = await api.get('/books')
+
+  const allBooks = data.books as IBookInfo[]
+  const allCategories = data.categories as Category[]
 
   return {
     props: {
-      books: response.data.books,
+      books: allBooks,
+      categories: allCategories,
     },
   }
 }

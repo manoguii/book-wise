@@ -1,9 +1,10 @@
-import { Button } from '@/components/Button'
-import { Text } from '@/components/Text'
+import { memo } from 'react'
+import { IBookInfo } from '@/pages/api/@types/books'
+import { Button } from '@/components/_ui/Button'
+import { Text } from '@/components/_ui/Text'
 import { BookOpen, BookmarkSimple, Check, X } from '@phosphor-icons/react'
-import { IBook } from '../../index.page'
 import Image from 'next/image'
-import { Heading } from '@/components/Heading'
+import { Heading } from '@/components/_ui/Heading'
 import { MyRating } from '@/components/MyRating'
 import { useSession } from 'next-auth/react'
 import { Avatar } from '@/components/Avatar'
@@ -27,12 +28,10 @@ import {
 } from './styles'
 
 interface DialogBookProps {
-  book: IBook
-  assessments: number
-  rate: number
+  bookInfo: IBookInfo
 }
 
-export function DialogBook({ book, assessments, rate }: DialogBookProps) {
+function DialogBookComponent({ bookInfo }: DialogBookProps) {
   const session = useSession()
 
   return (
@@ -46,32 +45,32 @@ export function DialogBook({ book, assessments, rate }: DialogBookProps) {
 
         <Book>
           <BookInfo>
-            <Image src={book.cover_url} alt="" width={170} height={242} />
+            <Image src={bookInfo.image!} alt="" width={170} height={242} />
 
             <div>
               <div>
-                <Heading size="sm">{book.name}</Heading>
+                <Heading size="sm">{bookInfo.name}</Heading>
 
-                <Text>{book.author}</Text>
+                <Text>{bookInfo.author}</Text>
               </div>
 
               <div>
-                <MyRating ratingAverage={rate} />
+                <MyRating ratingAverage={bookInfo.rate} />
 
-                <Text size="sm">{assessments} Avaliações</Text>
+                <Text size="sm">{bookInfo.numberOfRatings} Avaliações</Text>
               </div>
             </div>
           </BookInfo>
 
           <BookAdditionalInformation>
-            {book.categories.map((categoryObj) => {
+            {bookInfo.categories.map((category) => {
               return (
-                <BookInformation key={categoryObj.category.id}>
+                <BookInformation key={category.id}>
                   <BookmarkSimple size={32} color="#50B2C0" />
 
                   <div>
                     <Text as="strong" size="lg">
-                      {categoryObj.category.name}
+                      {category.name}
                     </Text>
                     <Text size="sm">Categoria</Text>
                   </div>
@@ -84,7 +83,7 @@ export function DialogBook({ book, assessments, rate }: DialogBookProps) {
 
               <div>
                 <Text as="strong" size="lg">
-                  {book.total_pages}
+                  {bookInfo.pages}
                 </Text>
                 <Text size="sm">Páginas</Text>
               </div>
@@ -125,16 +124,16 @@ export function DialogBook({ book, assessments, rate }: DialogBookProps) {
           </CreateComment>
         ) : null}
 
-        {book.ratings.map((rating) => {
+        {bookInfo.ratings.map((rating) => {
           return (
             <Comment key={rating.id}>
               <CommentHeader>
                 <div>
-                  <Avatar size="sm" src={rating.user.avatar_url!} />
+                  <Avatar size="sm" src={rating.userAvatarUrl!} />
 
                   <div>
-                    <Text as="strong">{rating.user.name}</Text>
-                    <Text size="sm">{formatDate(rating.created_at)}</Text>
+                    <Text as="strong">{rating.userName}</Text>
+                    <Text size="sm">{formatDate(rating.createdAt)}</Text>
                   </div>
                 </div>
 
@@ -149,3 +148,5 @@ export function DialogBook({ book, assessments, rate }: DialogBookProps) {
     </RadixDialogPortal>
   )
 }
+
+export const DialogBook = memo(DialogBookComponent)

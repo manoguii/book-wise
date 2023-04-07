@@ -1,11 +1,11 @@
-import { Text } from '@/components/Text'
+import { Metric, UserMetricsContainer } from './styles'
+import { Text } from '@/components/_ui/Text'
 import {
   BookmarkSimple,
   BookOpen,
   Books,
   UserList,
 } from '@phosphor-icons/react'
-import { Metric, UserMetricsContainer } from './styles'
 
 export function UserMetrics() {
   return (

@@ -1,4 +1,4 @@
-import { Box } from '@/components/Box'
+import { Box } from '@/components/_ui/Box'
 import { styled } from '@/styles'
 
 export const EvaluationCardContainer = styled(Box, {
@@ -35,7 +35,6 @@ export const RatedBook = styled('div', {
 export const RatedBookImage = styled('div', {
   img: {
     borderRadius: '$md',
-    maxWidth: '100%',
     objectFit: 'cover',
   },
 })

@@ -1,5 +1,5 @@
-import { Box } from '@/components/Box'
-import { Text } from '@/components/Text'
+import { Box } from '@/components/_ui/Box'
+import { Text } from '@/components/_ui/Text'
 import { styled } from '@/styles'
 
 export const BookCardContainer = styled(Box, {

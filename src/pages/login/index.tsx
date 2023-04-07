@@ -4,9 +4,9 @@ import Logo from '../../assets/logo.svg'
 import Google from '../../assets/google.svg'
 import GitHub from '../../assets/github.svg'
 import Rocket from '../../assets/rocket.svg'
-import { Heading } from '@/components/Heading'
-import { Text } from '@/components/Text'
-import { Button } from '@/components/Button'
+import { Heading } from '@/components/_ui/Heading'
+import { Text } from '@/components/_ui/Text'
+import { Button } from '@/components/_ui/Button'
 import { useRouter } from 'next/router'
 import { signIn } from 'next-auth/react'
 
@@ -18,13 +18,15 @@ export default function Login() {
   }
 
   async function handleSignInWithGoogle() {
-    await signIn('google')
-    await router.push('/home')
+    await signIn('google', {
+      callbackUrl: '/home',
+    })
   }
 
   async function handleSignInWithGithub() {
-    await signIn('github')
-    await router.push('/home')
+    await signIn('github', {
+      callbackUrl: '/home',
+    })
   }
 
   return (

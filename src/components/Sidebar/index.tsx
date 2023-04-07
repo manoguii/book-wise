@@ -3,11 +3,11 @@ import Image from 'next/image'
 import Logo from '../../assets/logo.svg'
 import { Navigation } from '../Navigation'
 import { Binoculars, ChartLineUp, SignIn, User } from '@phosphor-icons/react'
-import { Button } from '../Button'
 import { Container } from './styles'
 import { Avatar } from '../Avatar'
 import { DialogLogin } from './DialogLogin'
 import { signOut } from 'next-auth/react'
+import { Button } from '../_ui/Button'
 
 interface SidebarProps {
   isAuthenticated: 'loading' | 'authenticated' | 'unauthenticated'

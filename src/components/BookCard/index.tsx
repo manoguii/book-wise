@@ -1,6 +1,6 @@
 import { MyRating } from '@/components/MyRating'
 import { ReactNode } from 'react'
-import { Text } from '@/components/Text'
+import { Text } from '@/components/_ui/Text'
 import Image from 'next/image'
 import {
   BookImage,
@@ -8,17 +8,11 @@ import {
   BookCardContainer,
   BookInfoHeader,
 } from './styles'
+import { IBook } from '@/pages/api/@types/ratings'
 
 interface BookCardProps {
   children?: ReactNode
-  bookInfo: {
-    rate: number
-    book: {
-      name: string
-      author: string
-      cover_url: string
-    }
-  }
+  bookInfo: IBook
 }
 
 export function BookCard({ children, bookInfo }: BookCardProps) {
@@ -26,7 +20,7 @@ export function BookCard({ children, bookInfo }: BookCardProps) {
     <BookCardContainer>
       <BookImage>
         <Image
-          src={bookInfo.book.cover_url}
+          src={bookInfo.image}
           alt="Imagem do livro"
           width={80}
           height={112}
@@ -35,8 +29,8 @@ export function BookCard({ children, bookInfo }: BookCardProps) {
 
       <BookInfo>
         <BookInfoHeader>
-          <Text as="strong">{bookInfo.book.name}</Text>
-          <Text as="span">{bookInfo.book.author}</Text>
+          <Text as="strong">{bookInfo.name}</Text>
+          <Text as="span">{bookInfo.author}</Text>
         </BookInfoHeader>
 
         <MyRating ratingAverage={bookInfo.rate} />

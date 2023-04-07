@@ -2,8 +2,8 @@ import Image from 'next/image'
 import Book from '../../../public/Book.svg'
 import { ImageContainer, BookInfo, CardContainer } from './styles'
 import { MyRating } from '@/components/MyRating'
-import { Text } from '@/components/Text'
-import { Heading } from '@/components/Heading'
+import { Text } from '@/components/_ui/Text'
+import { Heading } from '@/components/_ui/Heading'
 
 export function Card() {
   return (

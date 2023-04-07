@@ -1,14 +1,14 @@
-import { Heading } from '@/components/Heading'
+import { IBook, IRating } from '@/pages/api/@types/ratings'
+import { Text } from '@/components/_ui/Text'
+import { Button } from '@/components/_ui/Button'
+import { Heading } from '@/components/_ui/Heading'
 import { Sidebar } from '@/components/Sidebar'
-import { Text } from '@/components/Text'
 import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
 import { useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
 import { api } from '@/lib/axios'
-import { Rating } from '@prisma/client'
-import { EvaluationCard } from './components/EvaluationCard'
-import { Button } from '@/components/Button'
-import { BookCard } from '../explorer/components/BookCard'
+import { EvaluationCard } from '../../components/EvaluationCard'
+import { BookCard } from '../../components/BookCard'
 import {
   Container,
   Header,
@@ -17,35 +17,12 @@ import {
   BestRated,
 } from './styles'
 
-type Assessment = Rating & {
-  user: {
-    image: string | null
-    name: string
-    avatar_url: string | null
-  }
-  book: {
-    name: string
-    author: string
-    cover_url: string
-  }
-}
-
-type IBestRated = {
-  rate: number
-  id: string
-  book: {
-    name: string
-    author: string
-    cover_url: string
-  }
-}
-
 interface HomeProps {
-  assessments: Assessment[]
-  bestRated: IBestRated[]
+  ratings: IRating[]
+  bestRatedBooks: IBook[]
 }
 
-export default function Home({ assessments, bestRated }: HomeProps) {
+export default function Home({ ratings, bestRatedBooks }: HomeProps) {
   const session = useSession()
 
   const user = {
@@ -65,8 +42,8 @@ export default function Home({ assessments, bestRated }: HomeProps) {
       <RecentReviews>
         <Text>Avaliações mais recentes</Text>
 
-        {assessments.map((assessment) => {
-          return <EvaluationCard key={assessment.id} assessment={assessment} />
+        {ratings.map((rating) => {
+          return <EvaluationCard key={rating.id} rating={rating} />
         })}
       </RecentReviews>
 
@@ -79,7 +56,7 @@ export default function Home({ assessments, bestRated }: HomeProps) {
         </header>
 
         <BestRatedBooks>
-          {bestRated.map((book) => {
+          {bestRatedBooks.map((book) => {
             return <BookCard key={book.id} bookInfo={book} />
           })}
         </BestRatedBooks>
@@ -89,12 +66,15 @@ export default function Home({ assessments, bestRated }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const response = await api.get('/best-rating')
+  const { data } = await api.get('/ratings')
+
+  const ratings = data.ratings as IRating[]
+  const bestRatedBooks = data.bestRatedBooks as IBook[]
 
   return {
     props: {
-      assessments: response.data.assessment,
-      bestRated: response.data.book,
+      ratings,
+      bestRatedBooks,
     },
   }
 }

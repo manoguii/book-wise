@@ -1,4 +1,4 @@
-import { Button } from '@/components/Button'
+import { Button } from '@/components/_ui/Button'
 import { styled } from '@/styles'
 import * as Dialog from '@radix-ui/react-dialog'
 

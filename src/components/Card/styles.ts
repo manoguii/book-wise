@@ -1,4 +1,4 @@
-import { Box } from '@/components/Box'
+import { Box } from '@/components/_ui/Box'
 import { styled } from '@/styles'
 
 export const CardContainer = styled(Box, {

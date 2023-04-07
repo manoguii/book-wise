@@ -1,12 +1,12 @@
 import { Avatar } from '@/components/Avatar'
-import { Heading } from '@/components/Heading'
+import { Heading } from '@/components/_ui/Heading'
 import { Sidebar } from '@/components/Sidebar'
-import { Text } from '@/components/Text'
-import { TextInput } from '@/components/TextInput'
+import { Text } from '@/components/_ui/Text'
 import { User } from '@phosphor-icons/react'
 import { Container, ProfileContainer, UserInfo, UserRatings } from './styles'
 import { UserMetrics } from './components/UserMetrics'
 import { useSession } from 'next-auth/react'
+import { TextInput } from '@/components/TextInput'
 // import { EvaluationCard } from '../home/components/EvaluationCard'
 
 interface ProfileProps {}

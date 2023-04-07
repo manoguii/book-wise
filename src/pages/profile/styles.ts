@@ -1,4 +1,4 @@
-import { Heading } from '@/components/Heading'
+import { Heading } from '@/components/_ui/Heading'
 import { styled } from '@/styles'
 
 export const Container = styled('div', {
