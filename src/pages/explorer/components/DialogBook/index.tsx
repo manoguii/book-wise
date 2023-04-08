@@ -1,11 +1,11 @@
-import { memo } from 'react'
+import { memo, useState } from 'react'
 import { IBookInfo } from '@/pages/api/@types/books'
 import { Button } from '@/components/_ui/Button'
 import { Text } from '@/components/_ui/Text'
 import { BookOpen, BookmarkSimple, Check, X } from '@phosphor-icons/react'
 import Image from 'next/image'
 import { Heading } from '@/components/_ui/Heading'
-import { MyRating } from '@/components/MyRating'
+import { Rating } from '@/components/Rating'
 import { useSession } from 'next-auth/react'
 import { Avatar } from '@/components/Avatar'
 import { formatDate } from '@/utils/format-date'
@@ -26,12 +26,32 @@ import {
   CreateCommentUserInfo,
   CreateCommentData,
 } from './styles'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 
 interface DialogBookProps {
   bookInfo: IBookInfo
 }
 
+const createCommentFormData = z.object({
+  description: z.string(),
+})
+
+type CreateCommentFormType = z.infer<typeof createCommentFormData>
+
 function DialogBookComponent({ bookInfo }: DialogBookProps) {
+  const [rating, setRating] = useState(1)
+
+  const { register, handleSubmit } = useForm<CreateCommentFormType>({
+    resolver: zodResolver(createCommentFormData),
+  })
+
+  function handleCreateComment(data: CreateCommentFormType) {
+    console.log(data, rating)
+    console.log(bookInfo.name)
+  }
+
   const session = useSession()
 
   return (
@@ -55,7 +75,7 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
               </div>
 
               <div>
-                <MyRating ratingAverage={bookInfo.rate} />
+                <Rating rating={bookInfo.rate} />
 
                 <Text size="sm">{bookInfo.numberOfRatings} Avaliações</Text>
               </div>
@@ -93,30 +113,31 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
 
         <Action>
           <Text>Avaliações</Text>
-          {session.status === 'authenticated' ? (
-            <Button variant="tertiary">Avaliar</Button>
-          ) : null}
         </Action>
 
         {session.status === 'authenticated' ? (
-          <CreateComment>
+          <CreateComment onSubmit={handleSubmit(handleCreateComment)}>
             <CreateCommentUserInfo>
               <div>
                 <Avatar size="sm" src={session.data.user?.image!} />
                 <Text as="strong">{session.data.user?.name}</Text>
               </div>
 
-              <MyRating toAssess={true} />
+              <Rating toAssess={true} setRating={setRating} />
             </CreateCommentUserInfo>
 
             <CreateCommentData>
-              <TextArea />
+              <TextArea
+                placeholder="Escreva sua avaliação"
+                {...register('description')}
+              />
 
               <div>
-                <Button>
+                <Button type="button">
                   <X color="#8381D9" size={24} />
                 </Button>
-                <Button>
+
+                <Button type="submit">
                   <Check color="#50B2C0" size={24} />
                 </Button>
               </div>
@@ -137,7 +158,7 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
                   </div>
                 </div>
 
-                <MyRating ratingAverage={rating.rate} />
+                <Rating rating={rating.rate} />
               </CommentHeader>
 
               <Text>{rating.description}</Text>

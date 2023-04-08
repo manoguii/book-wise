@@ -1,7 +1,7 @@
 import Image from 'next/image'
 import Book from '../../../public/Book.svg'
 import { ImageContainer, BookInfo, CardContainer } from './styles'
-import { MyRating } from '@/components/MyRating'
+import { Rating } from '@/components/Rating'
 import { Text } from '@/components/_ui/Text'
 import { Heading } from '@/components/_ui/Heading'
 

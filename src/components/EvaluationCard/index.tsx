@@ -2,7 +2,7 @@ import { Text } from '@/components/_ui/Text'
 import { Avatar } from '@/components/Avatar'
 import { formatDate } from '@/utils/format-date'
 import Image from 'next/image'
-import { MyRating } from '@/components/MyRating'
+import { Rating } from '@/components/Rating'
 import {
   RatedBook,
   EvaluationCardContainer,
@@ -32,7 +32,7 @@ export function EvaluationCard({ rating }: EvaluationCardProps) {
           </EvaluationUserInfo>
         </div>
 
-        <MyRating ratingAverage={rating.rate} />
+        <Rating rating={rating.rate} />
       </EvaluationUser>
 
       <RatedBook>

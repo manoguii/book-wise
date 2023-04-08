@@ -1,4 +1,4 @@
-import { MyRating } from '@/components/MyRating'
+import { Rating } from '@/components/Rating'
 import { ReactNode } from 'react'
 import { Text } from '@/components/_ui/Text'
 import Image from 'next/image'
@@ -33,7 +33,7 @@ export function BookCard({ children, bookInfo }: BookCardProps) {
           <Text as="span">{bookInfo.author}</Text>
         </BookInfoHeader>
 
-        <MyRating ratingAverage={bookInfo.rate} />
+        <Rating rating={bookInfo.rate} />
 
         {children}
       </BookInfo>

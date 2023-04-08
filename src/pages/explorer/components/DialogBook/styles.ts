@@ -28,9 +28,8 @@ export const BookInfo = styled('div', {
 export const BookAdditionalInformation = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-between',
+  justifyContent: 'space-evenly',
 
-  gap: '$20',
   borderTop: '1px solid $gray-600',
   padding: '$6 0px',
 })
@@ -77,7 +76,12 @@ export const CreateCommentData = styled('div', {
   },
 })
 
-export const CreateComment = styled(Box, {})
+export const CreateComment = styled('form', {
+  padding: '$3 $4',
+  borderRadius: '$md',
+  background: '$gray-700',
+  boxSizing: 'border-box',
+})
 
 export const Comment = styled(Box, {
   display: 'flex',
