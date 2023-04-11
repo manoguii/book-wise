@@ -1,3 +1,4 @@
+import * as Dialog from '@radix-ui/react-dialog'
 import { Box } from '@/components/_ui/Box'
 import { Text } from '@/components/_ui/Text'
 import { styled } from '@/styles'
@@ -21,33 +22,29 @@ export const BookImage = styled('div', {
 
 export const BookInfo = styled('div', {
   display: 'flex',
-  flexDirection: 'column',
   justifyContent: 'space-between',
+  flexDirection: 'column',
   overflow: 'hidden',
   textOverflow: 'ellipsis',
-
-  strong: {
-    color: '$gray-100',
-  },
-
-  span: {
-    color: '$gray-400',
-  },
-
-  button: {
-    maxWidth: 'max-content',
-    marginLeft: 1,
-    marginBottom: 1,
-  },
-})
-
-export const BookInfoHeader = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
 
   [`${Text}`]: {
     overflow: 'hidden',
     whiteSpace: 'nowrap',
     textOverflow: 'ellipsis',
   },
+
+  strong: {
+    display: 'block',
+    color: '$gray-100',
+  },
+
+  span: {
+    display: 'block',
+    color: '$gray-400',
+  },
+})
+
+export const RadixDialogTrigger = styled(Dialog.Trigger, {
+  all: 'unset',
+  cursor: 'pointer',
 })

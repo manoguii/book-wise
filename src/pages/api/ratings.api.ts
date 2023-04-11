@@ -66,7 +66,7 @@ export default async function handler(
       image: book.cover_url,
       name: book.name,
       author: book.author,
-      rate: Math.round(rate),
+      rate,
     }
   })
 

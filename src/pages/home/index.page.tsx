@@ -1,21 +1,15 @@
+import * as Dialog from '@radix-ui/react-dialog'
 import { IBook, IRating } from '@/pages/api/@types/ratings'
 import { Text } from '@/components/_ui/Text'
 import { Button } from '@/components/_ui/Button'
 import { Heading } from '@/components/_ui/Heading'
-import { Sidebar } from '@/components/Sidebar'
 import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
-import { useSession } from 'next-auth/react'
 import { GetServerSideProps } from 'next'
 import { api } from '@/lib/axios'
 import { EvaluationCard } from '../../components/EvaluationCard'
 import { BookCard } from '../../components/BookCard'
-import {
-  Container,
-  Header,
-  RecentReviews,
-  BestRatedBooks,
-  BestRated,
-} from './styles'
+import { Container, Header, RecentReviews, BestRated } from './styles'
+import { useRouter } from 'next/router'
 
 interface HomeProps {
   ratings: IRating[]
@@ -23,17 +17,14 @@ interface HomeProps {
 }
 
 export default function Home({ ratings, bestRatedBooks }: HomeProps) {
-  const session = useSession()
+  const router = useRouter()
 
-  const user = {
-    name: session.data?.user?.name,
-    avatar_url: session.data?.user?.image,
+  async function handleNavigateToExplorer() {
+    await router.push('/explorer')
   }
 
   return (
     <Container>
-      <Sidebar isAuthenticated={session.status} user={user} />
-
       <Header>
         <ChartLineUp size={24} color="#50B2C0" weight="bold" />
         <Heading>Inicio</Heading>
@@ -50,16 +41,20 @@ export default function Home({ ratings, bestRatedBooks }: HomeProps) {
       <BestRated>
         <header>
           <Text>Livros populares</Text>
-          <Button variant="tertiary">
+          <Button variant="tertiary" onClick={handleNavigateToExplorer}>
             Ver todos <CaretRight size={16} color="#8381D9" />
           </Button>
         </header>
 
-        <BestRatedBooks>
+        <div>
           {bestRatedBooks.map((book) => {
-            return <BookCard key={book.id} bookInfo={book} />
+            return (
+              <Dialog.Root key={book.id}>
+                <BookCard bookInfo={book} />
+              </Dialog.Root>
+            )
           })}
-        </BestRatedBooks>
+        </div>
       </BestRated>
     </Container>
   )

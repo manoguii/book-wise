@@ -6,18 +6,19 @@ import { Binoculars, ChartLineUp, SignIn, User } from '@phosphor-icons/react'
 import { Container } from './styles'
 import { Avatar } from '../Avatar'
 import { DialogLogin } from './DialogLogin'
-import { signOut } from 'next-auth/react'
+import { signOut, useSession } from 'next-auth/react'
 import { Button } from '../_ui/Button'
 
-interface SidebarProps {
-  isAuthenticated: 'loading' | 'authenticated' | 'unauthenticated'
-  user?: {
-    name: string | null | undefined
-    avatar_url: string | null | undefined
-  }
-}
+export function Sidebar() {
+  const session = useSession()
 
-export function Sidebar({ isAuthenticated, user }: SidebarProps) {
+  const isAuthenticated = session.status
+
+  const user = {
+    name: session.data?.user?.name,
+    avatar_url: session.data?.user?.image,
+  }
+
   async function handleSignOut() {
     await signOut()
   }
@@ -28,18 +29,18 @@ export function Sidebar({ isAuthenticated, user }: SidebarProps) {
         <div>
           <Image src={Logo} alt="" />
 
-          <Navigation href="/home" path="/home">
+          <Navigation href="/home">
             <ChartLineUp size={24} color="#8D95AF" />
             Inicio
           </Navigation>
 
-          <Navigation href="/explorer" path="/explorer">
+          <Navigation href="/explorer">
             <Binoculars size={24} color="#8D95AF" />
             Explorar
           </Navigation>
 
           {isAuthenticated === 'authenticated' ? (
-            <Navigation href="/profile" path="/profile">
+            <Navigation href="/profile">
               <User size={24} color="#8D95AF" />
               Perfil
             </Navigation>

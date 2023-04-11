@@ -2,12 +2,14 @@ import { Box } from '@/components/_ui/Box'
 import { Text } from '@/components/_ui/Text'
 import { styled } from '@/styles'
 import * as Dialog from '@radix-ui/react-dialog'
+import * as Collapsible from '@radix-ui/react-collapsible'
 
 export const Book = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',
   gap: '$10',
+  padding: '$6 $8',
 })
 
 export const BookInfo = styled('div', {
@@ -28,7 +30,7 @@ export const BookInfo = styled('div', {
 export const BookAdditionalInformation = styled('div', {
   display: 'flex',
   alignItems: 'center',
-  justifyContent: 'space-evenly',
+  justifyContent: 'space-between',
 
   borderTop: '1px solid $gray-600',
   padding: '$6 0px',
@@ -49,18 +51,6 @@ export const Action = styled('div', {
   justifyContent: 'space-between',
   alignItems: 'center',
   padding: '$3 0px',
-})
-
-export const CreateCommentUserInfo = styled('div', {
-  display: 'flex',
-  justifyContent: 'space-between',
-  gap: '$4',
-
-  '> div': {
-    display: 'flex',
-    gap: '$3',
-    alignItems: 'center',
-  },
 })
 
 export const CreateCommentData = styled('div', {
@@ -91,7 +81,7 @@ export const Comment = styled(Box, {
   padding: '$6',
 })
 
-export const CommentHeader = styled('header', {
+export const UserInfo = styled('header', {
   display: 'flex',
   justifyContent: 'space-between',
 
@@ -102,6 +92,7 @@ export const CommentHeader = styled('header', {
   '> div': {
     display: 'flex',
     justifyContent: 'space-between',
+    alignItems: 'center',
     gap: '$4',
   },
 })
@@ -141,3 +132,9 @@ export const RadixDialogClose = styled(Dialog.Close, {
 })
 
 export const RadixDialogPortal = styled(Dialog.Portal, {})
+
+export const RadixCollapsibleRoot = styled(Collapsible.Root, {})
+
+export const RadixCollapsibleTrigger = styled(Collapsible.Trigger, {})
+
+export const RadixCollapsibleContent = styled(Collapsible.Content, {})

@@ -2,11 +2,11 @@ import { styled } from '@/styles'
 
 export const LoginContainer = styled('main', {
   maxWidth: 1440,
+  height: 'calc(100vh - 40px)',
   margin: '0 auto',
   padding: '$5',
   display: 'grid',
-  gridTemplateColumns: '1fr 1fr',
-  alignItems: 'center',
+  gridTemplateColumns: 'minmax(300px, 580px) 1fr',
   background: '$gray-800',
 
   '@media (max-width: 900px)': {
@@ -15,27 +15,50 @@ export const LoginContainer = styled('main', {
 })
 
 export const ImageContainer = styled('div', {
-  maxWidth: 570,
   height: 'calc(100vh - 40px)',
   display: 'flex',
   justifyContent: 'center',
   alignItems: 'center',
-  background:
-    'linear-gradient(0deg, rgba(42, 40, 121, 0.6), rgba(42, 40, 121, 0.6)), rgba(0, 0, 0, 0.6)',
-  backdropFilter: 'blur(1px)',
-  borderRadius: '$md',
+
+  position: 'relative',
+
+  img: {
+    zIndex: 1,
+  },
+
+  '&::before': {
+    content: '',
+    display: 'block',
+    position: 'absolute',
+    width: '100%',
+    height: 'calc(100vh - 40px)',
+    borderRadius: '$md',
+    opacity: 0.75,
+
+    backgroundRepeat: 'no-repeat',
+    backgroundPosition: 'center',
+    backgroundSize: 'cover',
+    backgroundImage:
+      "linear-gradient(0deg, rgba(42, 40, 121, 0.6), rgba(42, 40, 121, 0.6)), url('https://i.ibb.co/wKGQ5vk/Image.png')",
+  },
+
+  '@media (max-width: 1090px)': {
+    '&::before': {
+      width: '80%',
+    },
+  },
 
   '@media (max-width: 900px)': {
     display: 'none',
   },
 })
 
-export const LoginMethod = styled('div', {
+export const LoginMethod = styled('section', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   margin: '0 auto',
-  height: 'calc(100vh - 40px)',
+  width: '60%',
 
   div: {
     display: 'flex',
@@ -54,5 +77,9 @@ export const LoginMethod = styled('div', {
 
   button: {
     padding: '$3 $4',
+  },
+
+  '@media (max-width: 1090px)': {
+    width: '80%',
   },
 })

@@ -19,7 +19,7 @@ export function Card() {
               hoje
             </Text>
 
-            <MyRating />
+            <Rating />
           </header>
 
           <div>

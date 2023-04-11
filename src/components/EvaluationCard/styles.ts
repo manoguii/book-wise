@@ -7,9 +7,19 @@ export const EvaluationCardContainer = styled(Box, {
   gap: '$8',
 })
 
-export const EvaluationUser = styled('header', {
+export const UserInfo = styled('header', {
   display: 'flex',
   justifyContent: 'space-between',
+
+  strong: {
+    display: 'block',
+    color: '$gray-100',
+  },
+
+  time: {
+    display: 'block',
+    color: '$gray-400',
+  },
 
   '> div': {
     display: 'flex',
@@ -17,29 +27,17 @@ export const EvaluationUser = styled('header', {
   },
 })
 
-export const EvaluationUserInfo = styled('div', {
-  display: 'flex',
-  justifyContent: 'center',
-  flexDirection: 'column',
-
-  strong: {
-    color: '$gray-100',
-  },
-})
-
 export const RatedBook = styled('div', {
   display: 'flex',
   gap: '$5',
-})
 
-export const RatedBookImage = styled('div', {
   img: {
     borderRadius: '$md',
     objectFit: 'cover',
   },
 })
 
-export const RatedBookInfo = styled('div', {
+export const BookInfo = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'space-between',

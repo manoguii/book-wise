@@ -6,7 +6,7 @@ export const CardContainer = styled(Box, {
   display: 'flex',
   alignItems: 'center',
   gap: '$6',
-  maxWidth: 608,
+  maxWidth: 'max-content',
   border: '2px solid transparent',
 
   '&:hover': {

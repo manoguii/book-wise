@@ -5,13 +5,12 @@ import { LinkContainer } from './styles'
 
 interface NavigationProps extends LinkProps {
   children: ReactNode
-  path: string
 }
 
-export function Navigation({ children, path, ...props }: NavigationProps) {
+export function Navigation({ children, ...props }: NavigationProps) {
   const route = useRouter()
 
-  const isActive = route.pathname === path
+  const isActive = route.pathname === props.href
 
   return (
     <LinkContainer isActive={isActive} {...props}>

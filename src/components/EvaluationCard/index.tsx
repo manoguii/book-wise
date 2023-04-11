@@ -6,12 +6,10 @@ import { Rating } from '@/components/Rating'
 import {
   RatedBook,
   EvaluationCardContainer,
-  EvaluationUser,
-  RatedBookImage,
-  RatedBookInfo,
-  EvaluationUserInfo,
+  UserInfo,
+  BookInfo,
 } from './styles'
-import { IRating } from '@/@types/best-rating'
+import { IRating } from '@/pages/api/@types/ratings'
 
 interface EvaluationCardProps {
   rating: IRating
@@ -20,32 +18,30 @@ interface EvaluationCardProps {
 export function EvaluationCard({ rating }: EvaluationCardProps) {
   return (
     <EvaluationCardContainer>
-      <EvaluationUser>
+      <UserInfo>
         <div>
           <Avatar size="sm" src={rating.userAvatar!} />
 
-          <EvaluationUserInfo>
+          <div>
             <Text as="strong">{rating.userName}</Text>
             <Text as="time" size="sm">
               {formatDate(rating.createdAt)}
             </Text>
-          </EvaluationUserInfo>
+          </div>
         </div>
 
         <Rating rating={rating.rate} />
-      </EvaluationUser>
+      </UserInfo>
 
       <RatedBook>
-        <RatedBookImage>
-          <Image
-            src={rating.bookImage}
-            alt="Imagem do livro"
-            width={108}
-            height={152}
-          />
-        </RatedBookImage>
+        <Image
+          src={rating.bookImage}
+          alt="Imagem do livro"
+          width={108}
+          height={152}
+        />
 
-        <RatedBookInfo>
+        <BookInfo>
           <div>
             <Text as="strong">{rating.bookName}</Text>
             <Text as="span" size="sm">
@@ -54,7 +50,7 @@ export function EvaluationCard({ rating }: EvaluationCardProps) {
           </div>
 
           <Text size="sm">{rating.description}</Text>
-        </RatedBookInfo>
+        </BookInfo>
       </RatedBook>
     </EvaluationCardContainer>
   )

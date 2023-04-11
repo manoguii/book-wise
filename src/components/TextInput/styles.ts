@@ -12,9 +12,7 @@ export const TextInputContainer = styled('div', {
 
   button: {
     all: 'unset',
-    lineHeight: 0,
     cursor: 'pointer',
-    borderRadius: '$sm',
 
     '&:focus': {
       boxShadow: '0 0 0 1px $colors$green-200',
@@ -53,13 +51,6 @@ export const TextInputContainer = styled('div', {
   defaultVariants: {
     variant: 'md',
   },
-})
-
-export const Prefix = styled('span', {
-  fontFamily: '$default',
-  fontSize: '$sm',
-  color: '$gray-400',
-  fontWeight: '$regular',
 })
 
 export const Input = styled('input', {

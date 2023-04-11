@@ -21,10 +21,12 @@ import {
   RadixDialogPortal,
   Action,
   Comment,
-  CommentHeader,
+  UserInfo,
   CreateComment,
-  CreateCommentUserInfo,
   CreateCommentData,
+  RadixCollapsibleRoot,
+  RadixCollapsibleTrigger,
+  RadixCollapsibleContent,
 } from './styles'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
@@ -35,7 +37,7 @@ interface DialogBookProps {
 }
 
 const createCommentFormData = z.object({
-  description: z.string(),
+  description: z.string().min(3),
 })
 
 type CreateCommentFormType = z.infer<typeof createCommentFormData>
@@ -89,10 +91,10 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
                   <BookmarkSimple size={32} color="#50B2C0" />
 
                   <div>
+                    <Text size="sm">Categoria</Text>
                     <Text as="strong" size="lg">
                       {category.name}
                     </Text>
-                    <Text size="sm">Categoria</Text>
                   </div>
                 </BookInformation>
               )
@@ -102,53 +104,66 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
               <BookOpen size={32} color="#50B2C0" />
 
               <div>
+                <Text size="sm">Páginas</Text>
                 <Text as="strong" size="lg">
                   {bookInfo.pages}
                 </Text>
-                <Text size="sm">Páginas</Text>
               </div>
             </BookInformation>
           </BookAdditionalInformation>
         </Book>
 
-        <Action>
-          <Text>Avaliações</Text>
-        </Action>
-
         {session.status === 'authenticated' ? (
-          <CreateComment onSubmit={handleSubmit(handleCreateComment)}>
-            <CreateCommentUserInfo>
-              <div>
-                <Avatar size="sm" src={session.data.user?.image!} />
-                <Text as="strong">{session.data.user?.name}</Text>
-              </div>
+          <RadixCollapsibleRoot>
+            <Action>
+              <Text>Avaliações</Text>
+              <RadixCollapsibleTrigger asChild>
+                <Button variant="tertiary">Avaliar</Button>
+              </RadixCollapsibleTrigger>
+            </Action>
 
-              <Rating toAssess={true} setRating={setRating} />
-            </CreateCommentUserInfo>
+            <RadixCollapsibleContent>
+              <CreateComment onSubmit={handleSubmit(handleCreateComment)}>
+                <UserInfo>
+                  <div>
+                    <Avatar size="sm" src={session.data.user?.image!} />
+                    <Text as="strong">{session.data.user?.name}</Text>
+                  </div>
 
-            <CreateCommentData>
-              <TextArea
-                placeholder="Escreva sua avaliação"
-                {...register('description')}
-              />
+                  <Rating toAssess={true} setRating={setRating} />
+                </UserInfo>
 
-              <div>
-                <Button type="button">
-                  <X color="#8381D9" size={24} />
-                </Button>
+                <CreateCommentData>
+                  <TextArea
+                    placeholder="Escreva sua avaliação"
+                    {...register('description')}
+                  />
 
-                <Button type="submit">
-                  <Check color="#50B2C0" size={24} />
-                </Button>
-              </div>
-            </CreateCommentData>
-          </CreateComment>
-        ) : null}
+                  <div>
+                    <RadixCollapsibleTrigger asChild>
+                      <Button>
+                        <X color="#8381D9" size={24} />
+                      </Button>
+                    </RadixCollapsibleTrigger>
+
+                    <Button type="submit">
+                      <Check color="#50B2C0" size={24} />
+                    </Button>
+                  </div>
+                </CreateCommentData>
+              </CreateComment>
+            </RadixCollapsibleContent>
+          </RadixCollapsibleRoot>
+        ) : (
+          <Action>
+            <Text>Avaliações</Text>
+          </Action>
+        )}
 
         {bookInfo.ratings.map((rating) => {
           return (
             <Comment key={rating.id}>
-              <CommentHeader>
+              <UserInfo>
                 <div>
                   <Avatar size="sm" src={rating.userAvatarUrl!} />
 
@@ -159,7 +174,7 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
                 </div>
 
                 <Rating rating={rating.rate} />
-              </CommentHeader>
+              </UserInfo>
 
               <Text>{rating.description}</Text>
             </Comment>

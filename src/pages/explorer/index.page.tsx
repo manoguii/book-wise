@@ -1,12 +1,11 @@
 import * as Dialog from '@radix-ui/react-dialog'
+import 'keen-slider/keen-slider.min.css'
+import { useKeenSlider } from 'keen-slider/react'
 import { Heading } from '@/components/_ui/Heading'
-import { Sidebar } from '@/components/Sidebar'
 import { Tag } from '@/components/Tag'
 import { Binoculars } from '@phosphor-icons/react'
 import { Books, Categories, Container, Header } from './styles'
 import { DialogBook } from './components/DialogBook'
-import { useSession } from 'next-auth/react'
-import { Button } from '@/components/_ui/Button'
 import { BookCard } from '../../components/BookCard'
 import { api } from '@/lib/axios'
 import { GetServerSideProps } from 'next'
@@ -19,18 +18,16 @@ interface ExplorerProps {
   categories: Category[]
 }
 
-export default function Explorer({ books }: ExplorerProps) {
-  const session = useSession()
-
-  const user = {
-    name: session.data?.user?.name,
-    avatar_url: session.data?.user?.image,
-  }
+export default function Explorer({ books, categories }: ExplorerProps) {
+  const [sliderRef] = useKeenSlider({
+    loop: false,
+    mode: 'snap',
+    rtl: false,
+    slides: { perView: 'auto' },
+  })
 
   return (
     <Container>
-      <Sidebar isAuthenticated={session.status} user={user} />
-
       <Header>
         <div>
           <Binoculars size={24} color="#50B2C0" weight="bold" />
@@ -40,22 +37,25 @@ export default function Explorer({ books }: ExplorerProps) {
         <TextInput variant="sm" placeholder="Buscar livro ou autor" />
       </Header>
 
-      <Categories>
-        <Tag>Computação</Tag>
-        <Tag>Educação</Tag>
-        <Tag>Terror</Tag>
-        <Tag>Hqs</Tag>
+      <Categories ref={sliderRef} className="keen-slider">
+        {categories.map((category) => {
+          return (
+            <Tag
+              className="keen-slider__slide"
+              key={category.id}
+              style={{ maxWidth: 'max-content', minWidth: 'max-content' }}
+            >
+              {category.name}
+            </Tag>
+          )
+        })}
       </Categories>
 
       <Books>
         {books.map((book) => {
           return (
             <Dialog.Root key={book.id}>
-              <BookCard bookInfo={book}>
-                <Dialog.Trigger asChild>
-                  <Button variant="tertiary">ver mais</Button>
-                </Dialog.Trigger>
-              </BookCard>
+              <BookCard bookInfo={book} />
 
               <DialogBook bookInfo={book} />
             </Dialog.Root>

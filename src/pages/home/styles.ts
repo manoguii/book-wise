@@ -1,18 +1,12 @@
 import { styled } from '@/styles'
 
-export const Container = styled('div', {
-  maxWidth: 1440,
+export const Container = styled('main', {
   display: 'grid',
+  gap: '$8',
   gridTemplateColumns:
     'minmax(200px, 252px) minmax(550px, 1fr) minmax(360px, 420px)',
-  gridTemplateRows: '55px 1fr',
-  margin: '0 auto',
-  gap: '$8',
-
-  section: {
-    gridColumn: '3/4',
-    gridRow: '2/3',
-  },
+  gridTemplateRows: '48px 1fr',
+  margin: '$16 $12 0 0',
 
   '@media (max-width: 1160px)': {
     gridTemplateColumns: 'minmax(200px, 252px) 1fr',
@@ -31,7 +25,8 @@ export const Header = styled('header', {
 
   display: 'flex',
   gap: '$3',
-  marginTop: '$5',
+  width: '100%',
+  alignItems: 'center',
 
   '@media (max-width: 1160px)': {
     gridColumn: '2/4',
@@ -39,7 +34,7 @@ export const Header = styled('header', {
   },
 })
 
-export const RecentReviews = styled('div', {
+export const RecentReviews = styled('section', {
   gridColumn: '2/3',
   gridRow: '2/3',
 
@@ -58,25 +53,28 @@ export const RecentReviews = styled('div', {
 })
 
 export const BestRated = styled('section', {
+  gridColumn: '3/4',
+  gridRow: '2/3',
+
   display: 'flex',
   flexDirection: 'column',
-  marginRight: '$8',
+  // marginRight: '$8',
 
   '> header': {
     display: 'flex',
     justifyContent: 'space-between',
     alignItems: 'center',
   },
-})
 
-export const BestRatedBooks = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  gap: '$3',
-  marginTop: '$4',
+  '> div': {
+    display: 'flex',
+    flexDirection: 'column',
+    gap: '$3',
+    marginTop: '$4',
 
-  '@media (max-width: 1160px)': {
-    display: 'grid',
-    gridTemplateColumns: 'repeat(auto-fill, minmax(287px, 1fr))',
+    '@media (max-width: 1160px)': {
+      display: 'grid',
+      gridTemplateColumns: 'repeat(auto-fill, minmax(287px, 1fr))',
+    },
   },
 })

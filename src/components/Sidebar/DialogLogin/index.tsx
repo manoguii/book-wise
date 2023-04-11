@@ -4,13 +4,13 @@ import GitHub from '../../../assets/github.svg'
 import { Button } from '@/components/_ui/Button'
 import Image from 'next/image'
 import { X } from '@phosphor-icons/react'
+import { signIn } from 'next-auth/react'
 import {
   DialogClose,
   DialogContent,
   DialogOverlay,
   DialogTitle,
 } from './styles'
-import { signIn } from 'next-auth/react'
 
 export function DialogLogin() {
   async function handleSignInWithGoogle() {

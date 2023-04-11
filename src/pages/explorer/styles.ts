@@ -5,7 +5,7 @@ export const Container = styled('div', {
   gridTemplateColumns: 'minmax(200px, 252px) 1fr',
   gridTemplateRows: '48px 34px 1fr',
   gap: '$8',
-  marginRight: '$12',
+  margin: '$16 $12 0 0',
 })
 
 export const Header = styled('header', {
@@ -15,7 +15,6 @@ export const Header = styled('header', {
   width: '100%',
   justifyContent: 'space-between',
   alignItems: 'center',
-  marginTop: '$5',
 
   div: {
     display: 'flex',
