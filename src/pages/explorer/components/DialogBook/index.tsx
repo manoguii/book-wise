@@ -31,9 +31,11 @@ import {
   RadixCollapsibleTrigger,
   RadixCollapsibleContent,
 } from './styles'
+import { api } from '@/lib/axios'
 
 interface DialogBookProps {
   bookInfo: IAllBookInfo
+  onFilterByCategory: (category: string) => Promise<void>
 }
 
 const createCommentFormData = z.object({
@@ -42,16 +44,25 @@ const createCommentFormData = z.object({
 
 type CreateCommentFormType = z.infer<typeof createCommentFormData>
 
-function DialogBookComponent({ bookInfo }: DialogBookProps) {
-  const [rating, setRating] = useState(1)
+function DialogBookComponent({
+  bookInfo,
+  onFilterByCategory,
+}: DialogBookProps) {
+  const [rate, setRate] = useState(1)
 
-  const { register, handleSubmit } = useForm<CreateCommentFormType>({
+  const { register, handleSubmit, reset } = useForm<CreateCommentFormType>({
     resolver: zodResolver(createCommentFormData),
   })
 
-  function handleCreateComment(data: CreateCommentFormType) {
-    console.log(data, rating)
-    console.log(bookInfo.name)
+  async function handleCreateComment({ description }: CreateCommentFormType) {
+    await api.post(`/ratings/create/${bookInfo.id}`, {
+      description,
+      rate,
+    })
+
+    reset()
+
+    onFilterByCategory(bookInfo.categories[0].name)
   }
 
   const session = useSession()
@@ -130,7 +141,7 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
                     <Text as="strong">{session.data.user?.name}</Text>
                   </div>
 
-                  <Rating toAssess={true} setRating={setRating} />
+                  <Rating toAssess={true} setRating={setRate} />
                 </UserInfo>
 
                 <CreateCommentData>

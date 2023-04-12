@@ -3,10 +3,10 @@ import * as ToggleGroup from '@radix-ui/react-toggle-group'
 
 export const Container = styled('div', {
   display: 'grid',
-  gridTemplateColumns: 'minmax(200px, 252px) 1fr',
-  gridTemplateRows: '48px 34px 1fr',
+  gridTemplateColumns: 'minmax(180px, 200px) 1fr',
+  gridTemplateRows: '48px 34px auto',
   gap: '$8',
-  margin: '$16 $6 0 0',
+  margin: '$16 $5 0 0',
 })
 
 export const Header = styled('header', {
@@ -24,7 +24,7 @@ export const Header = styled('header', {
   },
 
   input: {
-    width: 400,
+    maxWidth: 400,
   },
 })
 

@@ -9,7 +9,9 @@ export function calculateAverageRatings(ratings: Rating[]) {
     return acc
   }, 0)
 
-  const ratingAverage = totalRate / ratingsSize
+  const average = totalRate / ratingsSize
+
+  const ratingAverage = Math.round(average)
 
   return ratingAverage
 }

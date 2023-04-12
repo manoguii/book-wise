@@ -1,5 +1,5 @@
 import { Rating } from '@/components/Rating'
-import { IBook } from '@/pages/@types/ratings'
+import { IBookInfo } from '@/pages/@types/books'
 import { Text } from '@/components/_ui/Text'
 import Image from 'next/image'
 import {
@@ -10,7 +10,7 @@ import {
 } from './styles'
 
 interface BookCardProps {
-  bookInfo: IBook
+  bookInfo: IBookInfo
 }
 
 export function BookCard({ bookInfo }: BookCardProps) {

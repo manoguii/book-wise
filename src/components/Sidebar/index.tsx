@@ -8,6 +8,7 @@ import { Avatar } from '../Avatar'
 import { DialogLogin } from './DialogLogin'
 import { signOut, useSession } from 'next-auth/react'
 import { Button } from '../_ui/Button'
+import { Text } from '../_ui/Text'
 
 export function Sidebar() {
   const session = useSession()
@@ -53,13 +54,14 @@ export function Sidebar() {
               display: 'flex',
               flexDirection: 'column',
               alignItems: 'center',
-              gap: 12,
+              gap: 6,
             }}
           >
             <Avatar size="sm" src={user?.avatar_url!} />
+            <Text>{user.name}</Text>
             <Button variant="secondary" onClick={handleSignOut}>
-              {user?.name}
-              <SignIn size={24} color="#F75A68" />
+              logout
+              <SignIn size={18} color="#F75A68" />
             </Button>
           </div>
         ) : (

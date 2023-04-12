@@ -85,7 +85,10 @@ export default function Explorer({ categories }: ExplorerProps) {
             <Dialog.Root key={book.id}>
               <BookCard bookInfo={book} />
 
-              <DialogBook bookInfo={book} />
+              <DialogBook
+                bookInfo={book}
+                onFilterByCategory={handleFilterByCategory}
+              />
             </Dialog.Root>
           )
         })}
