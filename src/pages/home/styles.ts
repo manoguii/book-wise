@@ -6,7 +6,7 @@ export const Container = styled('main', {
   gridTemplateColumns:
     'minmax(200px, 252px) minmax(550px, 1fr) minmax(360px, 420px)',
   gridTemplateRows: '48px 1fr',
-  margin: '$16 $12 0 0',
+  margin: '$16 $6 0 0',
 
   '@media (max-width: 1160px)': {
     gridTemplateColumns: 'minmax(200px, 252px) 1fr',

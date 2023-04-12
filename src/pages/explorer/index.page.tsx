@@ -2,8 +2,15 @@ import * as Dialog from '@radix-ui/react-dialog'
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import { Heading } from '@/components/_ui/Heading'
-// import { Tag } from '@/components/Tag'
 import { Binoculars } from '@phosphor-icons/react'
+import { DialogBook } from './components/DialogBook'
+import { BookCard } from '../../components/BookCard'
+import { api } from '@/lib/axios'
+import { GetServerSideProps } from 'next'
+import { Category } from '@prisma/client'
+import { TextInput } from '@/components/TextInput'
+import { IAllBookInfo } from '../@types/books'
+import { useEffect, useState } from 'react'
 import {
   Books,
   Categories,
@@ -12,25 +19,33 @@ import {
   RadixToggleGroupItem,
   RadixToggleGroupRoot,
 } from './styles'
-import { DialogBook } from './components/DialogBook'
-import { BookCard } from '../../components/BookCard'
-import { api } from '@/lib/axios'
-import { GetServerSideProps } from 'next'
-import { Category } from '@prisma/client'
-import { TextInput } from '@/components/TextInput'
-import { IBookInfo } from '../@types/books'
 
 interface ExplorerProps {
-  books: IBookInfo[]
   categories: Category[]
 }
 
-export default function Explorer({ books, categories }: ExplorerProps) {
+export default function Explorer({ categories }: ExplorerProps) {
+  const [books, setBooks] = useState<IAllBookInfo[]>([])
   const [sliderRef] = useKeenSlider({
     loop: false,
-    mode: 'snap',
+    mode: 'free-snap',
+    renderMode: 'performance',
     slides: { perView: 'auto', origin: 0 },
   })
+
+  async function handleFilterByCategory(category: string) {
+    const { data } = await api.get(
+      `/books/get-by-category?category=${category}`,
+    )
+
+    const books = data.books as IAllBookInfo[]
+
+    setBooks(books)
+  }
+
+  useEffect(() => {
+    handleFilterByCategory('Programação')
+  }, [])
 
   return (
     <Container>
@@ -51,6 +66,7 @@ export default function Explorer({ books, categories }: ExplorerProps) {
                 className="keen-slider__slide"
                 key={category.id}
                 value={category.name}
+                onClick={() => handleFilterByCategory(category.name)}
                 style={{
                   maxWidth: 'max-content',
                   minWidth: 'max-content',
@@ -82,12 +98,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
   const { data } = await api.get('/books/get-all-categories')
   const allCategories = data.categories as Category[]
 
-  const response = await api.get('/books/get-by-category?category=programação')
-  const allBooks = response.data.books as IBookInfo[]
-
   return {
     props: {
-      books: allBooks,
       categories: allCategories,
     },
   }

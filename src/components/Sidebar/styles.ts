@@ -7,6 +7,7 @@ export const Container = styled('aside', {
   margin: '$5 0px $5 $5',
   padding: '$5 $6',
   height: 'calc(100vh - 40px)',
+  maxWidth: 'max-content',
 
   background: '$gray-700',
   borderRadius: '$md',

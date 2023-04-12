@@ -6,7 +6,7 @@ export const Container = styled('div', {
   gridTemplateColumns: 'minmax(200px, 252px) 1fr',
   gridTemplateRows: '48px 34px 1fr',
   gap: '$8',
-  margin: '$16 $12 0 0',
+  margin: '$16 $6 0 0',
 })
 
 export const Header = styled('header', {

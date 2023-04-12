@@ -1,5 +1,5 @@
 import { memo, useState } from 'react'
-import { IBookInfo } from '@/pages/@types/books'
+import { IAllBookInfo } from '@/pages/@types/books'
 import { Button } from '@/components/_ui/Button'
 import { Text } from '@/components/_ui/Text'
 import { BookOpen, BookmarkSimple, Check, X } from '@phosphor-icons/react'
@@ -10,6 +10,9 @@ import { useSession } from 'next-auth/react'
 import { Avatar } from '@/components/Avatar'
 import { formatDate } from '@/utils/format-date'
 import { TextArea } from '@/components/TextArea'
+import { useForm } from 'react-hook-form'
+import { z } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
 import {
   Book,
   BookInfo,
@@ -28,12 +31,9 @@ import {
   RadixCollapsibleTrigger,
   RadixCollapsibleContent,
 } from './styles'
-import { useForm } from 'react-hook-form'
-import { z } from 'zod'
-import { zodResolver } from '@hookform/resolvers/zod'
 
 interface DialogBookProps {
-  bookInfo: IBookInfo
+  bookInfo: IAllBookInfo
 }
 
 const createCommentFormData = z.object({
@@ -77,7 +77,7 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
               </div>
 
               <div>
-                <Rating rating={bookInfo.rate} />
+                <Rating rating={bookInfo.ratingAverage} />
 
                 <Text size="sm">{bookInfo.numberOfRatings} Avaliações</Text>
               </div>
