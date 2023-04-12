@@ -9,7 +9,7 @@ import {
   UserInfo,
   BookInfo,
 } from './styles'
-import { IRating } from '@/pages/api/@types/ratings'
+import { IRating } from '@/pages/@types/ratings'
 
 interface EvaluationCardProps {
   rating: IRating

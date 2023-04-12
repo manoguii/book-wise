@@ -2,16 +2,23 @@ import * as Dialog from '@radix-ui/react-dialog'
 import 'keen-slider/keen-slider.min.css'
 import { useKeenSlider } from 'keen-slider/react'
 import { Heading } from '@/components/_ui/Heading'
-import { Tag } from '@/components/Tag'
+// import { Tag } from '@/components/Tag'
 import { Binoculars } from '@phosphor-icons/react'
-import { Books, Categories, Container, Header } from './styles'
+import {
+  Books,
+  Categories,
+  Container,
+  Header,
+  RadixToggleGroupItem,
+  RadixToggleGroupRoot,
+} from './styles'
 import { DialogBook } from './components/DialogBook'
 import { BookCard } from '../../components/BookCard'
 import { api } from '@/lib/axios'
 import { GetServerSideProps } from 'next'
 import { Category } from '@prisma/client'
 import { TextInput } from '@/components/TextInput'
-import { IBookInfo } from '../api/@types/books'
+import { IBookInfo } from '../@types/books'
 
 interface ExplorerProps {
   books: IBookInfo[]
@@ -22,8 +29,7 @@ export default function Explorer({ books, categories }: ExplorerProps) {
   const [sliderRef] = useKeenSlider({
     loop: false,
     mode: 'snap',
-    rtl: false,
-    slides: { perView: 'auto' },
+    slides: { perView: 'auto', origin: 0 },
   })
 
   return (
@@ -37,19 +43,25 @@ export default function Explorer({ books, categories }: ExplorerProps) {
         <TextInput variant="sm" placeholder="Buscar livro ou autor" />
       </Header>
 
-      <Categories ref={sliderRef} className="keen-slider">
-        {categories.map((category) => {
-          return (
-            <Tag
-              className="keen-slider__slide"
-              key={category.id}
-              style={{ maxWidth: 'max-content', minWidth: 'max-content' }}
-            >
-              {category.name}
-            </Tag>
-          )
-        })}
-      </Categories>
+      <RadixToggleGroupRoot type="single" defaultValue="Programação" asChild>
+        <Categories ref={sliderRef} className="keen-slider">
+          {categories.map((category) => {
+            return (
+              <RadixToggleGroupItem
+                className="keen-slider__slide"
+                key={category.id}
+                value={category.name}
+                style={{
+                  maxWidth: 'max-content',
+                  minWidth: 'max-content',
+                }}
+              >
+                {category.name}
+              </RadixToggleGroupItem>
+            )
+          })}
+        </Categories>
+      </RadixToggleGroupRoot>
 
       <Books>
         {books.map((book) => {
@@ -67,10 +79,11 @@ export default function Explorer({ books, categories }: ExplorerProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await api.get('/books')
-
-  const allBooks = data.books as IBookInfo[]
+  const { data } = await api.get('/books/get-all-categories')
   const allCategories = data.categories as Category[]
+
+  const response = await api.get('/books/get-by-category?category=programação')
+  const allBooks = response.data.books as IBookInfo[]
 
   return {
     props: {

@@ -1,5 +1,5 @@
 import { memo, useState } from 'react'
-import { IBookInfo } from '@/pages/api/@types/books'
+import { IBookInfo } from '@/pages/@types/books'
 import { Button } from '@/components/_ui/Button'
 import { Text } from '@/components/_ui/Text'
 import { BookOpen, BookmarkSimple, Check, X } from '@phosphor-icons/react'

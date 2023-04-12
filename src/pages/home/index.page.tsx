@@ -1,5 +1,4 @@
 import * as Dialog from '@radix-ui/react-dialog'
-import { IBook, IRating } from '@/pages/api/@types/ratings'
 import { Text } from '@/components/_ui/Text'
 import { Button } from '@/components/_ui/Button'
 import { Heading } from '@/components/_ui/Heading'
@@ -10,10 +9,12 @@ import { EvaluationCard } from '../../components/EvaluationCard'
 import { BookCard } from '../../components/BookCard'
 import { Container, Header, RecentReviews, BestRated } from './styles'
 import { useRouter } from 'next/router'
+import { IBookRating } from '../@types/ratings'
+import { IBookInfo } from '../@types/books'
 
 interface HomeProps {
-  ratings: IRating[]
-  bestRatedBooks: IBook[]
+  ratings: IBookRating[]
+  bestRatedBooks: IBookInfo[]
 }
 
 export default function Home({ ratings, bestRatedBooks }: HomeProps) {
@@ -61,10 +62,11 @@ export default function Home({ ratings, bestRatedBooks }: HomeProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async () => {
-  const { data } = await api.get('/ratings')
+  const response = await api.get('/ratings/get-all-ratings')
+  const ratings = response.data.ratings as IBookRating[]
 
-  const ratings = data.ratings as IRating[]
-  const bestRatedBooks = data.bestRatedBooks as IBook[]
+  const { data } = await api.get('/books/get-best-books')
+  const bestRatedBooks = data.bestRatedBooks as IBookInfo[]
 
   return {
     props: {

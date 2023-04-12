@@ -1,4 +1,4 @@
-export type IRating = {
+export type IBookRating = {
   id: string
   rate: number
   description: string
@@ -8,12 +8,4 @@ export type IRating = {
   bookImage: string
   bookName: string
   bookAuthor: string
-}
-
-export type IBook = {
-  id: string
-  image: string
-  name: string
-  author: string
-  rate: number
 }

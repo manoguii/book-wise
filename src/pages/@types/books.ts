@@ -1,6 +1,6 @@
 import { Category } from '@prisma/client'
 
-interface IRating {
+interface IUserRating {
   id: string
   userName: string
   userAvatarUrl: string | null
@@ -9,14 +9,22 @@ interface IRating {
   description: string
 }
 
-export interface IBookInfo {
+export interface IAllBookInfo {
   categories: Category[]
-  ratings: IRating[]
+  ratings: IUserRating[]
   id: string
   image: string
   name: string
   author: string
-  rate: number
+  ratingAverage: number
   pages: number
   numberOfRatings: number
+}
+
+export type IBookInfo = {
+  id: string
+  image: string
+  name: string
+  author: string
+  ratingAverage: number
 }

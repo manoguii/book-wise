@@ -1,25 +1,46 @@
 import { prisma } from '@/lib/prisma'
 import type { NextApiRequest, NextApiResponse } from 'next'
-import { IBookInfo } from './@types/books'
-import { Category } from '@prisma/client'
+import { IAllBookInfo } from '../../@types/books'
+import { calculateAverageRatings } from '@/utils/calculate-average-ratings'
 
-interface IBooksErrorResponse {
+interface ErrorResponse {
   message: string
 }
 
-interface IBooksResponse {
-  books: IBookInfo[]
-  categories: Category[]
+interface IGetByCategoryResponse {
+  books: IAllBookInfo[]
 }
+
 export default async function handler(
   req: NextApiRequest,
-  res: NextApiResponse<IBooksResponse | IBooksErrorResponse>,
+  res: NextApiResponse<IGetByCategoryResponse | ErrorResponse>,
 ) {
+  // http://localhost:3000/api/books/get-by-category?category=Programação
+
   if (req.method !== 'GET') {
-    return res.status(405).json({ message: 'Method Not Allowed' })
+    return res.status(405).json({ message: 'Method Not Allowed.' })
   }
 
-  const allBooks = await prisma.book.findMany({
+  const query = req.query.category
+
+  if (!query) {
+    return res.status(404).json({ message: 'Category is not defined.' })
+  }
+
+  const category = String(query)
+
+  const books = await prisma.book.findMany({
+    where: {
+      categories: {
+        some: {
+          category: {
+            name: {
+              contains: category,
+            },
+          },
+        },
+      },
+    },
     include: {
       ratings: {
         include: {
@@ -34,25 +55,17 @@ export default async function handler(
     },
   })
 
-  const booksInfo = allBooks.map((book) => {
-    const numberOfRatings = book.ratings.length
-
-    const totalRate = book.ratings.reduce((acc, rating) => {
-      acc += rating.rate
-
-      return acc
-    }, 0)
-
-    const rate = totalRate / numberOfRatings
+  const booksInfo = books.map((book) => {
+    const ratingAverage = calculateAverageRatings(book.ratings)
 
     return {
       id: book.id,
       image: book.cover_url,
       name: book.name,
       author: book.author,
-      rate,
+      ratingAverage,
       pages: book.total_pages,
-      numberOfRatings,
+      numberOfRatings: book.ratings.length,
       ratings: book.ratings.map((rating) => {
         return {
           id: rating.id,
@@ -72,7 +85,5 @@ export default async function handler(
     }
   })
 
-  const categories = await prisma.category.findMany()
-
-  res.status(200).json({ books: booksInfo, categories })
+  res.status(200).json({ books: booksInfo })
 }

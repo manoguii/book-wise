@@ -1,5 +1,5 @@
 import { Rating } from '@/components/Rating'
-import { IBook } from '@/pages/api/@types/ratings'
+import { IBook } from '@/pages/@types/ratings'
 import { Text } from '@/components/_ui/Text'
 import Image from 'next/image'
 import {
@@ -31,7 +31,7 @@ export function BookCard({ bookInfo }: BookCardProps) {
           <Text as="span">{bookInfo.author}</Text>
         </RadixDialogTrigger>
 
-        <Rating rating={bookInfo.rate} />
+        <Rating rating={bookInfo.ratingAverage} />
       </BookInfo>
     </BookCardContainer>
   )
