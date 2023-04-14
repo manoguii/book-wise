@@ -64,14 +64,14 @@ export default async function handler(
     },
   })
 
-  // const rating = {
-  //   id: createdRating.id,
-  //   userName: createdRating.user.name,
-  //   userAvatarUrl: createdRating.user.avatar_url,
-  //   rate: createdRating.rate,
-  //   createdAt: createdRating.created_at,
-  //   description: createdRating.description,
-  // }
+  const rating = {
+    id: createdRating.id,
+    userName: createdRating.user.name,
+    userAvatarUrl: createdRating.user.avatar_url,
+    rate: createdRating.rate,
+    createdAt: createdRating.created_at,
+    description: createdRating.description,
+  }
 
-  res.status(201).json({ rating: createdRating })
+  res.status(201).json({ rating })
 }

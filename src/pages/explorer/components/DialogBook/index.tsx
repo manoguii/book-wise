@@ -1,5 +1,5 @@
 import { memo, useState } from 'react'
-import { IAllBookInfo } from '@/pages/@types/books'
+import { IAllBookInfo, IUserRating } from '@/pages/@types/books'
 import { Button } from '@/components/_ui/Button'
 import { Text } from '@/components/_ui/Text'
 import { BookOpen, BookmarkSimple, Check, X } from '@phosphor-icons/react'
@@ -35,7 +35,6 @@ import { api } from '@/lib/axios'
 
 interface DialogBookProps {
   bookInfo: IAllBookInfo
-  onFilterByCategory: (category: string) => Promise<void>
 }
 
 const createCommentFormData = z.object({
@@ -44,10 +43,8 @@ const createCommentFormData = z.object({
 
 type CreateCommentFormType = z.infer<typeof createCommentFormData>
 
-function DialogBookComponent({
-  bookInfo,
-  onFilterByCategory,
-}: DialogBookProps) {
+function DialogBookComponent({ bookInfo }: DialogBookProps) {
+  const [ratings, setRatings] = useState<IUserRating[]>(bookInfo.ratings)
   const [rate, setRate] = useState(1)
 
   const { register, handleSubmit, reset } = useForm<CreateCommentFormType>({
@@ -55,14 +52,16 @@ function DialogBookComponent({
   })
 
   async function handleCreateComment({ description }: CreateCommentFormType) {
-    await api.post(`/ratings/create/${bookInfo.id}`, {
+    const { data } = await api.post(`/ratings/create/${bookInfo.id}`, {
       description,
       rate,
     })
 
+    const rating = data.rating as IUserRating
+
     reset()
 
-    onFilterByCategory(bookInfo.categories[0].name)
+    setRatings((state) => [rating, ...state])
   }
 
   const session = useSession()
@@ -171,7 +170,7 @@ function DialogBookComponent({
           </Action>
         )}
 
-        {bookInfo.ratings.map((rating) => {
+        {ratings.map((rating) => {
           return (
             <Comment key={rating.id}>
               <UserInfo>

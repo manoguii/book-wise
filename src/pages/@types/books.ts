@@ -1,6 +1,6 @@
 import { Category } from '@prisma/client'
 
-interface IUserRating {
+export interface IUserRating {
   id: string
   userName: string
   userAvatarUrl: string | null
