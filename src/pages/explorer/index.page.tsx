@@ -9,8 +9,9 @@ import { api } from '@/lib/axios'
 import { GetServerSideProps } from 'next'
 import { Category } from '@prisma/client'
 import { TextInput } from '@/components/TextInput'
-import { IAllBookInfo } from '../@types/books'
+import { IAllBookInfo, IUserRating } from '../@types/books'
 import { useEffect, useState } from 'react'
+import { calculateAverageRatings } from '@/utils/calculate-average-ratings'
 import {
   Books,
   Categories,
@@ -32,6 +33,29 @@ export default function Explorer({ categories }: ExplorerProps) {
     renderMode: 'performance',
     slides: { perView: 'auto', origin: 0 },
   })
+
+  function updatesBookWithNewComment(bookId: string, newComment: IUserRating) {
+    setBooks((state) => {
+      return state.map((book) => {
+        if (book.id === bookId) {
+          const ratingsWithNewComment = [newComment, ...book.ratings]
+
+          const ratingAverage = calculateAverageRatings(ratingsWithNewComment)
+
+          return {
+            ...book,
+            ratings: [newComment, ...book.ratings],
+            ratingAverage,
+            numberOfRatings: book.ratings.length + 1,
+          }
+        } else {
+          return {
+            ...book,
+          }
+        }
+      })
+    })
+  }
 
   async function handleFilterByCategory(category: string) {
     const { data } = await api.get(
@@ -85,7 +109,10 @@ export default function Explorer({ categories }: ExplorerProps) {
             <Dialog.Root key={book.id}>
               <BookCard bookInfo={book} />
 
-              <DialogBook bookInfo={book} />
+              <DialogBook
+                bookInfo={book}
+                updatesBookWithNewComment={updatesBookWithNewComment}
+              />
             </Dialog.Root>
           )
         })}

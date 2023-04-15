@@ -1,6 +1,7 @@
-import { Rating } from '@prisma/client'
+// import { IUserRating } from '@/pages/@types/books'
+// import { Rating } from '@prisma/client'
 
-export function calculateAverageRatings(ratings: Rating[]) {
+export function calculateAverageRatings(ratings: Array<{ rate: number }>) {
   const ratingsSize = ratings.length
 
   const totalRate = ratings.reduce((acc, rating) => {

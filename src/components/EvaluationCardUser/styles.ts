@@ -5,7 +5,26 @@ export const EvaluationCardContainer = styled(Box, {
   display: 'flex',
   flexDirection: 'column',
   gap: '$8',
-  marginTop: 8,
+})
+
+export const UserInfo = styled('header', {
+  display: 'flex',
+  justifyContent: 'space-between',
+
+  strong: {
+    display: 'block',
+    color: '$gray-100',
+  },
+
+  time: {
+    display: 'block',
+    color: '$gray-400',
+  },
+
+  '> div': {
+    display: 'flex',
+    gap: '$4',
+  },
 })
 
 export const RatedBook = styled('div', {
@@ -23,7 +42,7 @@ export const BookInfo = styled('div', {
   flexDirection: 'column',
   justifyContent: 'space-between',
 
-  '> div': {
+  div: {
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

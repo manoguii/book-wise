@@ -1,57 +1,44 @@
 import { Text } from '@/components/_ui/Text'
-import { Avatar } from '@/components/Avatar'
 import { formatDate } from '@/utils/format-date'
 import Image from 'next/image'
 import { Rating } from '@/components/Rating'
-import {
-  RatedBook,
-  EvaluationCardContainer,
-  UserInfo,
-  BookInfo,
-} from './styles'
-import { IRating } from '@/pages/@types/ratings'
+import { RatedBook, EvaluationCardContainer, BookInfo } from './styles'
+import { IBookRating } from '@/pages/@types/ratings'
 
 interface EvaluationCardProps {
-  rating: IRating
+  rating: IBookRating
 }
 
 export function EvaluationCard({ rating }: EvaluationCardProps) {
   return (
-    <EvaluationCardContainer>
-      <UserInfo>
-        <div>
-          <Avatar size="sm" src={rating.userAvatar!} />
+    <div>
+      <Text>{formatDate(rating.createdAt)}</Text>
 
-          <div>
-            <Text as="strong">{rating.userName}</Text>
-            <Text as="time" size="sm">
-              {formatDate(rating.createdAt)}
-            </Text>
-          </div>
-        </div>
+      <EvaluationCardContainer>
+        <RatedBook>
+          <Image
+            src={rating.bookImage}
+            alt="Imagem do livro"
+            width={108}
+            height={152}
+          />
 
-        <Rating rating={rating.rate} />
-      </UserInfo>
+          <BookInfo>
+            <div>
+              <Text size="xl" as="strong">
+                {rating.bookName}
+              </Text>
+              <Text as="span" size="sm">
+                {rating.bookAuthor}
+              </Text>
+            </div>
 
-      <RatedBook>
-        <Image
-          src={rating.bookImage}
-          alt="Imagem do livro"
-          width={108}
-          height={152}
-        />
+            <Rating rating={rating.rate} />
+          </BookInfo>
+        </RatedBook>
 
-        <BookInfo>
-          <div>
-            <Text as="strong">{rating.bookName}</Text>
-            <Text as="span" size="sm">
-              {rating.bookAuthor}
-            </Text>
-          </div>
-
-          <Text size="sm">{rating.description}</Text>
-        </BookInfo>
-      </RatedBook>
-    </EvaluationCardContainer>
+        <Text>{rating.description}</Text>
+      </EvaluationCardContainer>
+    </div>
   )
 }

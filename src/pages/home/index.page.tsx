@@ -5,7 +5,7 @@ import { Heading } from '@/components/_ui/Heading'
 import { CaretRight, ChartLineUp } from '@phosphor-icons/react'
 import { GetServerSideProps } from 'next'
 import { api } from '@/lib/axios'
-import { EvaluationCard } from '../../components/EvaluationCard'
+import { EvaluationCardUser } from '../../components/EvaluationCardUser'
 import { BookCard } from '../../components/BookCard'
 import { Container, Header, RecentReviews, BestRated } from './styles'
 import { useRouter } from 'next/router'
@@ -35,7 +35,7 @@ export default function Home({ ratings, bestRatedBooks }: HomeProps) {
         <Text>Avaliações mais recentes</Text>
 
         {ratings.map((rating) => {
-          return <EvaluationCard key={rating.id} rating={rating} />
+          return <EvaluationCardUser key={rating.id} rating={rating} />
         })}
       </RecentReviews>
 

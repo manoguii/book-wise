@@ -26,7 +26,7 @@ export default async function handler(
   const session = await getServerSession(req, res, authOptions)
 
   if (!session) {
-    res.status(401).json({ message: 'Faça login para continuar' })
+    res.status(401).json({ message: 'Log in to continue !' })
 
     return {
       redirect: {
@@ -42,6 +42,23 @@ export default async function handler(
 
   if (!bookId || typeof bookId !== 'string') {
     return res.status(404).json({ message: 'Book id is not defined!' })
+  }
+
+  const user = await prisma.user.findUnique({
+    where: {
+      email: session.user?.email!,
+    },
+  })
+
+  const userHasAlreadyRated = await prisma.rating.findMany({
+    where: {
+      book_id: bookId,
+      user_id: user?.id,
+    },
+  })
+
+  if (userHasAlreadyRated.length > 0) {
+    return res.status(404).json({ message: 'User has already rated !' })
   }
 
   const createdRating = await prisma.rating.create({

@@ -1,13 +1,18 @@
 import { Metric, UserMetricsContainer } from './styles'
 import { Text } from '@/components/_ui/Text'
+import { IMetrics } from '@/pages/@types/user'
 import {
-  BookmarkSimple,
+  // BookmarkSimple,
   BookOpen,
   Books,
   UserList,
 } from '@phosphor-icons/react'
 
-export function UserMetrics() {
+interface UserMetricsProps {
+  metrics: IMetrics
+}
+
+export function UserMetrics({ metrics }: UserMetricsProps) {
   return (
     <UserMetricsContainer>
       <Metric>
@@ -15,7 +20,7 @@ export function UserMetrics() {
 
         <div>
           <Text as="strong" size="lg">
-            3852
+            {metrics.pagesRead}
           </Text>
           <Text size="sm">Páginas lidas</Text>
         </div>
@@ -26,7 +31,7 @@ export function UserMetrics() {
 
         <div>
           <Text as="strong" size="lg">
-            10
+            {metrics.ratedBooks}
           </Text>
           <Text size="sm">Livros avaliados</Text>
         </div>
@@ -37,13 +42,13 @@ export function UserMetrics() {
 
         <div>
           <Text as="strong" size="lg">
-            8
+            {metrics.authorsRead}
           </Text>
           <Text size="sm">Autores lidos</Text>
         </div>
       </Metric>
 
-      <Metric>
+      {/* <Metric>
         <BookmarkSimple size={32} color="#50B2C0" />
 
         <div>
@@ -52,7 +57,7 @@ export function UserMetrics() {
           </Text>
           <Text size="sm">Categoria mais lida</Text>
         </div>
-      </Metric>
+      </Metric> */}
     </UserMetricsContainer>
   )
 }

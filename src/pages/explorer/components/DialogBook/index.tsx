@@ -13,6 +13,7 @@ import { TextArea } from '@/components/TextArea'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
+import { api } from '@/lib/axios'
 import {
   Book,
   BookInfo,
@@ -31,10 +32,10 @@ import {
   RadixCollapsibleTrigger,
   RadixCollapsibleContent,
 } from './styles'
-import { api } from '@/lib/axios'
 
 interface DialogBookProps {
   bookInfo: IAllBookInfo
+  updatesBookWithNewComment: (bookId: string, newComment: IUserRating) => void
 }
 
 const createCommentFormData = z.object({
@@ -43,8 +44,10 @@ const createCommentFormData = z.object({
 
 type CreateCommentFormType = z.infer<typeof createCommentFormData>
 
-function DialogBookComponent({ bookInfo }: DialogBookProps) {
-  const [ratings, setRatings] = useState<IUserRating[]>(bookInfo.ratings)
+function DialogBookComponent({
+  bookInfo,
+  updatesBookWithNewComment,
+}: DialogBookProps) {
   const [rate, setRate] = useState(1)
 
   const { register, handleSubmit, reset } = useForm<CreateCommentFormType>({
@@ -61,7 +64,7 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
 
     reset()
 
-    setRatings((state) => [rating, ...state])
+    updatesBookWithNewComment(bookInfo.id, rating)
   }
 
   const session = useSession()
@@ -170,7 +173,7 @@ function DialogBookComponent({ bookInfo }: DialogBookProps) {
           </Action>
         )}
 
-        {ratings.map((rating) => {
+        {bookInfo.ratings.map((rating) => {
           return (
             <Comment key={rating.id}>
               <UserInfo>
