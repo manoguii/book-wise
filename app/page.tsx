@@ -1,10 +1,7 @@
-import { Button } from '@/components/ui/button'
-
 export default function Home() {
   return (
     <div>
-      <h1 className="relative flex text-start">Hello book wise</h1>
-      <Button>Click me</Button>
+      <h1 className="relative flex text-start">Book Wise</h1>
     </div>
   )
 }
