@@ -4,9 +4,9 @@ import React from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 
 import { Button } from '../ui/button'
-import { signInWithEmail } from '@/app/actions'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
+import { signInWithEmail } from '@/db/actions/sign-in-with-email'
 
 function SubmitButton() {
   const { pending } = useFormStatus()

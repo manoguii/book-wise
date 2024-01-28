@@ -5,7 +5,7 @@ import { useFormState, useFormStatus } from 'react-dom'
 
 import { Button } from '../ui/button'
 import { Icons } from '../icons'
-import { signInWithProvider } from '@/app/actions'
+import { signInWithProvider } from '@/db/actions/sign-in-with-provider'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
