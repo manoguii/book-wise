@@ -63,4 +63,33 @@ export const Icons = {
       <path d="M21 12a9 9 0 1 1-6.219-8.56" />
     </svg>
   ),
+  binoculars: (props: IconProps) => (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="33"
+      height="32"
+      fill="none"
+      viewBox="0 0 33 32"
+      {...props}
+    >
+      <path
+        fill="#50B2C0"
+        fillRule="evenodd"
+        d="M12.5 11.5a1 1 0 011-1h6a1 1 0 110 2h-6a1 1 0 01-1-1z"
+        clipRule="evenodd"
+      ></path>
+      <path
+        fill="#50B2C0"
+        fillRule="evenodd"
+        d="M18.797 6.164a4.012 4.012 0 015.644 0 1 1 0 01.212.308l5.462 12.413a1 1 0 01-1.83.805L22.907 7.47a2.012 2.012 0 00-2.407-.126V21a1 1 0 11-2 0V6.875a1 1 0 01.297-.711zM8.56 6.164a4.012 4.012 0 015.643 0 1 1 0 01.297.71V21a1 1 0 11-2 0V7.344a2.012 2.012 0 00-2.407.126L4.715 19.69a1 1 0 01-1.83-.805L8.347 6.472a1 1 0 01.212-.308z"
+        clipRule="evenodd"
+      ></path>
+      <path
+        fill="#50B2C0"
+        fillRule="evenodd"
+        d="M8.5 17a4 4 0 100 8 4 4 0 000-8zm-6 4a6 6 0 1112 0 6 6 0 01-12 0zM24.5 17a4 4 0 100 8 4 4 0 000-8zm-6 4a6 6 0 1112 0 6 6 0 01-12 0z"
+        clipRule="evenodd"
+      ></path>
+    </svg>
+  ),
 }

@@ -39,7 +39,7 @@ function SubmitButton({ isCollapsed }: { isCollapsed: boolean }) {
           aria-label="Sair"
           className="w-full"
         >
-          <LogOut className="mr-2 h-4 w-4" />
+          <LogOut className="mr-2 h-5 w-5" />
           Sair
         </Button>
       )}

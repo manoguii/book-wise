@@ -1,3 +1,4 @@
+import '@smastrom/react-rating/style.css'
 import { Sidebar } from '@/components/sidebar'
 import {
   ResizableHandle,
@@ -13,18 +14,17 @@ export default function AppLayout({
 }>) {
   return (
     <TooltipProvider delayDuration={0}>
-      <div className="m-5">
-        <ResizablePanelGroup
-          direction="horizontal"
-          className="h-full items-stretch"
+      <ResizablePanelGroup direction="horizontal" className="mt-4 px-4">
+        <Sidebar />
+        <ResizableHandle withHandle className="my-2 max-h-[calc(100vh-40px)]" />
+        <ResizablePanel
+          defaultSize={80}
+          minSize={30}
+          className="mx-4 !min-h-screen"
         >
-          <Sidebar />
-          <ResizableHandle withHandle className="max-h-[calc(100vh-40px)]" />
-          <ResizablePanel defaultSize={80} minSize={30} className="ml-10">
-            {children}
-          </ResizablePanel>
-        </ResizablePanelGroup>
-      </div>
+          {children}
+        </ResizablePanel>
+      </ResizablePanelGroup>
     </TooltipProvider>
   )
 }

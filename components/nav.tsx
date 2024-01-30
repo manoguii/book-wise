@@ -11,6 +11,7 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { usePathname } from 'next/navigation'
+import { SignOut } from './form/sign-out'
 
 interface NavProps {
   isCollapsed: boolean
@@ -27,7 +28,7 @@ export function Nav({ links, isCollapsed }: NavProps) {
   return (
     <div
       data-collapsed={isCollapsed}
-      className="group flex flex-col gap-4 py-2 data-[collapsed=true]:py-2"
+      className="group flex h-full flex-col justify-between gap-4 py-2 data-[collapsed=true]:py-2"
     >
       <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
         {links.map((link, index) => {
@@ -40,12 +41,11 @@ export function Nav({ links, isCollapsed }: NavProps) {
                   href={link.path}
                   className={cn(
                     buttonVariants({ variant, size: 'icon' }),
-                    'h-9 w-9',
                     variant === 'default' &&
                       'dark:bg-muted dark:text-muted-foreground dark:hover:bg-muted dark:hover:text-white',
                   )}
                 >
-                  <link.icon className="h-4 w-4" />
+                  <link.icon className="h-5 w-5" />
                   <span className="sr-only">{link.title}</span>
                 </Link>
               </TooltipTrigger>
@@ -58,18 +58,22 @@ export function Nav({ links, isCollapsed }: NavProps) {
               key={index}
               href={link.path}
               className={cn(
-                buttonVariants({ variant, size: 'sm' }),
+                buttonVariants({ variant, size: 'default' }),
                 variant === 'default' &&
                   'dark:bg-muted dark:text-white dark:hover:bg-muted dark:hover:text-white',
                 'justify-start',
               )}
             >
-              <link.icon className="mr-2 h-4 w-4" />
+              <link.icon className="mr-2 h-5 w-5" />
               {link.title}
             </Link>
           )
         })}
       </nav>
+
+      <div className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+        <SignOut isCollapsed={isCollapsed} />
+      </div>
     </div>
   )
 }

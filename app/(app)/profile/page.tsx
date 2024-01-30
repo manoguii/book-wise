@@ -1,30 +1,12 @@
-import { auth } from '@/auth'
+import { User2 } from 'lucide-react'
 
 export default async function ProfilePage() {
-  const session = await auth()
-
   return (
-    <div>
-      <h1>Profile</h1>
-      <p>This is the user profile page.</p>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
-      <pre>
-        <code>{JSON.stringify(session, null, 2)}</code>
-      </pre>
-    </div>
+    <main className="m-2 space-y-10">
+      <h1 className="text-2xl font-bold">
+        <User2 className="mr-2 inline-block h-7 w-7 text-cyan-500" />
+        Perfil
+      </h1>
+    </main>
   )
 }
