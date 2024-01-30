@@ -7,7 +7,6 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
-import book from '@/public/books/Book.png'
 import Link from 'next/link'
 
 export function BookCard() {
@@ -15,7 +14,13 @@ export function BookCard() {
     <Link href={`/books/${1}`} className="flex">
       <Card className="flex">
         <div className="py-6 pl-6">
-          <Image src={book} alt="book" className="max-w-20 object-cover" />
+          <Image
+            src="/images/books/Book.png"
+            alt="book"
+            width={80}
+            height={120}
+            className="max-w-20 object-cover"
+          />
         </div>
 
         <div className="grid">
