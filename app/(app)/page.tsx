@@ -4,9 +4,14 @@ import {
   RatingCardContent,
   RatingCardHeader,
 } from '@/components/rating-card'
+import { fetchRecentReviews } from '@/db/query/fetch-recent-reviews'
+import { fetchRecommendedBooks } from '@/db/query/fetch-recommended-books'
 import { LineChart } from 'lucide-react'
 
-export default function Home() {
+export default async function Home() {
+  const recentReviews = await fetchRecentReviews()
+  const recommendedBooks = await fetchRecommendedBooks()
+
   return (
     <main className="m-2 space-y-10">
       <h1 className="text-2xl font-bold">
@@ -16,31 +21,37 @@ export default function Home() {
 
       <div className="flex gap-5">
         <div className="basis-4/6 space-y-4">
-          <RatingCard>
-            <RatingCardHeader
-              user={{
-                name: 'John Doe',
-                ratedIn: 'ha 3 dias',
-                rating: 5,
-                image: 'https://avatars.githubusercontent.com/u/60052506?v=4',
-              }}
-            />
+          {recentReviews.map(({ book, rating, user }) => {
+            if (!book || !user) throw new Error('Book or user not found')
 
-            <RatingCardContent
-              book={{
-                title: 'Book TitleBook TitleBook TitleBook Title',
-                author: 'John Doe',
-                image: 'https://avatars.githubusercontent.com/u/60052506?v=4',
-                description:
-                  'Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui sint corrupti Lorem ipsum dolor sit amet consectetur adipisicing elit. Ipsum adipisci, ullam impedit consequatur tenetur recusandae architecto aliquid voluptas! Expedita facilis tenetur corporis numquam deserunt quos incidunt libero consectetur temporibus nostrum?',
-              }}
-            />
-          </RatingCard>
+            return (
+              <RatingCard key={rating.id}>
+                <RatingCardHeader
+                  user={{
+                    id: user.id,
+                    name: user.name || '',
+                    image: user.image || '',
+                    rating: rating.rate,
+                    ratedIn: rating.createdAt || new Date(),
+                  }}
+                />
+
+                <RatingCardContent
+                  book={{
+                    title: book.name,
+                    author: book.author,
+                    description: rating.description,
+                    image: book.coverUrl,
+                  }}
+                />
+              </RatingCard>
+            )
+          })}
         </div>
 
         <div className="basis-2/6 space-y-4">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <BookCard key={i * 4} />
+          {recommendedBooks.map((book) => (
+            <BookCard key={book.id} book={book} />
           ))}
         </div>
       </div>

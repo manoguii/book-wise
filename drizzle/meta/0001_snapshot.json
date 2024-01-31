@@ -1,6 +1,6 @@
 {
-  "id": "63816658-71e7-4376-998f-c6c087284fdb",
-  "prevId": "00000000-0000-0000-0000-000000000000",
+  "id": "8002edcb-bf14-4a54-9f93-5c0bb5e3b14d",
+  "prevId": "63816658-71e7-4376-998f-c6c087284fdb",
   "version": "5",
   "dialect": "pg",
   "tables": {
@@ -241,15 +241,7 @@
           "onUpdate": "no action"
         }
       },
-      "compositePrimaryKeys": {
-        "categoryOnBook_bookId_categoryId_pk": {
-          "name": "categoryOnBook_bookId_categoryId_pk",
-          "columns": [
-            "bookId",
-            "categoryId"
-          ]
-        }
-      },
+      "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
     "rating": {

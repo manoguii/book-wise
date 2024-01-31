@@ -4,21 +4,21 @@ import { categories as categoriesData } from './constants/categories'
 import { ratings as ratingsData } from './constants/ratings'
 import { users as usersData } from './constants/users'
 
-import { rating, users, categoriesOnBooks, category, book } from '@/db/schema'
+import { rating, user, categoryOnBook, category, book } from '@/db/schema'
 import chalk from 'chalk'
 
-type NewUser = typeof users.$inferInsert
+type NewUser = typeof user.$inferInsert
 type NewRating = typeof rating.$inferInsert
-type NewCategoryOnBook = typeof categoriesOnBooks.$inferInsert
+type NewCategoryOnBook = typeof categoryOnBook.$inferInsert
 type NewCategory = typeof category.$inferInsert
 type NewBook = typeof book.$inferInsert
 
 async function insertUser(newUser: NewUser) {
-  return db.insert(users).values(newUser)
+  return db.insert(user).values(newUser)
 }
 
 async function insertCategoryOnBook(newCategoryOnBook: NewCategoryOnBook) {
-  return db.insert(categoriesOnBooks).values(newCategoryOnBook)
+  return db.insert(categoryOnBook).values(newCategoryOnBook)
 }
 
 async function insertCategory(newCategory: NewCategory) {
@@ -34,9 +34,9 @@ async function insertRating(newRating: NewRating) {
 }
 
 async function main() {
-  await db.delete(users)
   await db.delete(rating)
-  await db.delete(categoriesOnBooks)
+  await db.delete(user)
+  await db.delete(categoryOnBook)
   await db.delete(category)
   await db.delete(book)
 

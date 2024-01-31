@@ -8,15 +8,16 @@ import {
   CardTitle,
 } from './ui/card'
 import Link from 'next/link'
+import { Book } from '@/types/definitions'
 
-export function BookCard() {
+export function BookCard({ book }: { book: Book & { rate: string } }) {
   return (
-    <Link href={`/books/${1}`} className="flex">
+    <Link href={`/books/${book.id}`} className="block">
       <Card className="flex">
         <div className="py-6 pl-6">
           <Image
-            src="/images/books/Book.png"
-            alt="book"
+            src={book.coverUrl.replace('public', '').replace('.jpg', '.png')}
+            alt={book.name}
             width={80}
             height={120}
             className="max-w-20 object-cover"
@@ -25,20 +26,17 @@ export function BookCard() {
 
         <div className="grid">
           <CardHeader>
-            <CardTitle className="line-clamp-1 text-lg">
-              Book TitleBook TitleBook TitleBook Title
-            </CardTitle>
+            <CardTitle className="line-clamp-1 text-lg">{book.name}</CardTitle>
             <CardDescription className="line-clamp-2 text-sm">
-              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Qui sint
-              corrupti Lorem ipsum dolor sit amet consectetur adipisicing elit.
-              Ipsum adipisci, ullam impedit consequatur tenetur recusandae
-              architecto aliquid voluptas! Expedita facilis tenetur corporis
-              numquam deserunt quos incidunt libero consectetur temporibus
-              nostrum?
+              {book.author}
             </CardDescription>
           </CardHeader>
           <CardContent className="mt-auto">
-            <Rating value={5} readOnly style={{ maxWidth: 80 }} />
+            <Rating
+              readOnly
+              value={Number(book.rate)}
+              style={{ maxWidth: 80 }}
+            />
           </CardContent>
         </div>
       </Card>

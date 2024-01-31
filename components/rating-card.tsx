@@ -21,10 +21,12 @@ const RatingCardHeader = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement> & {
     user: {
+      id: string
       name: string
       image: string
+
       rating: number
-      ratedIn: string
+      ratedIn: Date
     }
   }
 >(({ user, className, ...props }, ref) => (
@@ -35,11 +37,17 @@ const RatingCardHeader = React.forwardRef<
         <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
       </Avatar>
 
-      <div className="ml-4">
+      <div className="ml-4 space-y-1">
         <h3 className="text-lg font-semibold leading-none tracking-tight">
           {user.name}
         </h3>
-        <p className="text-sm text-muted-foreground">{user.ratedIn}</p>
+        <p className="text-sm text-muted-foreground">
+          {user.ratedIn.toLocaleDateString('pt-BR', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+          })}
+        </p>
       </div>
     </div>
 
@@ -80,7 +88,7 @@ const RatingCardContent = React.forwardRef<
 >(({ book, className, ...props }, ref) => (
   <div ref={ref} className={cn('flex pt-6', className)} {...props}>
     <Image
-      src={book.image}
+      src={book.image.replace('public', '').replace('.jpg', '.png')}
       alt={book.title}
       width={112}
       height={160}

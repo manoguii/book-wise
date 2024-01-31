@@ -13,35 +13,35 @@ CREATE TABLE IF NOT EXISTS "account" (
 	CONSTRAINT "account_provider_providerAccountId_pk" PRIMARY KEY("provider","providerAccountId")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "books" (
+CREATE TABLE IF NOT EXISTS "book" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
 	"author" text NOT NULL,
 	"summary" text NOT NULL,
-	"cover_url" text NOT NULL,
-	"total_pages" integer NOT NULL,
-	"created_at" timestamp with time zone DEFAULT now()
+	"coverUrl" text NOT NULL,
+	"totalPages" integer NOT NULL,
+	"createdAt" timestamp with time zone DEFAULT now()
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "categories_on_books" (
-	"book_id" uuid,
-	"category_id" uuid,
-	CONSTRAINT "categories_on_books_book_id_category_id_pk" PRIMARY KEY("book_id","category_id")
-);
---> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "categories" (
+CREATE TABLE IF NOT EXISTS "category" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"name" text NOT NULL,
-	CONSTRAINT "categories_name_unique" UNIQUE("name")
+	CONSTRAINT "category_name_unique" UNIQUE("name")
 );
 --> statement-breakpoint
-CREATE TABLE IF NOT EXISTS "ratings" (
+CREATE TABLE IF NOT EXISTS "categoryOnBook" (
+	"bookId" uuid,
+	"categoryId" uuid,
+	CONSTRAINT "categoryOnBook_bookId_categoryId_pk" PRIMARY KEY("bookId","categoryId")
+);
+--> statement-breakpoint
+CREATE TABLE IF NOT EXISTS "rating" (
 	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"rate" integer NOT NULL,
 	"description" text NOT NULL,
-	"created_at" timestamp DEFAULT now(),
-	"book_id" uuid NOT NULL,
-	"user_id" uuid NOT NULL
+	"createdAt" timestamp DEFAULT now(),
+	"bookId" uuid NOT NULL,
+	"userId" uuid NOT NULL
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "session" (
@@ -65,7 +65,7 @@ CREATE TABLE IF NOT EXISTS "verificationToken" (
 	CONSTRAINT "verificationToken_identifier_token_pk" PRIMARY KEY("identifier","token")
 );
 --> statement-breakpoint
-CREATE INDEX IF NOT EXISTS "book_name_idx" ON "books" ("name");--> statement-breakpoint
+CREATE INDEX IF NOT EXISTS "book_name_idx" ON "book" ("name");--> statement-breakpoint
 DO $$ BEGIN
  ALTER TABLE "account" ADD CONSTRAINT "account_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
@@ -73,25 +73,25 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "categories_on_books" ADD CONSTRAINT "categories_on_books_book_id_books_id_fk" FOREIGN KEY ("book_id") REFERENCES "books"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "categoryOnBook" ADD CONSTRAINT "categoryOnBook_bookId_book_id_fk" FOREIGN KEY ("bookId") REFERENCES "book"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "categories_on_books" ADD CONSTRAINT "categories_on_books_category_id_categories_id_fk" FOREIGN KEY ("category_id") REFERENCES "categories"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "categoryOnBook" ADD CONSTRAINT "categoryOnBook_categoryId_category_id_fk" FOREIGN KEY ("categoryId") REFERENCES "category"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "ratings" ADD CONSTRAINT "ratings_book_id_books_id_fk" FOREIGN KEY ("book_id") REFERENCES "books"("id") ON DELETE cascade ON UPDATE no action;
+ ALTER TABLE "rating" ADD CONSTRAINT "rating_bookId_book_id_fk" FOREIGN KEY ("bookId") REFERENCES "book"("id") ON DELETE cascade ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "ratings" ADD CONSTRAINT "ratings_user_id_user_id_fk" FOREIGN KEY ("user_id") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "rating" ADD CONSTRAINT "rating_userId_user_id_fk" FOREIGN KEY ("userId") REFERENCES "user"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;

@@ -8,8 +8,9 @@ import {
   index,
 } from 'drizzle-orm/pg-core'
 import type { AdapterAccount } from '@auth/core/adapters'
+import { relations } from 'drizzle-orm'
 
-export const users = pgTable('user', {
+export const user = pgTable('user', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: text('name'),
   email: text('email').notNull(),
@@ -17,12 +18,12 @@ export const users = pgTable('user', {
   image: text('image'),
 })
 
-export const accounts = pgTable(
+export const account = pgTable(
   'account',
   {
     userId: uuid('userId')
       .notNull()
-      .references(() => users.id, { onDelete: 'cascade' }),
+      .references(() => user.id, { onDelete: 'cascade' }),
     type: text('type').$type<AdapterAccount['type']>().notNull(),
     provider: text('provider').notNull(),
     providerAccountId: text('providerAccountId').notNull(),
@@ -41,15 +42,15 @@ export const accounts = pgTable(
   }),
 )
 
-export const sessions = pgTable('session', {
+export const session = pgTable('session', {
   sessionToken: text('sessionToken').notNull().primaryKey(),
   userId: uuid('userId')
     .notNull()
-    .references(() => users.id, { onDelete: 'cascade' }),
+    .references(() => user.id, { onDelete: 'cascade' }),
   expires: timestamp('expires', { mode: 'date' }).notNull(),
 })
 
-export const verificationTokens = pgTable(
+export const verificationToken = pgTable(
   'verificationToken',
   {
     identifier: text('identifier').notNull(),
@@ -62,47 +63,77 @@ export const verificationTokens = pgTable(
 )
 
 export const book = pgTable(
-  'books',
+  'book',
   {
     id: uuid('id').primaryKey().defaultRandom(),
     name: text('name').notNull(),
     author: text('author').notNull(),
     summary: text('summary').notNull(),
-    coverUrl: text('cover_url').notNull(),
-    totalPages: integer('total_pages').notNull(),
-    createdAt: timestamp('created_at', { withTimezone: true }).defaultNow(),
+    coverUrl: text('coverUrl').notNull(),
+    totalPages: integer('totalPages').notNull(),
+    createdAt: timestamp('createdAt', { withTimezone: true }).defaultNow(),
   },
   (table) => ({
     nameIdx: index('book_name_idx').on(table.name),
   }),
 )
 
-export const category = pgTable('categories', {
+export const category = pgTable('category', {
   id: uuid('id').primaryKey().defaultRandom(),
   name: text('name').notNull().unique(),
 })
 
-export const rating = pgTable('ratings', {
+export const rating = pgTable('rating', {
   id: uuid('id').primaryKey().defaultRandom(),
   rate: integer('rate').notNull(),
   description: text('description').notNull(),
-  createdAt: timestamp('created_at').defaultNow(),
+  createdAt: timestamp('createdAt').defaultNow(),
 
-  bookId: uuid('book_id')
+  bookId: uuid('bookId')
     .notNull()
     .references(() => book.id, { onDelete: 'cascade' }),
-  userId: uuid('user_id')
+  userId: uuid('userId')
     .notNull()
-    .references(() => users.id),
+    .references(() => user.id),
 })
 
-export const categoriesOnBooks = pgTable(
-  'categories_on_books',
-  {
-    bookId: uuid('book_id').references(() => book.id),
-    categoryId: uuid('category_id').references(() => category.id),
-  },
-  (table) => ({
-    pk: primaryKey({ columns: [table.bookId, table.categoryId] }),
+export const categoryOnBook = pgTable('categoryOnBook', {
+  bookId: uuid('bookId').references(() => book.id),
+  categoryId: uuid('categoryId').references(() => category.id),
+})
+
+export const userRelations = relations(user, ({ many }) => ({
+  accounts: many(account),
+  sessions: many(session),
+  ratings: many(rating),
+}))
+
+export const accountRelations = relations(account, ({ one }) => ({
+  user: one(user, { fields: [account.userId], references: [user.id] }),
+}))
+
+export const sessionRelations = relations(session, ({ one }) => ({
+  user: one(user, { fields: [session.userId], references: [user.id] }),
+}))
+
+export const ratingRelations = relations(rating, ({ one }) => ({
+  book: one(book, { fields: [rating.bookId], references: [book.id] }),
+  user: one(user, { fields: [rating.userId], references: [user.id] }),
+}))
+
+export const bookRelations = relations(book, ({ many }) => ({
+  ratings: many(rating),
+  categories: many(categoryOnBook),
+}))
+
+export const categoryRelations = relations(category, ({ many }) => ({
+  books: many(categoryOnBook),
+}))
+
+export const categoryOnBookRelations = relations(categoryOnBook, ({ one }) => ({
+  book: one(book, { fields: [categoryOnBook.bookId], references: [book.id] }),
+  category: one(category, {
+    fields: [categoryOnBook.categoryId],
+    references: [category.id],
   }),
-)
+}))

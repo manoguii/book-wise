@@ -1,0 +1,1 @@
+ALTER TABLE "categoryOnBook" DROP CONSTRAINT "categoryOnBook_bookId_categoryId_pk";
