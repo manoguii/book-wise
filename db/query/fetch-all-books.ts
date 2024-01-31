@@ -19,7 +19,6 @@ export const fetchAllBooks = cache(
       .from(book)
       .leftJoin(rating, eq(rating.bookId, book.id))
       .groupBy(book.id)
-      .having(sql`COUNT(ratings.id) > 0`)
 
     return query
   },

@@ -11,7 +11,6 @@ import {
   TooltipTrigger,
 } from '@/components/ui/tooltip'
 import { usePathname } from 'next/navigation'
-import { SignOut } from './form/sign-out'
 
 interface NavProps {
   isCollapsed: boolean
@@ -26,11 +25,8 @@ export function Nav({ links, isCollapsed }: NavProps) {
   const pathname = usePathname()
 
   return (
-    <div
-      data-collapsed={isCollapsed}
-      className="group flex h-full flex-col justify-between gap-4 py-2 data-[collapsed=true]:py-2"
-    >
-      <nav className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
+    <div data-collapsed={isCollapsed} className="group h-full w-full">
+      <nav className="grid gap-2 group-[[data-collapsed=true]]:justify-center">
         {links.map((link, index) => {
           const variant = link.path === pathname ? 'default' : 'ghost'
 
@@ -70,10 +66,6 @@ export function Nav({ links, isCollapsed }: NavProps) {
           )
         })}
       </nav>
-
-      <div className="grid gap-1 px-2 group-[[data-collapsed=true]]:justify-center group-[[data-collapsed=true]]:px-2">
-        <SignOut isCollapsed={isCollapsed} />
-      </div>
     </div>
   )
 }

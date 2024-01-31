@@ -7,6 +7,7 @@ import { Button } from '../ui/button'
 import { Tooltip, TooltipContent, TooltipTrigger } from '../ui/tooltip'
 import { LogOut } from 'lucide-react'
 import { signOut } from '@/db/actions/sign-out'
+import { cn } from '@/lib/utils'
 
 function SubmitButton({ isCollapsed }: { isCollapsed: boolean }) {
   const { pending } = useFormStatus()
@@ -49,7 +50,7 @@ function SubmitButton({ isCollapsed }: { isCollapsed: boolean }) {
 
 export function SignOut({ isCollapsed }: { isCollapsed: boolean }) {
   return (
-    <form action={signOut} className="w-full">
+    <form action={signOut} className={cn('w-full', isCollapsed && 'w-max')}>
       <SubmitButton isCollapsed={isCollapsed} />
     </form>
   )

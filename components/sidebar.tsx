@@ -5,35 +5,38 @@ import { ResizablePanel } from './ui/resizable'
 import { cn } from '@/lib/utils'
 import { Nav } from './nav'
 import { LineChart, Popcorn, User2 } from 'lucide-react'
-import { Icons } from './icons'
+import { SignOut } from './form/sign-out'
 
-export function Sidebar() {
-  const [isCollapsed, setIsCollapsed] = React.useState(false)
+export function Sidebar({
+  defaultLayout = [20, 80],
+  defaultCollapsed = false,
+}: {
+  defaultLayout?: number[]
+  defaultCollapsed?: boolean
+}) {
+  const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
 
   return (
     <ResizablePanel
-      defaultSize={20}
+      defaultSize={defaultLayout[0]}
       collapsedSize={5}
       collapsible={true}
       minSize={12}
       maxSize={23}
-      onCollapse={() => setIsCollapsed(true)}
-      onExpand={() => setIsCollapsed(false)}
+      onCollapse={() => {
+        setIsCollapsed(true)
+        setCollapsed(true)
+      }}
+      onExpand={() => {
+        setIsCollapsed(false)
+        setCollapsed(false)
+      }}
       className={cn(
-        'my-2 flex max-h-[calc(100vh-40px)] min-w-36 flex-col rounded-l-lg border-y border-l',
-        isCollapsed && 'min-w-[50px] transition-all duration-300 ease-in-out',
+        'flex max-h-[calc(100vh-40px)] min-w-36 flex-col items-center justify-between rounded-l-lg border-y border-l p-3',
+        isCollapsed &&
+          'min-w-[50px] px-1 py-3 transition-all duration-300 ease-in-out',
       )}
     >
-      <div
-        className={cn(
-          'flex h-[52px] items-center justify-center py-8',
-          isCollapsed ? 'h-[52px]' : 'px-2',
-        )}
-      >
-        <Icons.logo className={cn('h-8 w-8', !isCollapsed && 'mr-2')} />
-        {!isCollapsed && <h2 className="text-md font-bold">Book Wise</h2>}
-      </div>
-
       <Nav
         isCollapsed={isCollapsed}
         links={[
@@ -54,6 +57,12 @@ export function Sidebar() {
           },
         ]}
       />
+
+      <SignOut isCollapsed={isCollapsed} />
     </ResizablePanel>
   )
+}
+
+function setCollapsed(value: boolean) {
+  document.cookie = `react-resizable-panels:collapsed=${JSON.stringify(value)}`
 }

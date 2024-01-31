@@ -10,6 +10,9 @@ const ResizablePanelGroup = ({
   ...props
 }: React.ComponentProps<typeof ResizablePrimitive.PanelGroup>) => (
   <ResizablePrimitive.PanelGroup
+    onLayout={(sizes: number[]) => {
+      document.cookie = `react-resizable-panels:layout=${JSON.stringify(sizes)}`
+    }}
     className={cn(
       'flex h-full w-full data-[panel-group-direction=vertical]:flex-col',
       className,

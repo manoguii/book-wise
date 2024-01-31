@@ -13,15 +13,18 @@ export default async function BooksPage() {
         Explorar
       </h1>
       <SearchInput />
-      <Grid className="mb-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
-        <Suspense
-          fallback={Array.from({ length: 12 }).map((_, i) => (
-            <BookCardSkeleton key={i} />
-          ))}
-        >
-          <ListOfBooks />
-        </Suspense>
-      </Grid>
+
+      <Suspense
+        fallback={
+          <Grid className="mb-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
+            {Array.from({ length: 12 }).map((_, i) => (
+              <BookCardSkeleton key={i} />
+            ))}
+          </Grid>
+        }
+      >
+        <ListOfBooks />
+      </Suspense>
     </main>
   )
 }

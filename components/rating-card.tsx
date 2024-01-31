@@ -6,6 +6,25 @@ import Image from 'next/image'
 import { Rating } from '@smastrom/react-rating'
 import { Skeleton } from './ui/skeleton'
 
+interface RatingCardHeaderProps {
+  data: {
+    id: string
+    name: string
+    image: string
+    rating: number
+    ratedIn: Date
+  }
+}
+
+interface RatingCardContentProps {
+  book: {
+    title: string
+    author: string
+    description: string
+    image: string
+  }
+}
+
 const RatingCard = React.forwardRef<
   HTMLDivElement,
   React.HTMLAttributes<HTMLDivElement>
@@ -18,31 +37,20 @@ const RatingCard = React.forwardRef<
 ))
 RatingCard.displayName = 'RatingCard'
 
-const RatingCardHeader = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & {
-    user: {
-      id: string
-      name: string
-      image: string
-      rating: number
-      ratedIn: Date
-    }
-  }
->(({ user, className, ...props }, ref) => {
-  const createdAt = new Date(user.ratedIn)
+const RatingCardHeader = ({ data }: RatingCardHeaderProps) => {
+  const createdAt = new Date(data.ratedIn)
 
   return (
-    <div ref={ref} className={cn('flex justify-between', className)} {...props}>
+    <div className="flex justify-between">
       <div className="flex items-center">
         <Avatar>
-          <AvatarImage src={user.image} alt={user.name} />
-          <AvatarFallback>{getInitials(user.name)}</AvatarFallback>
+          <AvatarImage src={data.image} alt={data.name} />
+          <AvatarFallback>{getInitials(data.name)}</AvatarFallback>
         </Avatar>
 
         <div className="ml-4 space-y-1">
           <h3 className="text-lg font-semibold leading-none tracking-tight">
-            {user.name}
+            {data.name}
           </h3>
           <p className="text-sm text-muted-foreground">
             {createdAt.toLocaleDateString('pt-BR', {
@@ -55,42 +63,22 @@ const RatingCardHeader = React.forwardRef<
       </div>
 
       <Rating
-        value={user.rating}
+        value={data.rating}
         readOnly
         style={{ maxWidth: 80, color: 'yellow' }}
       />
     </div>
   )
-})
-RatingCardHeader.displayName = 'RatingCardHeader'
+}
 
-const RatingCardDescription = React.forwardRef<
-  HTMLParagraphElement,
-  React.HTMLAttributes<HTMLParagraphElement>
->(({ className, ...props }, ref) => (
-  <p
-    ref={ref}
-    className={cn(
-      'mt-auto line-clamp-3 text-base text-muted-foreground',
-      className,
-    )}
-    {...props}
-  />
-))
-RatingCardDescription.displayName = 'RatingCardDescription'
+const RatingCardDescription = ({ description }: { description: string }) => (
+  <p className="mt-auto line-clamp-3 text-base text-muted-foreground">
+    {description}
+  </p>
+)
 
-const RatingCardContent = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement> & {
-    book: {
-      title: string
-      author: string
-      description: string
-      image: string
-    }
-  }
->(({ book, className, ...props }, ref) => (
-  <div ref={ref} className={cn('flex pt-6', className)} {...props}>
+const RatingCardContent = ({ book }: RatingCardContentProps) => (
+  <div className="flex pt-6">
     <Image
       src={book.image.replace('public', '').replace('.jpg', '.png')}
       alt={book.title}
@@ -107,11 +95,10 @@ const RatingCardContent = React.forwardRef<
         <p className="text-sm text-muted-foreground">{book.author}</p>
       </div>
 
-      <RatingCardDescription>{book.description}</RatingCardDescription>
+      <RatingCardDescription description={book.description} />
     </div>
   </div>
-))
-RatingCardContent.displayName = 'RatingCardContent'
+)
 
 /**
  * Skeletons

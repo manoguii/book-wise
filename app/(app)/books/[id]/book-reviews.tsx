@@ -13,9 +13,9 @@ export async function BookReviews({ bookId }: { bookId: string }) {
     if (!review.user) throw new Error('User not found')
 
     return (
-      <RatingCard key={review.id}>
+      <RatingCard className="space-y-4" key={review.id}>
         <RatingCardHeader
-          user={{
+          data={{
             id: review.user.id,
             name: review.user.name || '',
             image: review.user.image || '',
@@ -24,9 +24,7 @@ export async function BookReviews({ bookId }: { bookId: string }) {
           }}
         />
 
-        <RatingCardDescription className="mt-4">
-          {review.description}
-        </RatingCardDescription>
+        <RatingCardDescription description={review.description} />
       </RatingCard>
     )
   })
@@ -34,7 +32,7 @@ export async function BookReviews({ bookId }: { bookId: string }) {
 
 export const BookReviewsSkeleton = () => {
   return (
-    <div className="animate-pulse rounded-lg border bg-card p-6 shadow-sm">
+    <div className="animate-pulse space-y-4 rounded-lg border bg-card p-6 shadow-sm">
       <div className="flex justify-between">
         <div className="flex items-center">
           <Skeleton className="h-10 w-10 rounded-full" />
@@ -46,7 +44,7 @@ export const BookReviewsSkeleton = () => {
         <Skeleton className="h-4 w-16" />
       </div>
 
-      <div className="mt-4 space-y-2">
+      <div className="space-y-2">
         <Skeleton className="h-3 w-full" />
         <Skeleton className="h-3 w-full" />
         <Skeleton className="h-3 w-full" />
