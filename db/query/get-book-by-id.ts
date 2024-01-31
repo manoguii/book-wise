@@ -4,7 +4,7 @@ import { book, category, categoryOnBook, rating } from '../schema'
 
 export type Category = typeof category.$inferSelect
 
-export async function getBookById(id: string) {
+export async function getBookById(bookId: string) {
   const query = await db
     .select({
       id: book.id,
@@ -15,13 +15,13 @@ export async function getBookById(id: string) {
       totalPages: book.totalPages,
       createdAt: book.createdAt,
       averageRating: sql<string>`AVG(${rating.rate}) as averageRating`,
-      ratingCount: sql<string>`COUNT(${rating.rate}) as ratingCount`,
+      ratingCount: sql<string>`(SELECT COUNT(*) FROM rating WHERE ${rating.bookId} = ${bookId}) as ratingCount`,
       categories: sql<
         Category[]
       >`JSON_AGG(json_build_object('id', category.id, 'name', category.name)) AS categories`,
     })
     .from(book)
-    .where(eq(book.id, id))
+    .where(eq(book.id, bookId))
     .leftJoin(rating, eq(rating.bookId, book.id))
     .leftJoin(categoryOnBook, eq(categoryOnBook.bookId, book.id))
     .leftJoin(category, eq(category.id, categoryOnBook.categoryId))

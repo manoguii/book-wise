@@ -9,6 +9,7 @@ import {
 } from './ui/card'
 import Link from 'next/link'
 import { Book } from '@/types/definitions'
+import { Skeleton } from './ui/skeleton'
 
 export function BookCard({ book }: { book: Book & { rate: string } }) {
   return (
@@ -41,5 +42,29 @@ export function BookCard({ book }: { book: Book & { rate: string } }) {
         </div>
       </Card>
     </Link>
+  )
+}
+
+export function BookCardSkeleton() {
+  return (
+    <Card className="flex">
+      <div className="py-6 pl-6">
+        <Skeleton className="h-28 w-20" />
+      </div>
+
+      <div className="grid">
+        <CardHeader>
+          <CardTitle className="line-clamp-1">
+            <Skeleton className="h-4 w-40" />
+          </CardTitle>
+          <CardDescription className="line-clamp-2">
+            <Skeleton className="h-3 w-20" />
+          </CardDescription>
+        </CardHeader>
+        <CardContent className="mt-auto">
+          <Skeleton className="h-4 w-16" />
+        </CardContent>
+      </div>
+    </Card>
   )
 }
