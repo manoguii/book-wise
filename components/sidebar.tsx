@@ -6,13 +6,16 @@ import { cn } from '@/lib/utils'
 import { Nav } from './nav'
 import { LineChart, Popcorn, User2 } from 'lucide-react'
 import { SignOut } from './form/sign-out'
+import { SignInModal } from './sign-in-modal'
 
 export function Sidebar({
   defaultLayout = [20, 80],
   defaultCollapsed = false,
+  isLogged,
 }: {
   defaultLayout?: number[]
   defaultCollapsed?: boolean
+  isLogged: boolean
 }) {
   const [isCollapsed, setIsCollapsed] = React.useState(defaultCollapsed)
 
@@ -58,7 +61,11 @@ export function Sidebar({
         ]}
       />
 
-      <SignOut isCollapsed={isCollapsed} />
+      {isLogged ? (
+        <SignOut isCollapsed={isCollapsed} />
+      ) : (
+        <SignInModal isCollapsed={isCollapsed} />
+      )}
     </ResizablePanel>
   )
 }
