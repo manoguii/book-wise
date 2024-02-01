@@ -11,7 +11,7 @@ export default async function BookPage({
   }
 }) {
   return (
-    <main className="m-2 space-y-10">
+    <>
       <div className="flex flex-col gap-4">
         <Suspense fallback={<BookDetailsSkeleton />}>
           <BookDetails bookId={params.id} />
@@ -30,6 +30,6 @@ export default async function BookPage({
           <BookReviews bookId={params.id} />
         </Suspense>
       </div>
-    </main>
+    </>
   )
 }

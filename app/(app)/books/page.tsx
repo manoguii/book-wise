@@ -7,7 +7,7 @@ import { Suspense } from 'react'
 
 export default async function BooksPage() {
   return (
-    <main className="m-2 space-y-10">
+    <>
       <h1 className="text-2xl font-bold">
         <Icons.binoculars className="mr-2 inline-block h-8 w-8" />
         Explorar
@@ -25,6 +25,6 @@ export default async function BooksPage() {
       >
         <ListOfBooks />
       </Suspense>
-    </main>
+    </>
   )
 }

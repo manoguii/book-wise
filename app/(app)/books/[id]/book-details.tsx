@@ -7,7 +7,7 @@ export async function BookDetails({ bookId }: { bookId: string }) {
   const book = await getBookById(bookId)
 
   return (
-    <div className="flex flex-col items-center gap-8 rounded-lg border p-10 md:flex-row md:items-start">
+    <div className="flex flex-col items-center gap-8 rounded-lg border bg-card p-10 md:flex-row md:items-start">
       <div className="basis-2/6">
         <Image
           src={book.coverUrl.replace('public', '').replace('.jpg', '.png')}

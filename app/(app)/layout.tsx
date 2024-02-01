@@ -25,20 +25,23 @@ export default async function AppLayout({
     <TooltipProvider delayDuration={0}>
       <ResizablePanelGroup
         direction="horizontal"
-        className="mx-auto mt-4 max-w-7xl px-4"
+        className="ml-auto mt-4 w-full max-w-screen-2xl"
       >
         <Sidebar
           defaultLayout={defaultLayout}
           defaultCollapsed={defaultCollapsed}
-          isLogged={!!session}
+          user={session?.user}
         />
-        <ResizableHandle withHandle className="max-h-[calc(100vh-40px)]" />
+        <ResizableHandle
+          withHandle
+          className="max-h-[calc(100vh-40px)] bg-transparent"
+        />
         <ResizablePanel
           defaultSize={defaultLayout[1]}
           minSize={30}
-          className="mx-4 !min-h-screen"
+          className="!min-h-screen rounded-tl-3xl border-l border-t bg-muted/20"
         >
-          {children}
+          <main className="m-8 space-y-10">{children}</main>
         </ResizablePanel>
       </ResizablePanelGroup>
     </TooltipProvider>

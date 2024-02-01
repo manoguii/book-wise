@@ -9,11 +9,12 @@ import Link from 'next/link'
 
 export default async function Home() {
   return (
-    <main className="m-2 space-y-10">
+    <>
       <h1 className="text-2xl font-bold">
         <LineChart className="mr-2 inline-block h-7 w-7 text-cyan-500" />
         Inicio
       </h1>
+
       <div className="flex gap-5">
         <Suspense
           fallback={
@@ -53,6 +54,6 @@ export default async function Home() {
           <PopularBooks />
         </Suspense>
       </div>
-    </main>
+    </>
   )
 }
