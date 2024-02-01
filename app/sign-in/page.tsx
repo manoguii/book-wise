@@ -14,7 +14,7 @@ export default function SignInPage() {
   return (
     <div className="container relative grid h-screen flex-col items-center justify-center lg:max-w-none lg:grid-cols-[40%_1fr] lg:px-0">
       <div className="relative hidden h-full p-10 lg:grid">
-        <div className="absolute inset-0 m-4 rounded-xl bg-gray-900/60" />
+        <div className="absolute inset-0 m-4 rounded-xl bg-primary-foreground" />
 
         <div className="relative z-20 flex place-content-center items-center gap-3 text-4xl font-bold">
           <Icons.logo className="h-12 w-12" />

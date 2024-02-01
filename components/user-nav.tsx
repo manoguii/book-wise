@@ -7,14 +7,17 @@ import {
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuSeparator,
-  DropdownMenuShortcut,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
 import { SignOut } from './form/sign-out'
 import { getInitials } from '@/lib/utils'
 import { User } from 'next-auth'
+import { useTheme } from 'next-themes'
+import { Laptop, Moon, Sun } from 'lucide-react'
 
 export function UserNav({ user }: { user: User }) {
+  const { setTheme } = useTheme()
+
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -37,20 +40,21 @@ export function UserNav({ user }: { user: User }) {
           </div>
         </DropdownMenuLabel>
         <DropdownMenuSeparator />
+
         <DropdownMenuGroup>
-          <DropdownMenuItem>
-            Profile
-            <DropdownMenuShortcut>⇧⌘P</DropdownMenuShortcut>
+          <DropdownMenuLabel>Tema</DropdownMenuLabel>
+          <DropdownMenuItem onClick={() => setTheme('light')}>
+            Light
+            <Sun className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            Billing
-            <DropdownMenuShortcut>⌘B</DropdownMenuShortcut>
+          <DropdownMenuItem onClick={() => setTheme('dark')}>
+            Dark
+            <Moon className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
-          <DropdownMenuItem>
-            Settings
-            <DropdownMenuShortcut>⌘S</DropdownMenuShortcut>
+          <DropdownMenuItem onClick={() => setTheme('system')}>
+            System
+            <Laptop className="ml-auto h-4 w-4" />
           </DropdownMenuItem>
-          <DropdownMenuItem>New Team</DropdownMenuItem>
         </DropdownMenuGroup>
         <DropdownMenuSeparator />
         <DropdownMenuItem asChild>

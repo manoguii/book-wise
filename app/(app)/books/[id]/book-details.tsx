@@ -49,7 +49,7 @@ export async function BookDetails({ bookId }: { bookId: string }) {
 
 export function BookDetailsSkeleton() {
   return (
-    <div className="flex rounded-lg border p-10">
+    <div className="flex rounded-lg border bg-card p-10">
       <div className="basis-2/6">
         <Skeleton className="mr-auto h-80 w-60 rounded-lg" />
       </div>
