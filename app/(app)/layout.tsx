@@ -28,7 +28,7 @@ export default async function AppLayout({
         className="ml-auto mt-4 w-full max-w-screen-2xl"
       >
         <Sidebar
-          defaultLayout={defaultLayout}
+          defaultLayout={defaultLayout ? defaultLayout[0] : 20}
           defaultCollapsed={defaultCollapsed}
           user={session?.user}
         />
@@ -37,7 +37,7 @@ export default async function AppLayout({
           className="max-h-[calc(100vh-40px)] bg-transparent"
         />
         <ResizablePanel
-          defaultSize={defaultLayout[1]}
+          defaultSize={defaultLayout ? defaultLayout[1] : 80}
           minSize={30}
           className="!min-h-screen rounded-tl-3xl border-l border-t bg-muted/20"
         >

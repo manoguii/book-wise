@@ -3,6 +3,7 @@ import { db } from '..'
 import { book, rating } from '../schema'
 import { eq, sql } from 'drizzle-orm'
 import { cache } from 'react'
+import { TAGS } from '../constants'
 
 const fetchAllBooks = unstable_cache(
   async () => {
@@ -23,9 +24,9 @@ const fetchAllBooks = unstable_cache(
 
     return query
   },
-  ['all-books'],
+  [TAGS.list_of_books],
   {
-    tags: ['all-books'],
+    tags: [TAGS.list_of_books],
   },
 )
 

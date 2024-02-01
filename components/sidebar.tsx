@@ -11,11 +11,11 @@ import { UserNav } from './user-nav'
 import { User } from 'next-auth'
 
 export function Sidebar({
-  defaultLayout = [20, 80],
+  defaultLayout = 20,
   defaultCollapsed = false,
   user,
 }: {
-  defaultLayout?: number[]
+  defaultLayout?: number
   defaultCollapsed?: boolean
   user?: User
 }) {
@@ -23,7 +23,7 @@ export function Sidebar({
 
   return (
     <ResizablePanel
-      defaultSize={defaultLayout[0]}
+      defaultSize={defaultLayout}
       collapsedSize={5}
       collapsible={true}
       minSize={12}

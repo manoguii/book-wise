@@ -3,6 +3,7 @@ import { db } from '..'
 import { book, rating, user } from '../schema'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
+import { TAGS } from '../constants'
 
 const fetchRecentReviews = unstable_cache(
   async () => {
@@ -32,9 +33,9 @@ const fetchRecentReviews = unstable_cache(
 
     return query
   },
-  ['recent-reviews'],
+  [TAGS.recent_reviews],
   {
-    tags: ['recent-reviews'],
+    tags: [TAGS.recent_reviews],
   },
 )
 
