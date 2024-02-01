@@ -1,4 +1,4 @@
-import { fetchBookReviews } from '@/db/query/fetch-book-reviews'
+import fetchBookReviews from '@/db/query/fetch-book-reviews'
 import {
   RatingCard,
   RatingCardDescription,

@@ -1,6 +1,6 @@
 import { BookCard } from '@/components/book-card'
 import { buttonVariants } from '@/components/ui/button'
-import { fetchRecommendedBooks } from '@/db/query/fetch-recommended-books'
+import fetchRecommendedBooks from '@/db/query/fetch-recommended-books'
 import Link from 'next/link'
 
 export async function PopularBooks() {

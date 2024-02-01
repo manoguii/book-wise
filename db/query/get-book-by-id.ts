@@ -1,10 +1,11 @@
 import { eq, sql } from 'drizzle-orm'
 import { db } from '..'
 import { book, category, categoryOnBook, rating } from '../schema'
+import { cache } from 'react'
 
-export type Category = typeof category.$inferSelect
+type Category = typeof category.$inferSelect
 
-export async function getBookById(bookId: string) {
+async function getBookById(bookId: string) {
   const query = await db
     .select({
       id: book.id,
@@ -29,3 +30,5 @@ export async function getBookById(bookId: string) {
 
   return query[0]
 }
+
+export default cache(getBookById)

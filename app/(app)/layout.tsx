@@ -7,7 +7,7 @@ import {
 } from '@/components/ui/resizable'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import { cookies } from 'next/headers'
-import { auth } from '@/auth'
+import { auth } from '@/auth-config'
 
 export default async function AppLayout({
   children,

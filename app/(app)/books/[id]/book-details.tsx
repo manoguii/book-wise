@@ -1,4 +1,4 @@
-import { getBookById } from '@/db/query/get-book-by-id'
+import getBookById from '@/db/query/get-book-by-id'
 import { Rating } from '@smastrom/react-rating'
 import Image from 'next/image'
 import { Skeleton } from '@/components/ui/skeleton'

@@ -1,9 +1,10 @@
 import { eq, sql } from 'drizzle-orm'
 import { db } from '..'
 import { book, rating } from '../schema'
-import { unstable_cache as cache } from 'next/cache'
+import { unstable_cache } from 'next/cache'
+import { cache } from 'react'
 
-export const fetchRecommendedBooks = cache(
+const fetchRecommendedBooks = unstable_cache(
   async () => {
     const query = await db
       .select({
@@ -30,3 +31,5 @@ export const fetchRecommendedBooks = cache(
     tags: ['recommended-books'],
   },
 )
+
+export default cache(fetchRecommendedBooks)

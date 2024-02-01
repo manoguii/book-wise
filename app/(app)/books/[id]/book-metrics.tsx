@@ -1,4 +1,4 @@
-import { getBookById } from '@/db/query/get-book-by-id'
+import getBookById from '@/db/query/get-book-by-id'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { BookOpenText, Bookmark, Library } from 'lucide-react'
 import { Badge } from '@/components/ui/badge'

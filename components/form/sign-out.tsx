@@ -5,7 +5,7 @@ import { useFormStatus } from 'react-dom'
 
 import { Button } from '../ui/button'
 import { LogOut } from 'lucide-react'
-import { signOut } from '@/db/actions/sign-out'
+import { signOutAction } from '@/db/actions/sign-out'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
@@ -27,7 +27,7 @@ function SubmitButton() {
 
 export function SignOut() {
   return (
-    <form action={signOut}>
+    <form action={signOutAction}>
       <SubmitButton />
     </form>
   )

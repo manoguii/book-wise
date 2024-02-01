@@ -1,6 +1,6 @@
 import { BookCard } from '@/components/book-card'
 import { Grid } from '@/components/grid'
-import { fetchAllBooks } from '@/db/query/fetch-all-books'
+import fetchAllBooks from '@/db/query/fetch-all-books'
 
 export async function ListOfBooks() {
   const books = await fetchAllBooks()

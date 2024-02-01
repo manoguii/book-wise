@@ -3,7 +3,7 @@ import {
   RatingCardContent,
   RatingCardHeader,
 } from '@/components/rating-card'
-import { fetchRecentReviews } from '@/db/query/fetch-recent-reviews'
+import fetchRecentReviews from '@/db/query/fetch-recent-reviews'
 
 export async function MostRecentReviews() {
   const recentReviews = await fetchRecentReviews()
