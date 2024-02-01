@@ -1,12 +1,16 @@
-import { eq } from 'drizzle-orm'
+import { count, eq } from 'drizzle-orm'
 import { db } from '..'
 import { book, rating, user } from '../schema'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
-import { TAGS } from '../constants'
+import { PER_PAGE, TAGS } from '../constants'
 
 const fetchRecentReviews = unstable_cache(
-  async () => {
+  async (params: { page: number }) => {
+    const total = await db.select({ value: count(book.id) }).from(book)
+
+    const totalPages = Math.ceil(total[0].value / PER_PAGE)
+
     const query = await db
       .select({
         rating: {
@@ -30,8 +34,13 @@ const fetchRecentReviews = unstable_cache(
       .from(rating)
       .leftJoin(book, eq(rating.bookId, book.id))
       .leftJoin(user, eq(rating.userId, user.id))
+      .limit(PER_PAGE)
+      .offset((params.page - 1) * PER_PAGE)
 
-    return query
+    return {
+      ratings: query,
+      totalPages,
+    }
   },
   [TAGS.recent_reviews],
   {

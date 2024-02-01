@@ -4,3 +4,5 @@ export const TAGS = {
   recent_reviews: 'recent_reviews',
   recommended_books: 'recommended_books',
 }
+
+export const PER_PAGE = 12

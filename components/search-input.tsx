@@ -18,17 +18,21 @@ export function SearchInput() {
     params.delete('page')
 
     if (term) {
-      params.delete('category')
-      params.set('query', term)
+      params.set('q', term)
     } else {
-      params.delete('query')
+      params.delete('q')
     }
 
     replace(`${pathname}?${params.toString()}`, { scroll: false })
   }, 300)
 
   return (
-    <form className="flex flex-1 items-center">
+    <form
+      className="flex flex-1 items-center"
+      onSubmit={(e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
+      }}
+    >
       <Label htmlFor="search" className="sr-only">
         Buscar livros
       </Label>
@@ -43,7 +47,7 @@ export function SearchInput() {
           className="pl-10"
           id="search"
           type="search"
-          defaultValue={searchParams.get('query')?.toString()}
+          defaultValue={searchParams.get('q')?.toString()}
           onChange={(e) => {
             handleSearch(e.target.value)
           }}

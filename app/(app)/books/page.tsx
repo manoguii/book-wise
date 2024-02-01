@@ -5,7 +5,25 @@ import { SearchInput } from '@/components/search-input'
 import { ListOfBooks } from './list-of-books'
 import { Suspense } from 'react'
 
-export default async function BooksPage() {
+export default async function BooksPage({
+  searchParams,
+}: {
+  searchParams?: {
+    q?: string
+    page?: number
+  }
+}) {
+  const query = searchParams?.q || ''
+  const currentPage = Number(searchParams?.page) || 1
+
+  let mode: 'search' | 'explore'
+
+  if (query) {
+    mode = 'search'
+  } else {
+    mode = 'explore'
+  }
+
   return (
     <>
       <h1 className="text-2xl font-bold">
@@ -13,8 +31,8 @@ export default async function BooksPage() {
         Explorar
       </h1>
       <SearchInput />
-
       <Suspense
+        key={query + currentPage}
         fallback={
           <Grid className="mb-4 grid-cols-1 lg:grid-cols-2 xl:grid-cols-3">
             {Array.from({ length: 12 }).map((_, i) => (
@@ -23,7 +41,7 @@ export default async function BooksPage() {
           </Grid>
         }
       >
-        <ListOfBooks />
+        <ListOfBooks currentPage={currentPage} mode={mode} query={query} />
       </Suspense>
     </>
   )

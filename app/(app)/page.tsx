@@ -7,7 +7,15 @@ import { BookCardSkeleton } from '@/components/book-card'
 import { buttonVariants } from '@/components/ui/button'
 import Link from 'next/link'
 
-export default async function Home() {
+export default async function Home({
+  searchParams,
+}: {
+  searchParams?: {
+    page?: number
+  }
+}) {
+  const currentPage = Number(searchParams?.page) || 1
+
   return (
     <>
       <h1 className="text-2xl font-bold">
@@ -28,7 +36,7 @@ export default async function Home() {
             </div>
           }
         >
-          <MostRecentReviews />
+          <MostRecentReviews currentPage={currentPage} />
         </Suspense>
         <Suspense
           fallback={

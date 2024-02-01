@@ -20,8 +20,8 @@ export function BookCard({ book }: { book: Book & { rate: string } }) {
             src={book.coverUrl.replace('public', '').replace('.jpg', '.png')}
             alt={book.name}
             width={80}
-            height={120}
-            className="max-w-20 object-cover"
+            height={112}
+            className="max-h-28 max-w-20 object-cover"
           />
         </div>
 
