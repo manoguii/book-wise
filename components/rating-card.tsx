@@ -25,17 +25,15 @@ interface RatingCardContentProps {
   }
 }
 
-const RatingCard = React.forwardRef<
-  HTMLDivElement,
-  React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+const RatingCard = ({
+  className,
+  ...props
+}: React.HTMLAttributes<HTMLDivElement>) => (
   <div
-    ref={ref}
     className={cn('rounded-lg border bg-card p-6 shadow-sm', className)}
     {...props}
   />
-))
-RatingCard.displayName = 'RatingCard'
+)
 
 const RatingCardHeader = ({ data }: RatingCardHeaderProps) => {
   const createdAt = new Date(data.ratedIn)
@@ -104,32 +102,47 @@ const RatingCardContent = ({ book }: RatingCardContentProps) => (
  * Skeletons
  */
 
-function RatingCardSkeleton() {
+RatingCard.Skeleton = function RatingCardSkeleton({
+  children,
+}: {
+  children: React.ReactNode
+}) {
   return (
     <div className="animate-pulse rounded-lg border bg-card p-6 shadow-sm">
-      <div className="flex justify-between">
-        <div className="flex items-center">
-          <Skeleton className="h-10 w-10 rounded-full" />
-          <div className="ml-4 space-y-2">
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="mt-2 h-3 w-20" />
-          </div>
-        </div>
-        <Skeleton className="h-4 w-16" />
-      </div>
+      {children}
+    </div>
+  )
+}
 
-      <div className="flex pt-6">
-        <Skeleton className="h-40 w-28 rounded-md" />
-        <div className="ml-4 grid">
-          <div className="space-y-1">
-            <Skeleton className="h-4 w-24" />
-            <Skeleton className="h-3 w-20" />
-          </div>
-          <div className="mt-auto space-y-2">
-            <Skeleton className="h-3 w-80" />
-            <Skeleton className="h-3 w-80" />
-            <Skeleton className="h-3 w-80" />
-          </div>
+RatingCardHeader.Skeleton = function HeaderSkeleton() {
+  return (
+    <div className="flex justify-between">
+      <div className="flex items-center">
+        <Skeleton className="h-10 w-10 rounded-full" />
+        <div className="ml-4 space-y-2">
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="mt-2 h-3 w-20" />
+        </div>
+      </div>
+      <Skeleton className="h-4 w-16" />
+    </div>
+  )
+}
+
+RatingCardContent.Skeleton = function RatingCardContentSkeleton() {
+  return (
+    <div className="flex pt-6">
+      <Skeleton className="h-40 w-28 rounded-md" />
+      <div className="ml-4 grid">
+        <div className="space-y-2">
+          <Skeleton className="h-4 w-24" />
+          <Skeleton className="h-3 w-20" />
+        </div>
+
+        <div className="mt-auto space-y-2">
+          <Skeleton className="h-3 w-80" />
+          <Skeleton className="h-3 w-80" />
+          <Skeleton className="h-3 w-80" />
         </div>
       </div>
     </div>
@@ -139,7 +152,6 @@ function RatingCardSkeleton() {
 export {
   RatingCard,
   RatingCardHeader,
-  RatingCardDescription,
   RatingCardContent,
-  RatingCardSkeleton,
+  RatingCardDescription,
 }

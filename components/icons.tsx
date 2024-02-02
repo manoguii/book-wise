@@ -1,3 +1,13 @@
+import {
+  Activity,
+  BookOpen,
+  BookOpenText,
+  BookUser,
+  Bookmark,
+  LibraryBig,
+  Star,
+} from 'lucide-react'
+
 type IconProps = React.HTMLAttributes<SVGElement>
 
 export const Icons = {
@@ -92,4 +102,11 @@ export const Icons = {
       ></path>
     </svg>
   ),
+  bookOpen: BookOpen,
+  library: LibraryBig,
+  bookmark: Bookmark,
+  bookUser: BookUser,
+  activity: Activity,
+  star: Star,
+  bookOpenText: BookOpenText,
 }

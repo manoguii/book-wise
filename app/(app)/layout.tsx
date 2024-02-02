@@ -39,7 +39,7 @@ export default async function AppLayout({
         <ResizablePanel
           defaultSize={defaultLayout ? defaultLayout[1] : 80}
           minSize={30}
-          className="!min-h-screen rounded-tl-3xl border-l border-t bg-muted/20"
+          className="!min-h-screen rounded-tl-3xl border-l border-t bg-muted/40 dark:bg-muted/20"
         >
           <main className="m-8 space-y-10">{children}</main>
         </ResizablePanel>

@@ -2,7 +2,11 @@ import { LineChart } from 'lucide-react'
 import { MostRecentReviews } from './most-recent-reviews'
 import { PopularBooks } from './popular-books'
 import { Suspense } from 'react'
-import { RatingCardSkeleton } from '@/components/rating-card'
+import {
+  RatingCard,
+  RatingCardContent,
+  RatingCardHeader,
+} from '@/components/rating-card'
 import { BookCardSkeleton } from '@/components/book-card'
 import { buttonVariants } from '@/components/ui/button'
 import Link from 'next/link'
@@ -58,7 +62,10 @@ export default async function Home({
           <Suspense
             key={currentPage}
             fallback={Array.from({ length: 5 }).map((_, i) => (
-              <RatingCardSkeleton key={i} />
+              <RatingCard.Skeleton key={i}>
+                <RatingCardHeader.Skeleton />
+                <RatingCardContent.Skeleton />
+              </RatingCard.Skeleton>
             ))}
           >
             <MostRecentReviews currentPage={currentPage} />
