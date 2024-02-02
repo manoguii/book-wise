@@ -10,6 +10,7 @@ import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Skeleton } from '@/components/ui/skeleton'
 import { getInitials } from '@/lib/utils'
 
+import { UserMetrics } from './user-metrics'
 import { UserReviews } from './user-reviews'
 
 export default async function ProfilePage({
@@ -71,16 +72,18 @@ export default async function ProfilePage({
 
           <div className="h-1 w-8 rounded-full bg-cyan-500" />
 
-          <div className="grid w-full gap-4">
-            <MetricCard title="Páginas lidas" value="3920" icon="bookOpen" />
-            <MetricCard title="Livros avaliados" value="15" icon="library" />
-            <MetricCard title="Autores lidos" value="8" icon="bookUser" />
-            <MetricCard
-              title="Categoria mais lida"
-              value="Computação"
-              icon="bookmark"
-            />
-          </div>
+          <Suspense
+            fallback={
+              <div className="grid w-full gap-4">
+                <MetricCard.Skeleton />
+                <MetricCard.Skeleton />
+                <MetricCard.Skeleton />
+                <MetricCard.Skeleton />
+              </div>
+            }
+          >
+            <UserMetrics />
+          </Suspense>
         </div>
       </div>
     </>

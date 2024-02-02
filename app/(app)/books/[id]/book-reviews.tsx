@@ -9,25 +9,29 @@ import fetchBookReviews from '@/db/query/fetch-book-reviews'
 export async function BookReviews({ bookId }: { bookId: string }) {
   const bookReviews = await fetchBookReviews(bookId)
 
-  return bookReviews.map((review) => {
-    if (!review.user) throw new Error('User not found')
+  return (
+    <div className="space-y-5">
+      {bookReviews.map((review) => {
+        if (!review.user) throw new Error('User not found')
 
-    return (
-      <RatingCard className="space-y-4" key={review.id}>
-        <RatingCardHeader
-          data={{
-            id: review.user.id,
-            name: review.user.name || '',
-            image: review.user.image || '',
-            ratedIn: review.createdAt || new Date(),
-            rating: review.rate,
-          }}
-        />
+        return (
+          <RatingCard className="space-y-4" key={review.id}>
+            <RatingCardHeader
+              data={{
+                id: review.user.id,
+                name: review.user.name || '',
+                image: review.user.image || '',
+                ratedIn: review.createdAt || new Date(),
+                rating: review.rate,
+              }}
+            />
 
-        <RatingCardDescription description={review.description} />
-      </RatingCard>
-    )
-  })
+            <RatingCardDescription description={review.description} />
+          </RatingCard>
+        )
+      })}
+    </div>
+  )
 }
 
 export const BookReviewsSkeleton = () => {

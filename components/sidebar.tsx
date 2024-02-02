@@ -91,7 +91,7 @@ export function Sidebar({
               <p className="truncate text-base font-medium leading-none">
                 {user.name || ''}
               </p>
-              <p className="truncate text-sm leading-none text-muted-foreground">
+              <p className="truncate text-sm text-muted-foreground">
                 {user.email || ''}
               </p>
             </div>

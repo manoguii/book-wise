@@ -17,10 +17,10 @@ async function getBookById(bookId: string) {
       totalPages: book.totalPages,
       createdAt: book.createdAt,
       averageRating: sql<string>`AVG(${rating.rate}) as averageRating`,
-      ratingCount: sql<string>`(SELECT COUNT(*) FROM rating WHERE ${rating.bookId} = ${bookId}) as ratingCount`,
+      ratingCount: sql<string>`(SELECT COUNT(*) FROM rating WHERE ${rating.bookId} = ${bookId})`,
       categories: sql<
         Category[]
-      >`JSON_AGG(json_build_object('id', category.id, 'name', category.name)) AS categories`,
+      >`JSON_AGG(json_build_object('id', category.id, 'name', category.name))`,
     })
     .from(book)
     .where(eq(book.id, bookId))

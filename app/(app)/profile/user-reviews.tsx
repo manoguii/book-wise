@@ -1,51 +1,68 @@
 import { Rating } from '@smastrom/react-rating'
 
+import { auth } from '@/auth-config'
+import { EmptyPlaceholder } from '@/components/empty-placeholder'
 import { Pagination } from '@/components/pagination'
 import { RatingCard, RatingCardContent } from '@/components/rating-card'
-import fetchRecentReviews from '@/db/query/fetch-recent-reviews'
+import fetchUserReviews from '@/db/query/fetch-user-reviews'
 
 export async function UserReviews({ currentPage }: { currentPage: number }) {
-  const recentReviews = await fetchRecentReviews({
+  const session = await auth()
+  if (!session) throw new Error('User not found')
+  const { user } = session
+  const userReviews = await fetchUserReviews(user.id, {
     page: currentPage,
   })
 
   return (
     <div className="space-y-8">
-      {recentReviews.ratings.map(({ book, rating, user }) => {
-        if (!book || !user) throw new Error('Book or user not found')
-        const createdAt = new Date(rating.createdAt!)
+      {userReviews.ratings.length > 0 ? (
+        userReviews.ratings.map(({ book, rating, user }) => {
+          if (!book || !user) throw new Error('Book or user not found')
+          const createdAt = new Date(rating.createdAt!)
 
-        return (
-          <RatingCard key={rating.id}>
-            <div className="mb-3 flex items-center justify-between">
-              <p className="text-sm font-medium text-muted-foreground">
-                {createdAt.toLocaleDateString('pt-BR', {
-                  year: 'numeric',
-                  month: 'long',
-                  day: 'numeric',
-                })}
-              </p>
+          return (
+            <RatingCard key={rating.id}>
+              <div className="mb-3 flex items-center justify-between">
+                <p className="text-sm font-medium text-muted-foreground">
+                  {createdAt.toLocaleDateString('pt-BR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                  })}
+                </p>
 
-              <Rating
-                value={rating.rate}
-                readOnly
-                style={{ maxWidth: 80, color: 'yellow' }}
+                <Rating
+                  value={rating.rate}
+                  readOnly
+                  style={{ maxWidth: 80, color: 'yellow' }}
+                />
+              </div>
+              <RatingCardContent
+                book={{
+                  title: book.name,
+                  author: book.author,
+                  description: rating.description,
+                  image: book.coverUrl,
+                }}
               />
-            </div>
-            <RatingCardContent
-              book={{
-                title: book.name,
-                author: book.author,
-                description: rating.description,
-                image: book.coverUrl,
-              }}
-            />
-          </RatingCard>
-        )
-      })}
+            </RatingCard>
+          )
+        })
+      ) : (
+        <EmptyPlaceholder className="col-span-6">
+          <EmptyPlaceholder.Icon name="logo" />
+          <EmptyPlaceholder.Title>
+            Nenhuma avaliação encontrada
+          </EmptyPlaceholder.Title>
+          <EmptyPlaceholder.Description>
+            Você ainda não avaliou nenhum livro.
+          </EmptyPlaceholder.Description>
+        </EmptyPlaceholder>
+      )}
 
-      {recentReviews.ratings.length > 0 && (
-        <Pagination totalPages={recentReviews.totalPages} />
+      {userReviews.ratings.length > 0 && (
+        <Pagination totalPages={userReviews.totalPages} />
       )}
     </div>
   )

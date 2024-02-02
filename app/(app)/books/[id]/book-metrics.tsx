@@ -4,6 +4,10 @@ import getBookById from '@/db/query/get-book-by-id'
 export async function BookMetrics({ bookId }: { bookId: string }) {
   const book = await getBookById(bookId)
 
+  const categories = book.categories.filter(
+    (v, i, a) => a.map((t) => t.id).indexOf(v.id) === i,
+  )
+
   return (
     <div className="grid grid-cols-1 gap-4 md:grid-cols-2 xl:grid-cols-4">
       <MetricCard
@@ -23,12 +27,8 @@ export async function BookMetrics({ bookId }: { bookId: string }) {
       />
       <MetricCard
         title="Categorias"
-        value={book.categories[0].name}
-        badge={
-          book.categories.length > 1
-            ? `+${book.categories.length - 1}`
-            : undefined
-        }
+        value={categories[0].name}
+        badge={categories.length > 1 ? `+${categories.length - 1}` : undefined}
         icon="bookmark"
       />
     </div>
