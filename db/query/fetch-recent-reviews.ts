@@ -1,9 +1,10 @@
 import { count, eq } from 'drizzle-orm'
-import { db } from '..'
-import { book, rating, user } from '../schema'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
+
+import { db } from '..'
 import { PER_PAGE, TAGS } from '../constants'
+import { book, rating, user } from '../schema'
 
 const fetchRecentReviews = unstable_cache(
   async (params: { page: number }) => {

@@ -1,10 +1,10 @@
-import fetchBookReviews from '@/db/query/fetch-book-reviews'
 import {
   RatingCard,
   RatingCardDescription,
   RatingCardHeader,
 } from '@/components/rating-card'
 import { Skeleton } from '@/components/ui/skeleton'
+import fetchBookReviews from '@/db/query/fetch-book-reviews'
 
 export async function BookReviews({ bookId }: { bookId: string }) {
   const bookReviews = await fetchBookReviews(bookId)

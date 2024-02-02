@@ -1,7 +1,8 @@
+import { Rating } from '@smastrom/react-rating'
+
 import { Pagination } from '@/components/pagination'
 import { RatingCard, RatingCardContent } from '@/components/rating-card'
 import fetchRecentReviews from '@/db/query/fetch-recent-reviews'
-import { Rating } from '@smastrom/react-rating'
 
 export async function UserReviews({ currentPage }: { currentPage: number }) {
   const recentReviews = await fetchRecentReviews({

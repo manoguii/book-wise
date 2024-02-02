@@ -1,3 +1,5 @@
+import { LogIn } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 import {
   Dialog,
@@ -7,7 +9,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from '@/components/ui/dialog'
-import { LogIn } from 'lucide-react'
+
 import { SignInWithGitHub } from './form/sign-in-with-github'
 import { SignInWithGoogle } from './form/sign-in-with-google'
 import { Tooltip, TooltipContent, TooltipTrigger } from './ui/tooltip'

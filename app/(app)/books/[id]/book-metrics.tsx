@@ -1,5 +1,5 @@
-import getBookById from '@/db/query/get-book-by-id'
 import { MetricCard } from '@/components/metric-card'
+import getBookById from '@/db/query/get-book-by-id'
 
 export async function BookMetrics({ bookId }: { bookId: string }) {
   const book = await getBookById(bookId)

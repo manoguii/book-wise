@@ -1,14 +1,16 @@
 'use client'
 
-import React from 'react'
-import { ResizablePanel } from './ui/resizable'
-import { cn } from '@/lib/utils'
-import { Nav } from './nav'
 import { LineChart, Popcorn, User2 } from 'lucide-react'
-import { SignInModal } from './sign-in-modal'
-import { Icons } from './icons'
-import { UserNav } from './user-nav'
 import { User } from 'next-auth'
+import React from 'react'
+
+import { cn } from '@/lib/utils'
+
+import { Icons } from './icons'
+import { Nav } from './nav'
+import { SignInModal } from './sign-in-modal'
+import { ResizablePanel } from './ui/resizable'
+import { UserNav } from './user-nav'
 
 export function Sidebar({
   defaultLayout = 20,

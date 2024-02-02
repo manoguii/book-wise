@@ -1,8 +1,9 @@
+import { count, eq, ilike, or, sql } from 'drizzle-orm'
+import { cache } from 'react'
+
 import { db } from '..'
 import { PER_PAGE } from '../constants'
 import { book, rating } from '../schema'
-import { count, eq, ilike, sql, or } from 'drizzle-orm'
-import { cache } from 'react'
 
 const fetchBooksByQuery = async (params: { search: string; page: number }) => {
   const total = await db

@@ -1,3 +1,7 @@
+import { Laptop, Moon, Sun } from 'lucide-react'
+import { User } from 'next-auth'
+import { useTheme } from 'next-themes'
+
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
 import {
@@ -9,11 +13,9 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/ui/dropdown-menu'
-import { SignOut } from './form/sign-out'
 import { getInitials } from '@/lib/utils'
-import { User } from 'next-auth'
-import { useTheme } from 'next-themes'
-import { Laptop, Moon, Sun } from 'lucide-react'
+
+import { SignOut } from './form/sign-out'
 
 export function UserNav({ user }: { user: User }) {
   const { setTheme } = useTheme()

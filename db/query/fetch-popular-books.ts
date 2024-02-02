@@ -1,9 +1,10 @@
 import { eq, sql } from 'drizzle-orm'
-import { db } from '..'
-import { book, rating } from '../schema'
 import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
+
+import { db } from '..'
 import { TAGS } from '../constants'
+import { book, rating } from '../schema'
 
 const fetchPopularBooks = unstable_cache(
   async () => {

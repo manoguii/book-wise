@@ -1,9 +1,10 @@
-import { unstable_cache } from 'next/cache'
-import { db } from '..'
-import { rating, user } from '../schema'
 import { eq } from 'drizzle-orm'
+import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
+
+import { db } from '..'
 import { TAGS } from '../constants'
+import { rating, user } from '../schema'
 
 const fetchBookReviews = unstable_cache(
   async (bookId: string) => {

@@ -1,15 +1,17 @@
 import { LineChart } from 'lucide-react'
-import { MostRecentReviews } from './most-recent-reviews'
-import { PopularBooks } from './popular-books'
+import Link from 'next/link'
 import { Suspense } from 'react'
+
+import { BookCardSkeleton } from '@/components/book-card'
 import {
   RatingCard,
   RatingCardContent,
   RatingCardHeader,
 } from '@/components/rating-card'
-import { BookCardSkeleton } from '@/components/book-card'
 import { buttonVariants } from '@/components/ui/button'
-import Link from 'next/link'
+
+import { MostRecentReviews } from './most-recent-reviews'
+import { PopularBooks } from './popular-books'
 
 export default async function Home({
   searchParams,

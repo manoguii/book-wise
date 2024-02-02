@@ -1,11 +1,12 @@
 'use client'
 
+import { LogOut } from 'lucide-react'
 import React from 'react'
 import { useFormStatus } from 'react-dom'
 
-import { Button } from '../ui/button'
-import { LogOut } from 'lucide-react'
 import { signOutAction } from '@/db/actions/sign-out'
+
+import { Button } from '../ui/button'
 
 function SubmitButton() {
   const { pending } = useFormStatus()

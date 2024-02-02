@@ -1,5 +1,9 @@
 import { Rating } from '@smastrom/react-rating'
 import Image from 'next/image'
+import Link from 'next/link'
+
+import { Book } from '@/types/definitions'
+
 import {
   Card,
   CardContent,
@@ -7,8 +11,6 @@ import {
   CardHeader,
   CardTitle,
 } from './ui/card'
-import Link from 'next/link'
-import { Book } from '@/types/definitions'
 import { Skeleton } from './ui/skeleton'
 
 export function BookCard({ book }: { book: Book & { rate: string } }) {

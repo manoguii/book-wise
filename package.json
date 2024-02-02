@@ -7,6 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
+    "lint:fix": "eslint app components db seed --ext .tsx,.ts --fix",
     "db:migrate": "drizzle-kit generate:pg --config=drizzle.config.ts",
     "db:push": "drizzle-kit push:pg --config=drizzle.config.ts",
     "db:seed": "bun ./seed/seed.ts"
@@ -51,6 +52,7 @@
     "drizzle-kit": "^0.20.13",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
+    "eslint-plugin-simple-import-sort": "^10.0.0",
     "postcss": "^8",
     "prettier-plugin-tailwindcss": "^0.5.11",
     "tailwindcss": "^3.3.0",

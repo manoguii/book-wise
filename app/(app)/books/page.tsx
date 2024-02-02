@@ -1,9 +1,11 @@
+import { Suspense } from 'react'
+
 import { BookCardSkeleton } from '@/components/book-card'
 import { Grid } from '@/components/grid'
 import { Icons } from '@/components/icons'
 import { SearchInput } from '@/components/search-input'
+
 import { ListOfBooks } from './list-of-books'
-import { Suspense } from 'react'
 
 export default async function BooksPage({
   searchParams,

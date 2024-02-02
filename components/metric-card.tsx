@@ -1,6 +1,6 @@
 import { Icons } from './icons'
 import { Badge } from './ui/badge'
-import { Card, CardContent, CardHeader, CardDescription } from './ui/card'
+import { Card, CardContent, CardDescription, CardHeader } from './ui/card'
 import { Skeleton } from './ui/skeleton'
 
 interface MetricCardProps {

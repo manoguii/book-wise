@@ -1,9 +1,10 @@
 import { Metadata } from 'next'
 import Link from 'next/link'
-import { Icons } from '@/components/icons'
+
 import { SignInWithEmail } from '@/components/form/sign-in-with-email'
 import { SignInWithGitHub } from '@/components/form/sign-in-with-github'
 import { SignInWithGoogle } from '@/components/form/sign-in-with-google'
+import { Icons } from '@/components/icons'
 
 export const metadata: Metadata = {
   title: 'Entrar',

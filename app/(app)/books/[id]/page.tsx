@@ -1,7 +1,8 @@
 import { Suspense } from 'react'
+
 import { BookDetails, BookDetailsSkeleton } from './book-details'
-import { BookReviews, BookReviewsSkeleton } from './book-reviews'
 import { BookMetrics, BookMetricsSkeleton } from './book-metrics'
+import { BookReviews, BookReviewsSkeleton } from './book-reviews'
 
 export default async function BookPage({
   params,

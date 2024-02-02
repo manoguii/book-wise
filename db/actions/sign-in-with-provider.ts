@@ -1,7 +1,8 @@
 'use server'
 
-import { signIn } from '@/auth'
 import { z } from 'zod'
+
+import { signIn } from '@/auth'
 
 const signInWithSchema = z.enum(['google', 'github'])
 

@@ -1,11 +1,12 @@
+import chalk from 'chalk'
+
 import { db } from '@/db'
+import { book, category, categoryOnBook, rating, user } from '@/db/schema'
+
 import { books as booksData } from './constants/books'
 import { categories as categoriesData } from './constants/categories'
 import { ratings as ratingsData } from './constants/ratings'
 import { users as usersData } from './constants/users'
-
-import { rating, user, categoryOnBook, category, book } from '@/db/schema'
-import chalk from 'chalk'
 
 type NewUser = typeof user.$inferInsert
 type NewRating = typeof rating.$inferInsert

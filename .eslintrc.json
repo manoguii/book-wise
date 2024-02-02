@@ -4,7 +4,11 @@
     "@rocketseat/eslint-config/next"
   ],
   "rules": {
+    "simple-import-sort/imports": "error",
     "camelcase": "off",
     "@typescript-eslint/no-non-null-assertion": "off"
-  }
+  },
+  "plugins": [
+    "simple-import-sort"
+  ]
 }

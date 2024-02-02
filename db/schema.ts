@@ -1,14 +1,14 @@
-import {
-  timestamp,
-  pgTable,
-  text,
-  primaryKey,
-  integer,
-  uuid,
-  index,
-} from 'drizzle-orm/pg-core'
 import type { AdapterAccount } from '@auth/core/adapters'
 import { relations } from 'drizzle-orm'
+import {
+  index,
+  integer,
+  pgTable,
+  primaryKey,
+  text,
+  timestamp,
+  uuid,
+} from 'drizzle-orm/pg-core'
 
 export const user = pgTable('user', {
   id: uuid('id').primaryKey().defaultRandom(),

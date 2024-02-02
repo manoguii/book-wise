@@ -1,9 +1,10 @@
+import { Rating } from '@smastrom/react-rating'
+import Image from 'next/image'
 import * as React from 'react'
 
 import { cn, getInitials } from '@/lib/utils'
+
 import { Avatar, AvatarFallback, AvatarImage } from './ui/avatar'
-import Image from 'next/image'
-import { Rating } from '@smastrom/react-rating'
 import { Skeleton } from './ui/skeleton'
 
 interface RatingCardHeaderProps {

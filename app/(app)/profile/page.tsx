@@ -1,14 +1,16 @@
 import { User2 } from 'lucide-react'
+import { notFound } from 'next/navigation'
 import { Suspense } from 'react'
-import { UserReviews } from './user-reviews'
+
+import { auth } from '@/auth-config'
+import { MetricCard } from '@/components/metric-card'
 import { RatingCard, RatingCardContent } from '@/components/rating-card'
-import { Skeleton } from '@/components/ui/skeleton'
 import { SearchInput } from '@/components/search-input'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
+import { Skeleton } from '@/components/ui/skeleton'
 import { getInitials } from '@/lib/utils'
-import { auth } from '@/auth-config'
-import { notFound } from 'next/navigation'
-import { MetricCard } from '@/components/metric-card'
+
+import { UserReviews } from './user-reviews'
 
 export default async function ProfilePage({
   searchParams,

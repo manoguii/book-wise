@@ -3,9 +3,10 @@
 import React from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 
-import { Button } from '../ui/button'
-import { Icons } from '../icons'
 import { signInWithProvider } from '@/db/actions/sign-in-with-provider'
+
+import { Icons } from '../icons'
+import { Button } from '../ui/button'
 
 function SubmitButton() {
   const { pending } = useFormStatus()
