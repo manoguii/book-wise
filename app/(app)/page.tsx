@@ -23,44 +23,49 @@ export default async function Home({
         Inicio
       </h1>
 
-      <div className="flex gap-5">
+      <div className="space-y-4">
+        <div className="flex items-center justify-between gap-2">
+          <p className="font-medium">Livros populares</p>
+          <Link
+            href="/books"
+            className={buttonVariants({
+              variant: 'link',
+              size: 'sm',
+            })}
+          >
+            Ver todos
+          </Link>
+        </div>
         <Suspense
           fallback={
-            <div className="basis-4/6 space-y-4">
-              <div className="flex h-9 items-center justify-between gap-2">
-                <p className="font-medium">Avaliações mais recentes</p>
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2">
+              <div className="hidden md:block">
+                <BookCardSkeleton key={0} />
               </div>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <RatingCardSkeleton key={i} />
-              ))}
-            </div>
-          }
-        >
-          <MostRecentReviews currentPage={currentPage} />
-        </Suspense>
-        <Suspense
-          fallback={
-            <div className="basis-2/6 space-y-4">
-              <div className="flex items-center justify-between gap-2">
-                <p className="font-medium">Livros populares</p>
-                <Link
-                  href="/books"
-                  className={buttonVariants({
-                    variant: 'link',
-                    size: 'sm',
-                  })}
-                >
-                  Ver todos
-                </Link>
-              </div>
-              {Array.from({ length: 5 }).map((_, i) => (
-                <BookCardSkeleton key={i} />
-              ))}
+              <BookCardSkeleton key={1} />
             </div>
           }
         >
           <PopularBooks />
         </Suspense>
+      </div>
+
+      <div className="flex gap-5">
+        <div className="basis-full space-y-4 lg:basis-4/6">
+          <div className="flex h-9 items-center justify-between gap-2">
+            <p className="font-medium">Avaliações mais recentes</p>
+          </div>
+          <Suspense
+            key={currentPage}
+            fallback={Array.from({ length: 5 }).map((_, i) => (
+              <RatingCardSkeleton key={i} />
+            ))}
+          >
+            <MostRecentReviews currentPage={currentPage} />
+          </Suspense>
+        </div>
+
+        <div className="hidden lg:block">{/* Aside content */}</div>
       </div>
     </>
   )

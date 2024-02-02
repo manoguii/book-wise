@@ -1,28 +1,23 @@
 import { BookCard } from '@/components/book-card'
-import { buttonVariants } from '@/components/ui/button'
-import fetchRecommendedBooks from '@/db/query/fetch-recommended-books'
-import Link from 'next/link'
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel'
+import fetchPopularBooks from '@/db/query/fetch-popular-books'
 
 export async function PopularBooks() {
-  const recommendedBooks = await fetchRecommendedBooks()
+  const popularBooks = await fetchPopularBooks()
 
   return (
-    <div className="basis-2/6 space-y-4">
-      <div className="flex items-center justify-between gap-2">
-        <p className="font-medium">Livros populares</p>
-        <Link
-          href="/books"
-          className={buttonVariants({
-            variant: 'link',
-            size: 'sm',
-          })}
-        >
-          Ver todos
-        </Link>
-      </div>
-      {recommendedBooks.map((book) => (
-        <BookCard key={book.id} book={book} />
-      ))}
-    </div>
+    <Carousel>
+      <CarouselContent>
+        {popularBooks.map((book) => (
+          <CarouselItem className="md:basis-1/2" key={book.id}>
+            <BookCard book={book} />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   )
 }

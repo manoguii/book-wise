@@ -22,7 +22,10 @@ interface NavProps {
 }
 
 export function Nav({ links, isCollapsed }: NavProps) {
-  const pathname = usePathname()
+  let pathname = usePathname()
+  if (pathname?.includes('/books/')) {
+    pathname = '/books'
+  }
 
   return (
     <div data-collapsed={isCollapsed} className="group h-full w-full">

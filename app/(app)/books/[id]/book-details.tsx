@@ -49,25 +49,25 @@ export async function BookDetails({ bookId }: { bookId: string }) {
 
 export function BookDetailsSkeleton() {
   return (
-    <div className="flex rounded-lg border bg-card p-10">
+    <div className="flex flex-col items-center gap-8 rounded-lg border bg-card p-10 md:flex-row md:items-start">
       <div className="basis-2/6">
         <Skeleton className="mr-auto h-80 w-60 rounded-lg" />
       </div>
 
-      <div className="flex basis-4/6 flex-col gap-4">
-        <div className="flex justify-between">
-          <div className="space-y-2">
+      <div className="flex w-full basis-4/6 flex-col gap-4">
+        <div className="mt-2 flex flex-wrap justify-between gap-3">
+          <div className="space-y-2 sm:min-w-72">
             <Skeleton className="h-6 w-40" />
             <Skeleton className="h-4 w-20" />
           </div>
 
-          <div className="flex flex-col gap-2">
+          <div className="flex min-w-24 flex-col gap-2">
             <Skeleton className="h-4 w-20" />
             <Skeleton className="h-4 w-20" />
           </div>
         </div>
 
-        <div className="space-y-2">
+        <div className="space-y-3">
           <Skeleton className="mt-2 h-4 w-full" />
           <Skeleton className="mt-2 h-4 w-full" />
           <Skeleton className="mt-2 h-4 w-full" />

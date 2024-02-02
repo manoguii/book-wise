@@ -5,7 +5,7 @@ import { unstable_cache } from 'next/cache'
 import { cache } from 'react'
 import { TAGS } from '../constants'
 
-const fetchRecommendedBooks = unstable_cache(
+const fetchPopularBooks = unstable_cache(
   async () => {
     const query = await db
       .select({
@@ -23,7 +23,7 @@ const fetchRecommendedBooks = unstable_cache(
       .groupBy(book.id)
       .having(sql`COUNT(rating.id) > 0`)
       .orderBy(sql`average_rating DESC`)
-      .limit(5)
+      .limit(6)
 
     return query
   },
@@ -33,4 +33,4 @@ const fetchRecommendedBooks = unstable_cache(
   },
 )
 
-export default cache(fetchRecommendedBooks)
+export default cache(fetchPopularBooks)
