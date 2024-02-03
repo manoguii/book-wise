@@ -17,16 +17,17 @@ export async function MostRecentReviews({
 
   return (
     <div className="space-y-4">
-      {recentReviews.ratings.map(({ book, rating, user }) => {
-        if (!book || !user) throw new Error('Book or user not found')
+      {recentReviews.ratings.map((rating) => {
+        if (!rating.book || !rating.user)
+          throw new Error('Book or user not found')
 
         return (
           <RatingCard key={rating.id}>
             <RatingCardHeader
               data={{
-                id: user.id,
-                name: user.name || '',
-                image: user.image || '',
+                id: rating.user.id,
+                name: rating.user.name || '',
+                image: rating.user.image || '',
                 rating: rating.rate,
                 ratedIn: rating.createdAt || new Date(),
               }}
@@ -34,10 +35,10 @@ export async function MostRecentReviews({
 
             <RatingCardContent
               book={{
-                title: book.name,
-                author: book.author,
+                title: rating.book.name,
+                author: rating.book.author,
                 description: rating.description,
-                image: book.coverUrl,
+                image: rating.book.coverUrl,
               }}
             />
           </RatingCard>

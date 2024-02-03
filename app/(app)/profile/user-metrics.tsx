@@ -10,16 +10,24 @@ export async function UserMetrics() {
 
   return (
     <div className="grid w-full gap-4">
-      <MetricCard title="Páginas lidas" value="3920" icon="bookOpen" />
-      <MetricCard title="Livros avaliados" value="15" icon="library" />
+      <MetricCard
+        value={userMetrics.pagesRead.value || 0}
+        title="Páginas lidas"
+        icon="bookOpen"
+      />
       <MetricCard
         value={userMetrics.booksRated.value}
+        title="Livros avaliados"
+        icon="library"
+      />
+      <MetricCard
+        value={userMetrics.authorsRead.value}
         title="Autores lidos"
         icon="bookUser"
       />
       <MetricCard
-        title="Categoria mais lida"
         value={userMetrics.mostReadCategory.category}
+        title="Categoria mais lida"
         icon="bookmark"
       />
     </div>

@@ -1,12 +1,13 @@
 import { Rating } from '@smastrom/react-rating'
 import Image from 'next/image'
 
+import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import getBookById from '@/db/query/get-book-by-id'
 
 export async function BookDetails({ bookId }: { bookId: string }) {
   const book = await getBookById(bookId)
-
+  await new Promise((resolve) => setTimeout(resolve, 1000))
   return (
     <div className="flex flex-col items-center gap-8 rounded-lg border bg-card p-10 md:flex-row md:items-start">
       <div className="basis-2/6">
@@ -21,7 +22,7 @@ export async function BookDetails({ bookId }: { bookId: string }) {
         />
       </div>
 
-      <div className="flex basis-4/6 flex-col gap-4">
+      <div className="flex basis-4/6 flex-col gap-4 space-y-2">
         <div className="flex flex-wrap justify-between gap-3">
           <div className="space-y-2 sm:min-w-72">
             <h2 className="text-2xl font-bold md:text-3xl">{book.name}</h2>
@@ -43,6 +44,14 @@ export async function BookDetails({ bookId }: { bookId: string }) {
         </div>
 
         <p className="text-muted-foreground">{book.summary}</p>
+
+        <div className="flex flex-wrap items-center gap-2">
+          {book.categories.map((category) => (
+            <Badge key={category.id} variant="default">
+              {category.name}
+            </Badge>
+          ))}
+        </div>
       </div>
     </div>
   )
@@ -55,8 +64,8 @@ export function BookDetailsSkeleton() {
         <Skeleton className="mr-auto h-80 w-60 rounded-lg" />
       </div>
 
-      <div className="flex w-full basis-4/6 flex-col gap-4">
-        <div className="mt-2 flex flex-wrap justify-between gap-3">
+      <div className="flex w-full basis-4/6 flex-col gap-4 space-y-4">
+        <div className="flex flex-wrap justify-between gap-3">
           <div className="space-y-2 sm:min-w-72">
             <Skeleton className="h-6 w-40" />
             <Skeleton className="h-4 w-20" />
@@ -71,7 +80,11 @@ export function BookDetailsSkeleton() {
         <div className="space-y-3">
           <Skeleton className="mt-2 h-4 w-full" />
           <Skeleton className="mt-2 h-4 w-full" />
-          <Skeleton className="mt-2 h-4 w-full" />
+        </div>
+
+        <div className="mt-2 flex flex-wrap items-center gap-2">
+          <Skeleton className="h-[22px] w-24 rounded-full" />
+          <Skeleton className="h-[22px] w-24 rounded-full" />
         </div>
       </div>
     </div>

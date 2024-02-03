@@ -1,6 +1,5 @@
-import { count, eq, sql } from 'drizzle-orm'
+import { avg, count, desc, eq } from 'drizzle-orm'
 import { unstable_cache } from 'next/cache'
-import { cache } from 'react'
 
 import { db } from '..'
 import { PER_PAGE, TAGS } from '../constants'
@@ -21,13 +20,14 @@ const fetchBooks = unstable_cache(
         summary: book.summary,
         totalPages: book.totalPages,
         createdAt: book.createdAt,
-        rate: sql<string>`AVG(${rating.rate}) as average_rating`,
+        averageRating: avg(rating.rate).as('average_rating'),
       })
       .from(book)
       .leftJoin(rating, eq(rating.bookId, book.id))
       .groupBy(book.id)
       .limit(PER_PAGE)
       .offset((params.page - 1) * PER_PAGE)
+      .orderBy(desc(book.createdAt))
 
     return {
       books: query,
@@ -40,4 +40,4 @@ const fetchBooks = unstable_cache(
   },
 )
 
-export default cache(fetchBooks)
+export default fetchBooks

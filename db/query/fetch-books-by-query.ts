@@ -1,5 +1,4 @@
-import { count, eq, ilike, or, sql } from 'drizzle-orm'
-import { cache } from 'react'
+import { avg, count, eq, ilike, or } from 'drizzle-orm'
 
 import { db } from '..'
 import { PER_PAGE } from '../constants'
@@ -27,7 +26,7 @@ const fetchBooksByQuery = async (params: { search: string; page: number }) => {
       summary: book.summary,
       totalPages: book.totalPages,
       createdAt: book.createdAt,
-      rate: sql<string>`AVG(${rating.rate}) as average_rating`,
+      averageRating: avg(rating.rate).as('average_rating'),
     })
     .from(book)
     .leftJoin(rating, eq(rating.bookId, book.id))
@@ -47,4 +46,4 @@ const fetchBooksByQuery = async (params: { search: string; page: number }) => {
   }
 }
 
-export default cache(fetchBooksByQuery)
+export default fetchBooksByQuery

@@ -17,8 +17,8 @@ export async function UserReviews({ currentPage }: { currentPage: number }) {
   return (
     <div className="space-y-8">
       {userReviews.ratings.length > 0 ? (
-        userReviews.ratings.map(({ book, rating, user }) => {
-          if (!book || !user) throw new Error('Book or user not found')
+        userReviews.ratings.map((rating) => {
+          if (!rating.book) throw new Error('Book or user not found')
           const createdAt = new Date(rating.createdAt!)
 
           return (
@@ -40,10 +40,10 @@ export async function UserReviews({ currentPage }: { currentPage: number }) {
               </div>
               <RatingCardContent
                 book={{
-                  title: book.name,
-                  author: book.author,
+                  title: rating.book.name,
+                  author: rating.book.author,
+                  image: rating.book.coverUrl,
                   description: rating.description,
-                  image: book.coverUrl,
                 }}
               />
             </RatingCard>

@@ -14,7 +14,7 @@ interface Items {
     summary: string
     totalPages: number
     createdAt: Date | null
-    rate: string
+    averageRating: string | null
   }[]
   totalPages: number
 }

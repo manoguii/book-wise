@@ -1,4 +1,4 @@
-import { eq, sql } from 'drizzle-orm'
+import { avg, eq, sql } from 'drizzle-orm'
 import { cache } from 'react'
 
 import { db } from '..'
@@ -16,7 +16,7 @@ async function getBookById(bookId: string) {
       summary: book.summary,
       totalPages: book.totalPages,
       createdAt: book.createdAt,
-      averageRating: sql<string>`AVG(${rating.rate}) as averageRating`,
+      averageRating: avg(rating.rate),
       ratingCount: sql<string>`(SELECT COUNT(*) FROM rating WHERE ${rating.bookId} = ${bookId})`,
       categories: sql<
         Category[]

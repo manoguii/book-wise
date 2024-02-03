@@ -13,7 +13,11 @@ import {
 } from './ui/card'
 import { Skeleton } from './ui/skeleton'
 
-export function BookCard({ book }: { book: Book & { rate: string } }) {
+export function BookCard({
+  book,
+}: {
+  book: Book & { averageRating: string | null }
+}) {
   return (
     <Link href={`/books/${book.id}`} className="block">
       <Card className="flex">
@@ -37,7 +41,7 @@ export function BookCard({ book }: { book: Book & { rate: string } }) {
           <CardContent className="mt-auto">
             <Rating
               readOnly
-              value={Number(book.rate)}
+              value={Number(book.averageRating)}
               style={{ maxWidth: 80 }}
             />
           </CardContent>

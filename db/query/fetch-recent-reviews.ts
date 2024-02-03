@@ -1,6 +1,5 @@
-import { count, eq } from 'drizzle-orm'
+import { count, desc, eq } from 'drizzle-orm'
 import { unstable_cache } from 'next/cache'
-import { cache } from 'react'
 
 import { db } from '..'
 import { PER_PAGE, TAGS } from '../constants'
@@ -14,12 +13,10 @@ const fetchRecentReviews = unstable_cache(
 
     const query = await db
       .select({
-        rating: {
-          id: rating.id,
-          rate: rating.rate,
-          description: rating.description,
-          createdAt: rating.createdAt,
-        },
+        id: rating.id,
+        rate: rating.rate,
+        description: rating.description,
+        createdAt: rating.createdAt,
         book: {
           id: book.id,
           name: book.name,
@@ -37,6 +34,7 @@ const fetchRecentReviews = unstable_cache(
       .leftJoin(user, eq(rating.userId, user.id))
       .limit(PER_PAGE)
       .offset((params.page - 1) * PER_PAGE)
+      .orderBy(desc(rating.createdAt))
 
     return {
       ratings: query,
@@ -49,4 +47,4 @@ const fetchRecentReviews = unstable_cache(
   },
 )
 
-export default cache(fetchRecentReviews)
+export default fetchRecentReviews

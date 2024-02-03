@@ -1,6 +1,5 @@
-import { eq } from 'drizzle-orm'
+import { desc, eq } from 'drizzle-orm'
 import { unstable_cache } from 'next/cache'
-import { cache } from 'react'
 
 import { db } from '..'
 import { TAGS } from '../constants'
@@ -23,6 +22,7 @@ const fetchBookReviews = unstable_cache(
       .from(rating)
       .leftJoin(user, eq(rating.userId, user.id))
       .where(eq(rating.bookId, bookId))
+      .orderBy(desc(rating.createdAt))
 
     return query
   },
@@ -32,4 +32,4 @@ const fetchBookReviews = unstable_cache(
   },
 )
 
-export default cache(fetchBookReviews)
+export default fetchBookReviews

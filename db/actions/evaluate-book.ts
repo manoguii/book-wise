@@ -66,4 +66,5 @@ export async function evaluateBook(prevState: unknown, formData: FormData) {
   revalidateTag(TAGS.user_reviews)
   revalidateTag(TAGS.book_reviews)
   revalidateTag(TAGS.recent_reviews)
+  revalidateTag(TAGS.recommended_books)
 }
