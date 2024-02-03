@@ -7,11 +7,11 @@ import { auth } from '@/auth-config'
 
 import { db } from '..'
 import { TAGS } from '../constants'
-import { rating } from '../schema'
+import { ratings } from '../schema'
 
 const evaluateBookSchema = z.object({
   bookId: z.string().uuid(),
-  rate: z.coerce
+  rating: z.coerce
     .number()
     .min(1, {
       message: 'Sua avaliação deve ser no mínimo 1 estrela',
@@ -29,9 +29,9 @@ const evaluateBookSchema = z.object({
     }),
 })
 
-export async function evaluateBook(prevState: unknown, formData: FormData) {
+export async function evaluateBook(formData: FormData) {
   const input = {
-    rate: formData.get('rate'),
+    rating: formData.get('rating'),
     review: formData.get('review'),
     bookId: formData.get('bookId'),
   }
@@ -54,10 +54,10 @@ export async function evaluateBook(prevState: unknown, formData: FormData) {
 
   const userId = session.user.id
 
-  const { bookId, rate, review } = result.data
+  const { bookId, rating, review } = result.data
 
-  await db.insert(rating).values({
-    rate,
+  await db.insert(ratings).values({
+    rate: rating,
     bookId,
     userId,
     description: review,

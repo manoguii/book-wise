@@ -3,31 +3,31 @@ import { unstable_cache } from 'next/cache'
 
 import { db } from '..'
 import { PER_PAGE, TAGS } from '../constants'
-import { book, rating } from '../schema'
+import { books, ratings } from '../schema'
 
 const fetchBooks = unstable_cache(
   async (params: { page: number }) => {
-    const total = await db.select({ value: count(book.id) }).from(book)
+    const total = await db.select({ value: count(books.id) }).from(books)
 
     const totalPages = Math.ceil(total[0].value / PER_PAGE)
 
     const query = await db
       .select({
-        id: book.id,
-        name: book.name,
-        author: book.author,
-        coverUrl: book.coverUrl,
-        summary: book.summary,
-        totalPages: book.totalPages,
-        createdAt: book.createdAt,
-        averageRating: avg(rating.rate).as('average_rating'),
+        id: books.id,
+        name: books.name,
+        author: books.author,
+        coverUrl: books.coverUrl,
+        summary: books.summary,
+        totalPages: books.totalPages,
+        createdAt: books.createdAt,
+        averageRating: avg(ratings.rate).as('average_rating'),
       })
-      .from(book)
-      .leftJoin(rating, eq(rating.bookId, book.id))
-      .groupBy(book.id)
+      .from(books)
+      .leftJoin(ratings, eq(ratings.bookId, books.id))
+      .groupBy(books.id)
       .limit(PER_PAGE)
       .offset((params.page - 1) * PER_PAGE)
-      .orderBy(desc(book.createdAt))
+      .orderBy(desc(books.createdAt))
 
     return {
       books: query,

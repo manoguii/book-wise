@@ -1,3 +1,3 @@
-import { book } from '@/db/schema'
+import { books } from '@/db/schema'
 
-export type Book = typeof book.$inferSelect
+export type Book = typeof books.$inferSelect

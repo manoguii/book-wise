@@ -3,7 +3,7 @@
 import { Rating } from '@smastrom/react-rating'
 import { User } from 'next-auth'
 import React from 'react'
-import { useFormState, useFormStatus } from 'react-dom'
+import { useFormStatus } from 'react-dom'
 
 import { evaluateBook } from '@/db/actions/evaluate-book'
 import { getInitials } from '@/lib/utils'
@@ -13,6 +13,7 @@ import { Button } from '../ui/button'
 import { Input } from '../ui/input'
 import { Label } from '../ui/label'
 import { Textarea } from '../ui/textarea'
+import { toast } from '../ui/use-toast'
 
 interface EvaluateBookFormProps {
   bookId: string
@@ -36,17 +37,33 @@ function SubmitButton() {
 
 export function EvaluateBookForm({ bookId, user }: EvaluateBookFormProps) {
   const formRef = React.useRef<HTMLFormElement>(null)
-  const [rate, setRate] = React.useState(0)
-  const [message, formAction] = useFormState(evaluateBook, null)
+  const [rating, setRating] = React.useState(0)
 
   return (
     <form
       className="grid gap-5 shadow-sm"
       ref={formRef}
       action={async (formData) => {
-        await formAction(formData)
-        formRef.current?.reset()
-        setRate(0)
+        evaluateBook(formData)
+          .then((data) => {
+            if (data?.error) {
+              toast({
+                title: 'Erro ao avaliar livro',
+                description: data.error,
+                variant: 'destructive',
+              })
+              return
+            }
+
+            toast({
+              title: 'Avaliação criada com sucesso',
+              description: 'Obrigado por avaliar o livro!',
+            })
+          })
+          .finally(() => {
+            formRef.current?.reset()
+            setRating(0)
+          })
       }}
     >
       <div className="flex justify-between gap-5">
@@ -62,8 +79,8 @@ export function EvaluateBookForm({ bookId, user }: EvaluateBookFormProps) {
           </div>
         )}
         <Rating
-          onChange={setRate}
-          value={rate}
+          onChange={setRating}
+          value={rating}
           style={{ maxWidth: 120, color: 'yellow', marginLeft: 'auto' }}
         />
       </div>
@@ -81,17 +98,8 @@ export function EvaluateBookForm({ bookId, user }: EvaluateBookFormProps) {
           maxLength={500}
           rows={4}
         />
-        {message?.error && (
-          <p
-            aria-live="polite"
-            className="mt-2 text-sm text-destructive"
-            role="status"
-          >
-            {message.error}
-          </p>
-        )}
       </div>
-      <Input id="rate" name="rate" type="hidden" value={rate} />
+      <Input id="rating" name="rating" type="hidden" value={rating} />
       <Input id="bookId" name="bookId" type="hidden" value={bookId} />
 
       <div className="flex justify-end gap-2">

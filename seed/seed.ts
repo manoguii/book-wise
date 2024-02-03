@@ -1,45 +1,51 @@
 import chalk from 'chalk'
 
 import { db } from '@/db'
-import { book, category, categoryOnBook, rating, user } from '@/db/schema'
+import {
+  books,
+  categories,
+  categoriesOnBooks,
+  ratings,
+  users,
+} from '@/db/schema'
 
 import { books as booksData } from './constants/books'
 import { categories as categoriesData } from './constants/categories'
 import { ratings as ratingsData } from './constants/ratings'
 import { users as usersData } from './constants/users'
 
-type NewUser = typeof user.$inferInsert
-type NewRating = typeof rating.$inferInsert
-type NewCategoryOnBook = typeof categoryOnBook.$inferInsert
-type NewCategory = typeof category.$inferInsert
-type NewBook = typeof book.$inferInsert
+type NewUser = typeof users.$inferInsert
+type NewRating = typeof ratings.$inferInsert
+type NewCategoryOnBook = typeof categoriesOnBooks.$inferInsert
+type NewCategory = typeof categories.$inferInsert
+type NewBook = typeof books.$inferInsert
 
 async function insertUser(newUser: NewUser) {
-  return db.insert(user).values(newUser)
+  return db.insert(users).values(newUser)
 }
 
 async function insertCategoryOnBook(newCategoryOnBook: NewCategoryOnBook) {
-  return db.insert(categoryOnBook).values(newCategoryOnBook)
+  return db.insert(categoriesOnBooks).values(newCategoryOnBook)
 }
 
 async function insertCategory(newCategory: NewCategory) {
-  return db.insert(category).values(newCategory)
+  return db.insert(categories).values(newCategory)
 }
 
 async function insertBook(newBook: NewBook) {
-  return db.insert(book).values(newBook)
+  return db.insert(books).values(newBook)
 }
 
 async function insertRating(newRating: NewRating) {
-  return db.insert(rating).values(newRating)
+  return db.insert(ratings).values(newRating)
 }
 
 async function main() {
-  await db.delete(rating)
-  await db.delete(user)
-  await db.delete(categoryOnBook)
-  await db.delete(category)
-  await db.delete(book)
+  await db.delete(ratings)
+  await db.delete(users)
+  await db.delete(categoriesOnBooks)
+  await db.delete(categories)
+  await db.delete(books)
 
   for (const user of usersData) {
     await insertUser({
@@ -69,9 +75,9 @@ async function main() {
   }
 
   for (const book of booksData) {
-    const categories = book.categories
+    const bookCategories = book.categories
 
-    for (const category of categories) {
+    for (const category of bookCategories) {
       await insertCategoryOnBook({
         bookId: book.id,
         categoryId: category.id,

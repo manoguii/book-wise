@@ -4,44 +4,44 @@ import { cache } from 'react'
 
 import { db } from '..'
 import { TAGS } from '../constants'
-import { book, rating } from '../schema'
+import { books, ratings } from '../schema'
 
 const fetchPopularBooks = unstable_cache(
   async () => {
     const avgRatingResult = await db
       .select({
-        avg_rating: avg(rating.rate).as('avg_rating'),
+        avg_rating: avg(ratings.rate).as('avg_rating'),
       })
-      .from(rating)
+      .from(ratings)
 
     const C = avgRatingResult[0].avg_rating
     const m = 5
 
-    const v = cast(count(rating.id))
-    const R = cast(avg(rating.rate))
+    const v = cast(count(ratings.id))
+    const R = cast(avg(ratings.rate))
     const vPlusM = sql`(${v} + ${cast(m)})`
     const mDividedByVPlusM = sql`(${cast(m)} / ${vPlusM})`
     const vDividedByVPlusM = sql`(${v} / ${vPlusM})`
 
     const popularBooks = await db
       .select({
-        id: book.id,
-        name: book.name,
-        author: book.author,
-        coverUrl: book.coverUrl,
-        summary: book.summary,
-        totalPages: book.totalPages,
-        createdAt: book.createdAt,
-        averageRating: avg(rating.rate).as('average_rating'),
-        ratingCount: count(rating.id).as('rating_count'),
+        id: books.id,
+        name: books.name,
+        author: books.author,
+        coverUrl: books.coverUrl,
+        summary: books.summary,
+        totalPages: books.totalPages,
+        createdAt: books.createdAt,
+        averageRating: avg(ratings.rate).as('average_rating'),
+        ratingCount: count(ratings.id).as('rating_count'),
         score:
           sql<number>`(${vDividedByVPlusM} * ${R} + ${mDividedByVPlusM} * ${cast(C)})`.as(
             'score',
           ),
       })
-      .from(book)
-      .leftJoin(rating, eq(rating.bookId, book.id))
-      .groupBy(book.id)
+      .from(books)
+      .leftJoin(ratings, eq(ratings.bookId, books.id))
+      .groupBy(books.id)
       .having(sql`COUNT(rating.id) > 0`)
       .orderBy(sql`score DESC`)
       .limit(6)
@@ -64,8 +64,8 @@ export default cache(fetchPopularBooks)
  * @returns Uma expressão SQL que representa o valor convertido.
  *
  * @example
- * // Converte o valor da coluna 'rating.id' para double precision
- * const v = cast(count(rating.id));
+ * // Converte o valor da coluna 'ratings.id' para double precision
+ * const v = cast(count(ratings.id));
  */
 function cast(
   value: Column | SQL<number> | SQL<string | null> | string | number | null,

@@ -3,26 +3,26 @@ import { unstable_cache } from 'next/cache'
 
 import { db } from '..'
 import { TAGS } from '../constants'
-import { rating, user } from '../schema'
+import { ratings, users } from '../schema'
 
 const fetchBookReviews = unstable_cache(
   async (bookId: string) => {
     const query = await db
       .select({
-        id: rating.id,
-        rate: rating.rate,
-        description: rating.description,
-        createdAt: rating.createdAt,
+        id: ratings.id,
+        rate: ratings.rate,
+        description: ratings.description,
+        createdAt: ratings.createdAt,
         user: {
-          id: user.id,
-          name: user.name,
-          image: user.image,
+          id: users.id,
+          name: users.name,
+          image: users.image,
         },
       })
-      .from(rating)
-      .leftJoin(user, eq(rating.userId, user.id))
-      .where(eq(rating.bookId, bookId))
-      .orderBy(desc(rating.createdAt))
+      .from(ratings)
+      .leftJoin(users, eq(ratings.userId, users.id))
+      .where(eq(ratings.bookId, bookId))
+      .orderBy(desc(ratings.createdAt))
 
     return query
   },

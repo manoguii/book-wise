@@ -3,47 +3,47 @@ import { unstable_cache } from 'next/cache'
 
 import { db } from '..'
 import { TAGS } from '../constants'
-import { book, category, categoryOnBook, rating } from '../schema'
+import { books, categories, categoriesOnBooks, ratings } from '../schema'
 
 const fetchUserMetrics = unstable_cache(
   async (userId: string) => {
     const pagesRead = await db
       .select({
-        value: sumDistinct(book.totalPages),
+        value: sumDistinct(books.totalPages),
       })
-      .from(rating)
-      .innerJoin(book, eq(rating.bookId, book.id))
-      .where(eq(rating.userId, userId))
+      .from(ratings)
+      .innerJoin(books, eq(ratings.bookId, books.id))
+      .where(eq(ratings.userId, userId))
 
     const authorsRead = await db
       .select({
-        value: countDistinct(book.author),
+        value: countDistinct(books.author),
       })
-      .from(rating)
-      .innerJoin(book, eq(rating.bookId, book.id))
-      .where(eq(rating.userId, userId))
+      .from(ratings)
+      .innerJoin(books, eq(ratings.bookId, books.id))
+      .where(eq(ratings.userId, userId))
 
     const mostReadCategory = await db
       .select({
-        category: category.name,
+        category: categories.name,
         quantity: count().as('quantity'),
       })
-      .from(categoryOnBook)
-      .innerJoin(book, eq(categoryOnBook.bookId, book.id))
-      .innerJoin(category, eq(categoryOnBook.categoryId, category.id))
-      .innerJoin(rating, eq(book.id, rating.bookId))
-      .where(eq(rating.userId, userId))
-      .groupBy(category.name)
+      .from(categoriesOnBooks)
+      .innerJoin(books, eq(categoriesOnBooks.bookId, books.id))
+      .innerJoin(categories, eq(categoriesOnBooks.categoryId, categories.id))
+      .innerJoin(ratings, eq(books.id, ratings.bookId))
+      .where(eq(ratings.userId, userId))
+      .groupBy(categories.name)
       .orderBy(sql`quantity DESC`)
       .limit(1)
 
     const booksRated = await db
       .select({
-        value: countDistinct(book.id),
+        value: countDistinct(books.id),
       })
-      .from(rating)
-      .innerJoin(book, eq(rating.bookId, book.id))
-      .where(eq(rating.userId, userId))
+      .from(ratings)
+      .innerJoin(books, eq(ratings.bookId, books.id))
+      .where(eq(ratings.userId, userId))
 
     return {
       pagesRead: pagesRead[0],
