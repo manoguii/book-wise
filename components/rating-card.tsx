@@ -1,4 +1,6 @@
 import { Rating } from '@smastrom/react-rating'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 import Image from 'next/image'
 import * as React from 'react'
 
@@ -52,11 +54,7 @@ const RatingCardHeader = ({ data }: RatingCardHeaderProps) => {
             {data.name}
           </h3>
           <p className="text-sm text-muted-foreground">
-            {createdAt.toLocaleDateString('pt-BR', {
-              year: 'numeric',
-              month: 'long',
-              day: 'numeric',
-            })}
+            {formatDistanceToNow(createdAt, { addSuffix: true, locale: ptBR })}
           </p>
         </div>
       </div>

@@ -1,4 +1,6 @@
 import { Rating } from '@smastrom/react-rating'
+import { formatDistanceToNow } from 'date-fns'
+import { ptBR } from 'date-fns/locale'
 
 import { auth } from '@/auth-config'
 import { EmptyPlaceholder } from '@/components/empty-placeholder'
@@ -25,10 +27,9 @@ export async function UserReviews({ currentPage }: { currentPage: number }) {
             <RatingCard key={rating.id}>
               <div className="mb-3 flex items-center justify-between">
                 <p className="text-sm font-medium text-muted-foreground">
-                  {createdAt.toLocaleDateString('pt-BR', {
-                    year: 'numeric',
-                    month: 'long',
-                    day: 'numeric',
+                  {formatDistanceToNow(createdAt, {
+                    addSuffix: true,
+                    locale: ptBR,
                   })}
                 </p>
 

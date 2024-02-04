@@ -1,5 +1,6 @@
 import { Rating } from '@smastrom/react-rating'
 import Image from 'next/image'
+import { notFound } from 'next/navigation'
 
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
@@ -7,7 +8,11 @@ import getBookById from '@/db/query/get-book-by-id'
 
 export async function BookDetails({ bookId }: { bookId: string }) {
   const book = await getBookById(bookId)
-  await new Promise((resolve) => setTimeout(resolve, 1000))
+
+  if (!book) {
+    return notFound()
+  }
+
   return (
     <div className="flex flex-col items-center gap-8 rounded-lg border bg-card p-10 md:flex-row md:items-start">
       <div className="basis-2/6">
@@ -36,7 +41,7 @@ export async function BookDetails({ bookId }: { bookId: string }) {
               style={{ maxWidth: 120, color: 'yellow' }}
             />
             <p className="text-muted-foreground">
-              {book.ratingCount === '1'
+              {book.ratingCount === 1
                 ? `${book.ratingCount} avaliação`
                 : `${book.ratingCount} avaliações`}
             </p>
@@ -46,11 +51,14 @@ export async function BookDetails({ bookId }: { bookId: string }) {
         <p className="text-muted-foreground">{book.summary}</p>
 
         <div className="flex flex-wrap items-center gap-2">
-          {book.categories.map((category) => (
-            <Badge key={category.id} variant="default">
-              {category.name}
-            </Badge>
-          ))}
+          {book.categories.map(
+            (category) =>
+              category && (
+                <Badge key={category.id} variant="default">
+                  {category.name}
+                </Badge>
+              ),
+          )}
         </div>
       </div>
     </div>

@@ -16,6 +16,7 @@ export const users = pgTable('user', {
   email: text('email').notNull(),
   emailVerified: timestamp('emailVerified', { mode: 'date' }),
   image: text('image'),
+  createdAt: timestamp('createdAt', { withTimezone: true }).defaultNow(),
 })
 
 export const accounts = pgTable(
@@ -94,7 +95,7 @@ export const ratings = pgTable('rating', {
     .references(() => books.id, { onDelete: 'cascade' }),
   userId: uuid('userId')
     .notNull()
-    .references(() => users.id),
+    .references(() => users.id, { onDelete: 'cascade' }),
 })
 
 export const categoriesOnBooks = pgTable('categoryOnBook', {

@@ -1,35 +1,41 @@
-import { avg, eq, sql } from 'drizzle-orm'
+import { avg, count, eq } from 'drizzle-orm'
 import { cache } from 'react'
 
 import { db } from '..'
-import { books, categories, categoriesOnBooks, ratings } from '../schema'
-
-type Category = typeof categories.$inferSelect
+import { books, ratings } from '../schema'
 
 async function getBookById(bookId: string) {
-  const query = await db
+  const query = await db.query.books.findFirst({
+    where: (book) => eq(book.id, bookId),
+    with: {
+      categories: {
+        columns: {},
+        with: {
+          category: true,
+        },
+      },
+    },
+  })
+
+  const bookMetrics = await db
     .select({
-      id: books.id,
-      name: books.name,
-      author: books.author,
-      coverUrl: books.coverUrl,
-      summary: books.summary,
-      totalPages: books.totalPages,
-      createdAt: books.createdAt,
       averageRating: avg(ratings.rate),
-      ratingCount: sql<string>`(SELECT COUNT(*) FROM rating WHERE ${ratings.bookId} = ${bookId})`,
-      categories: sql<
-        Category[]
-      >`JSON_AGG(json_build_object('id', category.id, 'name', category.name))`,
+      ratingCount: count(ratings.id),
     })
     .from(books)
     .where(eq(books.id, bookId))
-    .leftJoin(ratings, eq(ratings.bookId, books.id))
-    .leftJoin(categoriesOnBooks, eq(categoriesOnBooks.bookId, books.id))
-    .leftJoin(categories, eq(categories.id, categoriesOnBooks.categoryId))
+    .leftJoin(ratings, eq(books.id, ratings.bookId))
     .groupBy(books.id)
 
-  return query[0]
+  if (!query) {
+    return null
+  }
+
+  return {
+    ...query,
+    ...bookMetrics[0],
+    categories: query?.categories.map((category) => category.category),
+  }
 }
 
 export default cache(getBookById)

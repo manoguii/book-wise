@@ -8,6 +8,7 @@ export async function UserMetrics() {
   const { user } = session
   const userMetrics = await fetchUserMetrics(user.id)
 
+  console.log(userMetrics)
   return (
     <div className="grid w-full gap-4">
       <MetricCard
@@ -26,7 +27,7 @@ export async function UserMetrics() {
         icon="bookUser"
       />
       <MetricCard
-        value={userMetrics.mostReadCategory.category}
+        value={userMetrics.mostReadCategory?.category}
         title="Categoria mais lida"
         icon="bookmark"
       />

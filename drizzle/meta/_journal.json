@@ -15,6 +15,20 @@
       "when": 1706703733668,
       "tag": "0001_mature_ken_ellis",
       "breakpoints": true
+    },
+    {
+      "idx": 2,
+      "version": "5",
+      "when": 1706995704337,
+      "tag": "0002_quiet_risque",
+      "breakpoints": true
+    },
+    {
+      "idx": 3,
+      "version": "5",
+      "when": 1706996423086,
+      "tag": "0003_loud_thundra",
+      "breakpoints": true
     }
   ]
 }
