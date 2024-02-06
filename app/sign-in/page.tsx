@@ -5,6 +5,7 @@ import { SignInWithEmail } from '@/components/form/sign-in-with-email'
 import { SignInWithGitHub } from '@/components/form/sign-in-with-github'
 import { SignInWithGoogle } from '@/components/form/sign-in-with-google'
 import { Icons } from '@/components/icons'
+import { buttonVariants } from '@/components/ui/button'
 
 export const metadata: Metadata = {
   title: 'Entrar',
@@ -30,12 +31,20 @@ export default function SignInPage() {
               Boas vindas ao Book Wise !
             </h1>
             <p className="text-muted-foreground">
-              Faça seu login ou acesse como visitante.
+              Faça login ou acesse como visitante.
             </p>
           </div>
 
           <div className="grid gap-6">
-            <SignInWithEmail />
+            <Link
+              href="/"
+              className={buttonVariants({
+                variant: 'secondary',
+              })}
+            >
+              Acessar como visitante
+            </Link>
+
             <div className="relative">
               <div className="absolute inset-0 flex items-center">
                 <span className="w-full border-t" />
@@ -47,6 +56,7 @@ export default function SignInPage() {
               </div>
             </div>
             <div className="grid gap-4">
+              <SignInWithEmail />
               <SignInWithGitHub />
               <SignInWithGoogle />
             </div>
@@ -55,14 +65,14 @@ export default function SignInPage() {
           <p className="px-8 text-center text-sm text-muted-foreground">
             Ao continuar, você concorda com nossos{' '}
             <Link
-              href="/terms"
+              href="#"
               className="underline underline-offset-4 hover:text-primary"
             >
               Termos de Serviço
             </Link>{' '}
             e{' '}
             <Link
-              href="/privacy"
+              href="#"
               className="underline underline-offset-4 hover:text-primary"
             >
               Política de Privacidade

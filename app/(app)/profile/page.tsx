@@ -65,7 +65,11 @@ export default async function ProfilePage({
                 {user.name || ''}
               </p>
               <p className="truncate text-center text-base text-muted-foreground">
-                {user.email || ''}
+                Membro desde{' '}
+                {new Date(user.createdAt!).toLocaleDateString('pt-BR', {
+                  month: 'long',
+                  year: 'numeric',
+                })}
               </p>
             </div>
           </div>

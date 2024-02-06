@@ -1,20 +1,37 @@
 import { DrizzleAdapter } from '@auth/drizzle-adapter'
 import NextAuth, { NextAuthConfig } from 'next-auth'
 import GitHub from 'next-auth/providers/github'
+import Google from 'next-auth/providers/google'
 
 import { db } from '@/db'
 
+import { getUserById } from './db/utils/get-user-by-id'
+
 export const authConfig = {
-  providers: [GitHub],
+  providers: [GitHub, Google],
   adapter: DrizzleAdapter(db),
+  session: {
+    strategy: 'jwt',
+  },
   pages: {
     signIn: '/sign-in',
   },
   callbacks: {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    async session({ session, user }: any) {
-      session.user.id = user.id
+    async session({ session, token }: any) {
+      session.user.id = token.sub
+      session.user.createdAt = token.userCreation
+
       return session
+    },
+    async jwt({ token }) {
+      const user = await getUserById(token.sub || '')
+
+      if (user) {
+        token.userCreation = user.createdAt
+      }
+
+      return token
     },
     authorized({ auth, request: { nextUrl } }) {
       const isLoggedIn = !!auth?.user

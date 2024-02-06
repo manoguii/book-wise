@@ -1,5 +1,6 @@
 'use client'
 
+import { Mail } from 'lucide-react'
 import React from 'react'
 import { useFormState, useFormStatus } from 'react-dom'
 
@@ -20,6 +21,7 @@ function SubmitButton() {
       aria-disabled={pending}
       disabled={pending}
     >
+      <Mail className="mr-2 h-4 w-4" />
       Entrar com Email
     </Button>
   )
